@@ -248,29 +248,30 @@ body::after{
 .metric-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
 
 /* ── Portfolio cards ── */
-.portfolio-grid{display:grid;gap:12px}
+.portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .portfolio-card{
-  display:flex;align-items:center;gap:16px;
+  display:flex;flex-direction:column;text-decoration:none;color:var(--text);
   background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
-  padding:20px 22px;text-decoration:none;color:var(--text);
-  transition:all .4s var(--ease);position:relative;overflow:hidden;will-change:transform;
+  overflow:hidden;transition:all .5s var(--ease);position:relative;will-change:transform;
 }
-.portfolio-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--accent),var(--accent-bright));
-  opacity:0;transition:opacity .3s ease;border-radius:0 3px 3px 0;
+.portfolio-card:hover{transform:translateY(-6px);border-color:rgba(196,117,43,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.p-thumb{
+  width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+  transition:transform .6s var(--ease);filter:brightness(0.85);
 }
-.portfolio-card:hover::before{opacity:1}
-.portfolio-card:hover{transform:translateX(8px);border-color:rgba(196,117,43,0.2);background:var(--card-hover)}
-.p-icon{
-  width:48px;height:48px;border-radius:var(--radius-sm);
-  background:linear-gradient(135deg,rgba(196,117,43,0.12),rgba(196,117,43,0.04));
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;
+.portfolio-card:hover .p-thumb{transform:scale(1.05);filter:brightness(1)}
+.p-body{padding:18px 20px;display:flex;align-items:center;gap:12px}
+.p-tag{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--accent-bright);background:rgba(196,117,43,0.1);
+  padding:4px 10px;border-radius:50px;flex-shrink:0;
 }
-.p-info h3{font-size:14px;font-weight:600;color:var(--white);margin-bottom:2px}
+.p-info{flex:1;min-width:0}
+.p-info h3{font-size:14px;font-weight:600;color:var(--white);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .p-info p{font-size:12px;color:var(--muted)}
-.p-arrow{margin-left:auto;color:var(--muted);font-size:18px;flex-shrink:0;transition:all .3s var(--ease)}
+.p-arrow{color:var(--muted);font-size:18px;flex-shrink:0;transition:all .3s var(--ease)}
 .portfolio-card:hover .p-arrow{color:var(--accent-bright);transform:translateX(6px)}
+@media(max-width:767px){.portfolio-grid{grid-template-columns:1fr}}
 
 /* ── Video grid (2x2) ── */
 .video-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -727,7 +728,7 @@ footer a:hover{color:var(--white)}
   .metrics{grid-template-columns:1fr 1fr;gap:10px}
   .metric{padding:20px 12px}.metric-val{font-size:24px}
   .video-grid{grid-template-columns:1fr}
-  .portfolio-card{padding:16px 18px}.p-icon{width:42px;height:42px}
+  .portfolio-card .p-body{padding:14px 16px}
   .cta-buttons{flex-direction:column;align-items:center}
   .cta-buttons .btn{width:100%;max-width:280px;justify-content:center}
   .why-grid::before{left:23px}.why-num{width:40px;height:40px;font-size:14px}
@@ -1068,24 +1069,36 @@ footer a:hover{color:var(--white)}
     </div>
     <div class="portfolio-grid">
       <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/built-different-patrolapart-edition" target="_blank" class="portfolio-card reveal">
-        <div class="p-icon">&#127956;&#65039;</div>
-        <div class="p-info"><h3>Built Different, Patrolapart</h3><p>Brand content and social-first campaigns</p></div>
-        <span class="p-arrow">&rarr;</span>
+        <img class="p-thumb" src="https://img.youtube.com/vi/KvzC8g-YoIY/maxresdefault.jpg" alt="Built Different, Patrolapart">
+        <div class="p-body">
+          <span class="p-tag">Brand</span>
+          <div class="p-info"><h3>Built Different, Patrolapart</h3><p>Full campaign: brand films, social ads, product content</p></div>
+          <span class="p-arrow">&rarr;</span>
+        </div>
       </a>
       <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/my-project-5f9951" target="_blank" class="portfolio-card reveal reveal-d1">
-        <div class="p-icon">&#127916;</div>
-        <div class="p-info"><h3>Lifestyle and Cinematic Content</h3><p>Cinematic product and lifestyle video</p></div>
-        <span class="p-arrow">&rarr;</span>
+        <img class="p-thumb" src="https://img.youtube.com/vi/-2w8Q9QH2R0/maxresdefault.jpg" alt="Lifestyle and Cinematic Content">
+        <div class="p-body">
+          <span class="p-tag">Video</span>
+          <div class="p-info"><h3>Lifestyle and Cinematic Content</h3><p>Cinematic product and lifestyle storytelling</p></div>
+          <span class="p-arrow">&rarr;</span>
+        </div>
       </a>
       <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/event-coverage-brand-storytelling" target="_blank" class="portfolio-card reveal reveal-d2">
-        <div class="p-icon">&#128248;</div>
-        <div class="p-info"><h3>Event Coverage and Storytelling</h3><p>Fast turnaround live event content</p></div>
-        <span class="p-arrow">&rarr;</span>
+        <img class="p-thumb" src="https://img.youtube.com/vi/_8s_YCfoaAY/maxresdefault.jpg" alt="Event Coverage and Storytelling">
+        <div class="p-body">
+          <span class="p-tag">Events</span>
+          <div class="p-info"><h3>Event Coverage and Storytelling</h3><p>Fast turnaround live event content</p></div>
+          <span class="p-arrow">&rarr;</span>
+        </div>
       </a>
       <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="portfolio-card reveal reveal-d3">
-        <div class="p-icon">&#128241;</div>
-        <div class="p-info"><h3>Vertical Video, TikTok / Reels</h3><p>Scroll-stopping short-form content</p></div>
-        <span class="p-arrow">&rarr;</span>
+        <img class="p-thumb" src="https://img.youtube.com/vi/dy3M-BUDIac/maxresdefault.jpg" alt="Vertical Video, TikTok and Reels">
+        <div class="p-body">
+          <span class="p-tag">Short-form</span>
+          <div class="p-info"><h3>Vertical Video, TikTok / Reels</h3><p>Scroll-stopping content built for the feed</p></div>
+          <span class="p-arrow">&rarr;</span>
+        </div>
       </a>
     </div>
   </div>
