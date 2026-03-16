@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Piyush Diwte | Content Creator for Zuum Energy Gum</title>
+<meta name="description" content="Custom application landing page for Zuum Energy Gum by Piyush Diwte, content creator and social media manager based in Melbourne.">
+<meta property="og:title" content="Piyush Diwte for Zuum Energy Gum">
+<meta property="og:description" content="Content creator application. 50M+ views, 1500+ videos, brand campaigns that drive real results.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://piyushdiwte22-crypto.github.io/apply/zuum-energy-gum.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -295,6 +301,63 @@ body::after{
 
 
 
+/* ── Animated gradient shimmer on hero h1 ── */
+@keyframes gradShimmer{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.hero h1 span{
+  background:linear-gradient(135deg,var(--accent-bright),#f0b060,#e8943a,#f0c870,var(--accent-bright));
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradShimmer 5s ease infinite;
+}
+
+/* ── Tools & Skills pills ── */
+.tools-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.tool-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;border-radius:50px;font-size:12px;font-weight:500;
+  color:var(--text);background:var(--card);border:1px solid var(--card-border);
+  transition:all .3s var(--ease);letter-spacing:.3px;
+}
+.tool-pill:hover{
+  border-color:rgba(196,117,43,0.3);background:rgba(196,117,43,0.06);
+  transform:translateY(-2px);color:var(--white);
+}
+.tool-pill .tp-icon{font-size:14px}
+
+/* ── Scroll-to-top button ── */
+.scroll-top{
+  position:fixed;bottom:28px;right:28px;z-index:100;
+  width:44px;height:44px;border-radius:50%;border:1px solid rgba(196,117,43,0.3);
+  background:rgba(7,7,13,0.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  color:var(--accent-bright);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(20px);pointer-events:none;
+  transition:all .3s var(--ease);
+}
+.scroll-top.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.scroll-top:hover{background:var(--accent);color:var(--white);border-color:var(--accent);box-shadow:0 4px 20px var(--accent-glow)}
+.scroll-top svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5}
+
+/* ── Page loader ── */
+.page-loader{
+  position:fixed;inset:0;z-index:500;
+  background:var(--dark);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;
+  transition:opacity .5s ease,visibility .5s ease;
+}
+.page-loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader-ring{
+  width:40px;height:40px;border-radius:50%;
+  border:3px solid rgba(196,117,43,0.15);border-top-color:var(--accent-bright);
+  animation:loaderSpin .8s linear infinite;
+}
+@keyframes loaderSpin{to{transform:rotate(360deg)}}
+.loader-text{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
+
 /* ── Card shine on hover ── */
 .portfolio-card::after,.metric::after,.video-card::after{
   content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
@@ -407,6 +470,12 @@ footer a:hover{color:var(--white)}
 </head>
 <body>
 
+<!-- Page loader -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-ring"></div>
+  <div class="loader-text">Loading</div>
+</div>
+
 <!-- Progress bar -->
 <div class="progress-bar" id="progressBar"></div>
 
@@ -422,6 +491,7 @@ footer a:hover{color:var(--white)}
   <nav class="header-nav" id="headerNav">
     <a href="#hero">Home</a>
     <a href="#about">About</a>
+    <a href="#tools">Tools</a>
     <a href="#metrics">Proof</a>
     <a href="#work">Work</a>
     <a href="#videos">Videos</a>
@@ -492,6 +562,33 @@ footer a:hover{color:var(--white)}
 </section>
 
 
+<!-- ═══ TOOLS ═══ -->
+<section class="snap-section" id="tools">
+  <div class="container">
+    <div class="reveal">
+      <p class="label">Tools & Skills</p>
+      <h2 class="section-title">What I work with daily.</h2>
+    </div>
+    <div class="tools-wrap reveal reveal-d1">
+      <span class="tool-pill"><span class="tp-icon">🎬</span> Premiere Pro</span>
+      <span class="tool-pill"><span class="tp-icon">🎨</span> After Effects</span>
+      <span class="tool-pill"><span class="tp-icon">📸</span> Lightroom</span>
+      <span class="tool-pill"><span class="tp-icon">🖼</span> Photoshop</span>
+      <span class="tool-pill"><span class="tp-icon">📱</span> CapCut</span>
+      <span class="tool-pill"><span class="tp-icon">📊</span> Meta Business Suite</span>
+      <span class="tool-pill"><span class="tp-icon">📈</span> Google Analytics</span>
+      <span class="tool-pill"><span class="tp-icon">🎥</span> DaVinci Resolve</span>
+      <span class="tool-pill"><span class="tp-icon">🎯</span> Social Media Strategy</span>
+      <span class="tool-pill"><span class="tp-icon">📋</span> Content Planning</span>
+      <span class="tool-pill"><span class="tp-icon">🔊</span> Paid Social Ads</span>
+      <span class="tool-pill"><span class="tp-icon">✍️</span> Copywriting</span>
+      <span class="tool-pill"><span class="tp-icon">🏷</span> Brand Storytelling</span>
+      <span class="tool-pill"><span class="tp-icon">📹</span> Canon / Sony Cameras</span>
+      <span class="tool-pill"><span class="tp-icon">🎤</span> Audio / Rode Mics</span>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ METRICS ═══ -->
 <section class="snap-section" id="metrics">
 
@@ -556,19 +653,19 @@ footer a:hover{color:var(--white)}
     </div>
     <div class="video-grid">
       <div class="video-card reveal">
-        <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1" allowfullscreen></iframe>
         <div class="vid-title">Brand Ad, Patrolapart and Navarapart</div>
       </div>
       <div class="video-card reveal reveal-d1">
-        <iframe src="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1" allowfullscreen></iframe>
         <div class="vid-title">Melbourne 4x4 Show, Event Trailer</div>
       </div>
       <div class="video-card reveal reveal-d2">
-        <iframe src="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1" allowfullscreen></iframe>
         <div class="vid-title">Quad Lock, UGC Paid Ad</div>
       </div>
       <div class="video-card reveal reveal-d3">
-        <iframe src="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1" allowfullscreen></iframe>
         <div class="vid-title">Behind the Builds, Storytelling</div>
       </div>
     </div>
@@ -643,6 +740,11 @@ footer a:hover{color:var(--white)}
     </div>
   </div>
 </section>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <footer>
   <p>Piyush Diwte &middot; Melbourne, VIC &middot; <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a> &middot; <a href="https://www.capturedbypiyush.com" target="_blank">CapturedByPiyush.com</a></p>
@@ -731,22 +833,22 @@ window.addEventListener('scroll',parallaxUpdate,{passive:true});
 const reveals=document.querySelectorAll('.reveal,[data-why]');
 const rObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rObs.unobserve(e.target)}});
-},{threshold:0.01,rootMargin:'50px 0px 50px 0px'});
+},{threshold:0.01,rootMargin:'400px 0px 400px 0px'});
 reveals.forEach(el=>rObs.observe(el));
-/* Fallback: force reveal on scroll */
+/* Fallback: force reveal on scroll - triggers well before user reaches section */
 function forceReveal(){
-  const scrollTop=window.scrollY||document.body.scrollTop||0;
   const vh=window.innerHeight;
   reveals.forEach(el=>{
     const rect=el.getBoundingClientRect();
-    if(rect.top<vh*1.1&&rect.bottom>-50){
+    if(rect.top<vh*1.6&&rect.bottom>-100){
       el.classList.add('visible');
     }
   });
 }
 window.addEventListener('scroll',forceReveal,{passive:true});
 document.body.addEventListener('scroll',forceReveal,{passive:true});
-setTimeout(forceReveal,500);
+setTimeout(forceReveal,300);
+setTimeout(forceReveal,800);
 
 /* ═══ 6. Counter animation ═══ */
 const counters=document.querySelectorAll('[data-count]');
@@ -816,6 +918,24 @@ modalExplore.addEventListener('click',dismissModal);
 /* ═══ 11. Staggered reveal for why-items ═══ */
 document.querySelectorAll('.why-item').forEach((item,i)=>{
   item.style.transitionDelay=(i*0.15)+'s';
+});
+
+/* ═══ 12. Page loader dismiss ═══ */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{document.getElementById('pageLoader').classList.add('done')},400);
+});
+
+/* ═══ 13. Scroll-to-top button ═══ */
+const scrollTopBtn=document.getElementById('scrollTop');
+function checkScrollTop(){
+  const st=window.scrollY||document.body.scrollTop||0;
+  if(st>600)scrollTopBtn.classList.add('show');
+  else scrollTopBtn.classList.remove('show');
+}
+window.addEventListener('scroll',checkScrollTop,{passive:true});
+document.body.addEventListener('scroll',checkScrollTop,{passive:true});
+scrollTopBtn.addEventListener('click',()=>{
+  window.scrollTo({top:0,behavior:'smooth'});
 });
 </script>
 
