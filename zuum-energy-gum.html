@@ -20,9 +20,9 @@ html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
 body{
   font-family:'Inter',system-ui,sans-serif;
   background:var(--dark);color:var(--text);line-height:1.6;
-  overflow-x:hidden;height:100vh;
-  /* Apple snap scroll */
-  overflow-y:scroll;scroll-snap-type:y mandatory;
+  overflow-x:hidden;min-height:100vh;
+  /* Smooth snap scroll */
+  overflow-y:scroll;scroll-snap-type:y proximity;
 }
 
 /* ── Progress bar ── */
@@ -57,13 +57,12 @@ body::after{
   position:fixed;top:0;left:0;right:0;z-index:150;
   display:flex;align-items:center;justify-content:space-between;
   padding:16px 32px;
-  background:linear-gradient(180deg,rgba(7,7,13,0.9) 0%,rgba(7,7,13,0) 100%);
+  background:rgba(7,7,13,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.04);
   pointer-events:none;
 }
-.header-logo{height:28px;pointer-events:auto;opacity:0;transform:translateY(-10px);transition:all .5s var(--ease)}
-.header-logo.visible{opacity:1;transform:translateY(0)}
-.header-nav{display:flex;gap:4px;pointer-events:auto;opacity:0;transform:translateY(-10px);transition:all .5s var(--ease) .1s}
-.header-nav.visible{opacity:1;transform:translateY(0)}
+.header-logo{height:40px;pointer-events:auto;opacity:1;transition:all .5s var(--ease)}
+.header-nav{display:flex;gap:4px;pointer-events:auto;opacity:1;transition:all .5s var(--ease)}
 .header-nav a{
   font-size:11px;font-weight:500;color:var(--muted);text-decoration:none;
   padding:7px 14px;border-radius:50px;transition:all .2s ease;letter-spacing:.3px;
@@ -240,34 +239,15 @@ body::after{
 .p-arrow{margin-left:auto;color:var(--muted);font-size:18px;flex-shrink:0;transition:all .3s var(--ease)}
 .portfolio-card:hover .p-arrow{color:var(--accent-bright);transform:translateX(6px)}
 
-/* ── Video filmstrip (horizontal scroll) ── */
-.filmstrip-wrap{position:relative;margin-top:28px}
-.filmstrip{
-  display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
-  padding:4px 0 20px;scrollbar-width:none;-ms-overflow-style:none;
-}
-.filmstrip::-webkit-scrollbar{display:none}
-.film-card{
-  flex:0 0 320px;scroll-snap-align:start;
+/* ── Video grid (2x2) ── */
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.video-card{
   border-radius:var(--radius);overflow:hidden;border:1px solid var(--card-border);
   background:var(--card);transition:all .4s var(--ease);
 }
-.film-card:hover{transform:translateY(-6px);border-color:rgba(196,117,43,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-.film-card iframe{width:100%;aspect-ratio:16/9;display:block;border:0}
-.film-title{padding:12px 16px;font-size:12px;color:var(--muted);font-weight:500}
-/* Filmstrip fade edges */
-.filmstrip-wrap::before,.filmstrip-wrap::after{
-  content:'';position:absolute;top:0;bottom:0;width:60px;z-index:3;pointer-events:none;
-}
-.filmstrip-wrap::before{left:0;background:linear-gradient(90deg,var(--dark),transparent)}
-.filmstrip-wrap::after{right:0;background:linear-gradient(270deg,var(--dark),transparent)}
-/* Filmstrip drag hint */
-.drag-hint{
-  display:flex;align-items:center;gap:6px;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
-  margin-top:12px;justify-content:center;
-}
-.drag-hint svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2}
+.video-card:hover{transform:translateY(-6px);border-color:rgba(196,117,43,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.video-card iframe{width:100%;aspect-ratio:16/9;display:block;border:0}
+.vid-title{padding:12px 16px;font-size:12px;color:var(--muted);font-weight:500}
 
 /* ── Why me timeline ── */
 .why-grid{display:grid;gap:0;position:relative;padding-left:4px}
@@ -334,7 +314,7 @@ footer a:hover{color:var(--white)}
   .hero-links .btn{width:100%;max-width:280px;justify-content:center}
   .metrics{grid-template-columns:1fr 1fr;gap:10px}
   .metric{padding:20px 12px}.metric-val{font-size:24px}
-  .film-card{flex:0 0 270px}
+  .video-grid{grid-template-columns:1fr}
   .portfolio-card{padding:16px 18px}.p-icon{width:42px;height:42px}
   .cta-buttons{flex-direction:column;align-items:center}
   .cta-buttons .btn{width:100%;max-width:280px;justify-content:center}
@@ -344,7 +324,7 @@ footer a:hover{color:var(--white)}
 @media(min-width:900px){
   .container{max-width:820px}
   .metrics{gap:20px}.metric{padding:32px 20px}.metric-val{font-size:36px}
-  .film-card{flex:0 0 380px}
+  .video-grid{gap:20px}
 }
 </style>
 </head>
@@ -407,7 +387,7 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ ABOUT ═══ -->
 <section class="snap-section" id="about">
-  <div class="section-num">01</div>
+
   <div class="container">
     <div class="reveal">
       <p class="label">About Me</p>
@@ -425,7 +405,7 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ METRICS ═══ -->
 <section class="snap-section" id="metrics">
-  <div class="section-num">02</div>
+
   <div class="container">
     <div class="reveal">
       <p class="label">Proof Points</p>
@@ -444,7 +424,7 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ SELECTED WORK ═══ -->
 <section class="snap-section" id="work">
-  <div class="section-num">03</div>
+
   <div class="container">
     <div class="reveal">
       <p class="label">Selected Work</p>
@@ -477,38 +457,28 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ VIDEOS ═══ -->
 <section class="snap-section" id="videos">
-  <div class="section-num">04</div>
-  <div class="container" style="max-width:100%">
-    <div style="max-width:760px;margin:0 auto">
-      <div class="reveal">
-        <p class="label">Video Samples</p>
-        <h2 class="section-title">See the work in motion.</h2>
-      </div>
+
+  <div class="container">
+    <div class="reveal">
+      <p class="label">Video Samples</p>
+      <h2 class="section-title">See the work in motion.</h2>
     </div>
-    <div class="filmstrip-wrap">
-      <div class="filmstrip" id="filmstrip">
-        <div style="flex:0 0 40px"></div>
-        <div class="film-card reveal">
-          <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
-          <div class="film-title">Brand Ad, Patrolapart and Navarapart</div>
-        </div>
-        <div class="film-card reveal reveal-d1">
-          <iframe src="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
-          <div class="film-title">Melbourne 4x4 Show, Event Trailer</div>
-        </div>
-        <div class="film-card reveal reveal-d2">
-          <iframe src="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
-          <div class="film-title">Quad Lock, UGC Paid Ad</div>
-        </div>
-        <div class="film-card reveal reveal-d3">
-          <iframe src="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
-          <div class="film-title">Behind the Builds, Storytelling</div>
-        </div>
-        <div style="flex:0 0 40px"></div>
+    <div class="video-grid">
+      <div class="video-card reveal">
+        <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <div class="vid-title">Brand Ad, Patrolapart and Navarapart</div>
       </div>
-      <div class="drag-hint">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        <span>Drag to explore</span>
+      <div class="video-card reveal reveal-d1">
+        <iframe src="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <div class="vid-title">Melbourne 4x4 Show, Event Trailer</div>
+      </div>
+      <div class="video-card reveal reveal-d2">
+        <iframe src="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <div class="vid-title">Quad Lock, UGC Paid Ad</div>
+      </div>
+      <div class="video-card reveal reveal-d3">
+        <iframe src="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+        <div class="vid-title">Behind the Builds, Storytelling</div>
       </div>
     </div>
   </div>
@@ -516,7 +486,7 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ WHY ME ═══ -->
 <section class="snap-section" id="whyme">
-  <div class="section-num">05</div>
+
   <div class="container">
     <div class="reveal">
       <p class="label">Why Me for Zuum</p>
@@ -647,18 +617,7 @@ function updateProgress(){
 document.body.addEventListener('scroll',updateProgress,{passive:true});
 window.addEventListener('scroll',updateProgress,{passive:true});
 
-/* ═══ 4. Header show on scroll past hero ═══ */
-const headerLogo=document.getElementById('headerLogo');
-const headerNav=document.getElementById('headerNav');
-const heroEl=document.getElementById('hero');
-function updateHeader(){
-  const scrollTop=document.body.scrollTop||window.scrollY||0;
-  const past=scrollTop>heroEl.offsetHeight*0.5;
-  headerLogo.classList.toggle('visible',past);
-  headerNav.classList.toggle('visible',past);
-}
-document.body.addEventListener('scroll',updateHeader,{passive:true});
-window.addEventListener('scroll',updateHeader,{passive:true});
+/* Header always visible - no toggle needed */
 
 /* ═══ 5. Scroll reveal ═══ */
 const reveals=document.querySelectorAll('.reveal,[data-why]');
@@ -701,21 +660,9 @@ const nObs=new IntersectionObserver(entries=>{
 },{threshold:0.5});
 sections.forEach(s=>nObs.observe(s));
 
-/* ═══ 8. Filmstrip drag scroll ═══ */
-(function(){
-  const strip=document.getElementById('filmstrip');
-  if(!strip)return;
-  let isDown=false,startX,scrollLeft;
-  strip.addEventListener('mousedown',e=>{isDown=true;strip.style.cursor='grabbing';startX=e.pageX-strip.offsetLeft;scrollLeft=strip.scrollLeft});
-  strip.addEventListener('mouseleave',()=>{isDown=false;strip.style.cursor='grab'});
-  strip.addEventListener('mouseup',()=>{isDown=false;strip.style.cursor='grab'});
-  strip.addEventListener('mousemove',e=>{
-    if(!isDown)return;e.preventDefault();
-    const x=e.pageX-strip.offsetLeft;
-    strip.scrollLeft=scrollLeft-(x-startX)*1.5;
-  });
-  strip.style.cursor='grab';
-})();
+/* ═══ 8. (filmstrip removed - using grid) ═══ */
+if(false){
+}
 
 /* ═══ 9. Smooth scroll for nav links ═══ */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
