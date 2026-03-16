@@ -248,72 +248,8 @@ body::after{
 .metric-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
 
 /* ── Portfolio cards ── */
-/* ── Portfolio slideshow ── */
-.pf-slideshow{position:relative;max-width:800px;margin:40px auto 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--card-border);background:var(--card)}
-.pf-track{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden}
-.pf-slide{
-  position:absolute;inset:0;opacity:0;pointer-events:none;
-  transition:opacity .6s var(--ease);
-}
-.pf-slide.active{opacity:1;pointer-events:auto}
-.pf-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease;filter:brightness(0.8)}
-.pf-slide.active img{transform:scale(1.06);filter:brightness(0.9)}
-/* Gradient overlay on image */
-.pf-slide::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 50%,transparent 100%);
-  pointer-events:none;
-}
-/* Text overlay */
-.pf-caption{
-  position:absolute;bottom:0;left:0;right:0;z-index:3;
-  padding:28px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
-}
-.pf-caption-text{flex:1}
-.pf-tag{
-  display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  color:var(--accent-bright);background:rgba(196,117,43,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  padding:5px 12px;border-radius:50px;margin-bottom:10px;
-}
-.pf-title{font-size:18px;font-weight:700;color:var(--white);margin-bottom:4px}
-.pf-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5}
-.pf-visit{
-  flex-shrink:0;display:inline-flex;align-items:center;gap:6px;
-  font-size:12px;font-weight:600;color:var(--accent-bright);text-decoration:none;
-  padding:10px 18px;border:1px solid rgba(196,117,43,0.3);border-radius:50px;
-  background:rgba(196,117,43,0.08);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  transition:all .3s ease;white-space:nowrap;
-}
-.pf-visit:hover{background:rgba(196,117,43,0.2);border-color:var(--accent-bright);color:var(--white)}
-/* Controls bar */
-.pf-controls{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 24px;border-top:1px solid var(--card-border);background:rgba(7,7,13,0.6);
-}
-.pf-dots{display:flex;gap:8px;align-items:center}
-.pf-dot{
-  width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(255,255,255,0.15);transition:all .3s ease;padding:0;
-}
-.pf-dot.active{background:var(--accent-bright);width:24px;border-radius:4px}
-.pf-arrows{display:flex;gap:8px}
-.pf-arrow{
-  width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.05);color:var(--white);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:all .3s ease;
-}
-.pf-arrow:hover{background:rgba(196,117,43,0.15);border-color:rgba(196,117,43,0.3)}
-.pf-arrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.pf-counter{font-size:12px;color:var(--muted);font-family:'Space Grotesk',sans-serif;font-weight:500}
-@media(max-width:767px){
-  .pf-slideshow{margin:28px auto 0;border-radius:var(--radius-sm)}
-  .pf-caption{padding:20px;flex-direction:column;align-items:flex-start}
-  .pf-title{font-size:15px}.pf-desc{font-size:12px}
-  .pf-visit{width:100%;justify-content:center;margin-top:4px}
-}
-
 /* ── Video showcase (single large) ── */
-.vid-showcase{position:relative;max-width:960px;margin:40px auto 0}
+.vid-showcase{position:relative;max-width:1100px;margin:40px auto 0}
 .vid-showcase-player{
   position:relative;border-radius:var(--radius);overflow:hidden;
   border:1px solid var(--card-border);background:#000;
@@ -467,6 +403,47 @@ body::after{
   33%{transform:translate(30px,-20px) scale(1.1)}
   66%{transform:translate(-20px,30px) scale(0.95)}
   100%{transform:translate(15px,-15px) scale(1.05)}
+}
+
+/* ── Section dividers ── */
+.section-divider{
+  width:100%;max-width:120px;height:2px;margin:0 auto;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0.3;
+}
+
+/* ── Video showcase glow ── */
+.vid-showcase::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:80%;height:200px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(196,117,43,0.08) 0%,transparent 70%);
+  pointer-events:none;filter:blur(40px);z-index:-1;
+}
+
+/* ── Accent line on video player ── */
+.vid-showcase-player::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent 10%,var(--accent) 50%,transparent 90%);
+  opacity:0.4;z-index:2;
+}
+
+/* ── Floating particles ── */
+.particle{
+  position:fixed;width:2px;height:2px;border-radius:50%;
+  background:rgba(196,117,43,0.3);pointer-events:none;z-index:1;
+  animation:particleDrift 15s linear infinite;
+}
+.particle:nth-child(1){top:15%;left:10%;animation-delay:0s;animation-duration:18s}
+.particle:nth-child(2){top:40%;left:85%;animation-delay:-4s;animation-duration:22s;width:3px;height:3px;opacity:0.4}
+.particle:nth-child(3){top:70%;left:30%;animation-delay:-8s;animation-duration:16s}
+.particle:nth-child(4){top:25%;left:65%;animation-delay:-12s;animation-duration:20s;width:3px;height:3px;opacity:0.3}
+.particle:nth-child(5){top:85%;left:50%;animation-delay:-6s;animation-duration:24s}
+.particle:nth-child(6){top:55%;left:15%;animation-delay:-10s;animation-duration:19s;width:2px;height:2px;opacity:0.5}
+@keyframes particleDrift{
+  0%{transform:translate(0,0) scale(1);opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{transform:translate(40px,-80vh) scale(0.5);opacity:0}
 }
 
 /* ── Scroll-to-top button ── */
@@ -803,7 +780,7 @@ footer a:hover{color:var(--white)}
   .hero-links .btn{width:100%;max-width:280px;justify-content:center}
   .metrics{grid-template-columns:1fr 1fr;gap:10px}
   .metric{padding:20px 12px}.metric-val{font-size:24px}
-  .pf-slideshow{margin:20px auto 0}
+
   .cta-buttons{flex-direction:column;align-items:center}
   .cta-buttons .btn{width:100%;max-width:280px;justify-content:center}
   .why-grid::before{left:23px}.why-num{width:40px;height:40px;font-size:14px}
@@ -835,6 +812,12 @@ footer a:hover{color:var(--white)}
 <div class="ambient-orb ambient-orb-1"></div>
 <div class="ambient-orb ambient-orb-2"></div>
 <div class="ambient-orb ambient-orb-3"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
 
 <!-- Fixed header -->
 <header class="header">
@@ -846,7 +829,6 @@ footer a:hover{color:var(--white)}
     <a href="#tools">Tools</a>
     <a href="#vertical">Vertical</a>
     <a href="#videos">Videos</a>
-    <a href="#work">Portfolio</a>
     <a href="#about">About</a>
   </nav>
 </header>
@@ -936,6 +918,7 @@ footer a:hover{color:var(--white)}
   </div>
 </section>
 
+<div class="section-divider"></div>
 <!-- ═══ METRICS ═══ -->
 <section class="snap-section" id="metrics">
   <div class="section-glow section-glow-left"></div>
@@ -956,6 +939,7 @@ footer a:hover{color:var(--white)}
 </section>
 
 
+<div class="section-divider"></div>
 <!-- ═══ TOOLS ═══ -->
 <section class="snap-section" id="tools">
   <div class="container">
@@ -985,6 +969,7 @@ footer a:hover{color:var(--white)}
   </div>
 </section>
 
+<div class="section-divider"></div>
 <!-- ═══ VERTICAL CONTENT ═══ -->
 <section class="snap-section" id="vertical">
   <div class="container" style="max-width:920px">
@@ -1104,8 +1089,10 @@ footer a:hover{color:var(--white)}
   </div>
 </div>
 
+<div class="section-divider"></div>
 <!-- ═══ VIDEOS ═══ -->
 <section class="snap-section" id="videos">
+  <div class="section-glow section-glow-right"></div>
   <div class="container">
     <div class="reveal">
       <p class="label">Relevant Work</p>
@@ -1116,25 +1103,25 @@ footer a:hover{color:var(--white)}
           <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="1" data-client="Patrolapart" data-title="Melbourne 4x4 Outdoors Show, Event Trailer" data-desc="Same-day event trailer filmed and edited on location. Fast turnaround content for social while the event was still running." data-tools="DaVinci Resolve,Canon R6,Rode Wireless,Lightroom,Content Planning">
-          <iframe data-lazy="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="2" data-client="Quad Lock" data-title="UGC Paid Ad, Classic YouTube Style" data-desc="Commissioned UGC piece for Quad Lock. Shot and edited in their brand voice for paid social distribution." data-tools="Premiere Pro,After Effects,Canon R6,Paid Social Ads,Copywriting">
-          <iframe data-lazy="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="3" data-client="Patrolapart" data-title="Behind the Builds, Brand Storytelling" data-desc="Documentary-style piece taking the audience inside R&D. Interview segments, lifestyle B-roll, and cinematic grading." data-tools="DaVinci Resolve,Canon R6,Rode Mics,Scripting,Brand Storytelling">
-          <iframe data-lazy="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="4" data-client="Patrolapart" data-title="Easy Rear Lift for Y62, Product Explainer" data-desc="Product-focused explainer designed to convert. Part of a content system that drove 157% CTR lift and 15%+ monthly sales growth." data-tools="DaVinci Resolve,Canon R6,Copywriting,Content Planning,Google Analytics">
-          <iframe data-lazy="https://www.youtube.com/embed/n7SDop-fo9Q?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/n7SDop-fo9Q?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="5" data-client="Arise GT Racing" data-title="Crowned 2024, Motorsport Event Coverage" data-desc="Live motorsport event coverage capturing a championship win. Unscripted, real-time filming and editing of a genuine moment." data-tools="Canon R6,DaVinci Resolve,Rode Wireless,End-to-End Production">
-          <iframe data-lazy="https://www.youtube.com/embed/KWhS3k3HOZU?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/KWhS3k3HOZU?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="6" data-client="Scape Australia" data-title="Operations Reel, Stakeholder Content" data-desc="Internal stakeholder piece for the operations team. Translates day-to-day organisational work into compelling video for staff and leadership." data-tools="Premiere Pro,Canon R6,Rode Mics,Content Planning,Brand Storytelling">
-          <iframe data-lazy="https://www.youtube.com/embed/emUIKqQCwH8?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/emUIKqQCwH8?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="7" data-client="Earths Water" data-title="Your Tap Water Is Full of Chemicals" data-desc="Hook-driven 18-second brand awareness clip with motion graphics. Built to grab attention and drive product interest in under 20 seconds." data-tools="After Effects,Premiere Pro,Motion Graphics,Copywriting,Paid Social Ads">
-          <iframe data-lazy="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
       </div>
       <div class="vid-showcase-info" id="vsInfo">
@@ -1151,73 +1138,6 @@ footer a:hover{color:var(--white)}
         </div>
       </div>
       <div class="vid-showcase-dots" id="vsDots"></div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══ SELECTED WORK ═══ -->
-<section class="snap-section" id="work">
-  <div class="container">
-    <div class="reveal">
-      <p class="label">Full Portfolio</p>
-      <h2 class="section-title">More relevant work,<br>available for your review.</h2>
-    </div>
-    <div class="pf-slideshow reveal reveal-d1" id="pfSlideshow">
-      <div class="pf-track">
-        <div class="pf-slide active" data-pf="0">
-          <img src="https://img.youtube.com/vi/KvzC8g-YoIY/maxresdefault.jpg" alt="Built Different, Patrolapart">
-          <div class="pf-caption">
-            <div class="pf-caption-text">
-              <span class="pf-tag">Brand Campaign</span>
-              <div class="pf-title">Built Different, Patrolapart</div>
-              <div class="pf-desc">Full campaign: brand films, social ads, product content. Built the entire content pipeline from scratch.</div>
-            </div>
-            <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/built-different-patrolapart-edition" target="_blank" class="pf-visit">View Project &rarr;</a>
-          </div>
-        </div>
-        <div class="pf-slide" data-pf="1">
-          <img src="https://img.youtube.com/vi/-2w8Q9QH2R0/maxresdefault.jpg" alt="Lifestyle and Cinematic Content">
-          <div class="pf-caption">
-            <div class="pf-caption-text">
-              <span class="pf-tag">Cinematic</span>
-              <div class="pf-title">Lifestyle and Cinematic Content</div>
-              <div class="pf-desc">Product and lifestyle storytelling with cinematic grading. Shot, directed, and edited end to end.</div>
-            </div>
-            <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/my-project-5f9951" target="_blank" class="pf-visit">View Project &rarr;</a>
-          </div>
-        </div>
-        <div class="pf-slide" data-pf="2">
-          <img src="https://img.youtube.com/vi/_8s_YCfoaAY/maxresdefault.jpg" alt="Event Coverage and Storytelling">
-          <div class="pf-caption">
-            <div class="pf-caption-text">
-              <span class="pf-tag">Events</span>
-              <div class="pf-title">Event Coverage and Storytelling</div>
-              <div class="pf-desc">Fast turnaround live event content. Same-day edits, multi-camera, highlight reels and social clips.</div>
-            </div>
-            <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/event-coverage-brand-storytelling" target="_blank" class="pf-visit">View Project &rarr;</a>
-          </div>
-        </div>
-        <div class="pf-slide" data-pf="3">
-          <img src="https://img.youtube.com/vi/dy3M-BUDIac/maxresdefault.jpg" alt="Vertical Video, TikTok and Reels">
-          <div class="pf-caption">
-            <div class="pf-caption-text">
-              <span class="pf-tag">Short-form</span>
-              <div class="pf-title">Vertical Video, TikTok / Reels</div>
-              <div class="pf-desc">Scroll-stopping short-form content built for the feed. Hooks, pacing, and native editing for every platform.</div>
-            </div>
-            <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="pf-visit">View All &rarr;</a>
-          </div>
-        </div>
-      </div>
-      <div class="pf-controls">
-        <div class="pf-dots" id="pfDots"></div>
-        <span class="pf-counter" id="pfCounter">1 / 4</span>
-        <div class="pf-arrows">
-          <button class="pf-arrow" id="pfPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <button class="pf-arrow" id="pfNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1657,62 +1577,7 @@ var storyGoTo; /* expose for YT callback */
   });
 })();
 
-/* ═══ 14. Portfolio slideshow ═══ */
-(function(){
-  const slides=document.querySelectorAll('.pf-slide');
-  const dotsWrap=document.getElementById('pfDots');
-  const counter=document.getElementById('pfCounter');
-  const prevBtn=document.getElementById('pfPrev');
-  const nextBtn=document.getElementById('pfNext');
-  if(!slides.length)return;
-  const total=slides.length;
-  let cur=0,autoTimer=null;
-
-  /* Build dots */
-  for(let i=0;i<total;i++){
-    const d=document.createElement('button');
-    d.className='pf-dot'+(i===0?' active':'');
-    d.addEventListener('click',()=>goTo(i));
-    dotsWrap.appendChild(d);
-  }
-  const dots=[...dotsWrap.children];
-
-  function goTo(idx){
-    if(idx<0)idx=total-1;
-    if(idx>=total)idx=0;
-    slides[cur].classList.remove('active');
-    dots[cur].classList.remove('active');
-    cur=idx;
-    slides[cur].classList.add('active');
-    dots[cur].classList.add('active');
-    counter.textContent=(cur+1)+' / '+total;
-    resetAuto();
-  }
-
-  function resetAuto(){
-    clearInterval(autoTimer);
-    autoTimer=setInterval(()=>goTo(cur+1),5000);
-  }
-
-  prevBtn.addEventListener('click',()=>goTo(cur-1));
-  nextBtn.addEventListener('click',()=>goTo(cur+1));
-
-  /* Swipe support */
-  let sx=0;
-  const track=document.querySelector('.pf-track');
-  track.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
-  track.addEventListener('touchend',e=>{
-    const diff=sx-e.changedTouches[0].clientX;
-    if(Math.abs(diff)>40){diff>0?goTo(cur+1):goTo(cur-1)}
-  },{passive:true});
-
-  /* Pause on hover */
-  const ss=document.getElementById('pfSlideshow');
-  ss.addEventListener('mouseenter',()=>clearInterval(autoTimer));
-  ss.addEventListener('mouseleave',resetAuto);
-
-  resetAuto();
-})();
+/* (Portfolio slideshow removed) */
 
 /* ═══ 15. Video showcase ═══ */
 (function(){
