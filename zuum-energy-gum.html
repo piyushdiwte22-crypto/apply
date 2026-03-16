@@ -363,27 +363,87 @@ body::after{
 @keyframes loaderSpin{to{transform:rotate(360deg)}}
 .loader-text{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
 
-/* ── Vertical video grid ── */
-.vertical-grid{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
-.vertical-grid::-webkit-scrollbar{height:4px}
-.vertical-grid::-webkit-scrollbar-track{background:rgba(255,255,255,0.03);border-radius:4px}
-.vertical-grid::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
-.vertical-card{
-  flex:0 0 200px;border-radius:var(--radius);overflow:hidden;
-  border:1px solid var(--card-border);background:var(--card);
-  transition:all .4s var(--ease);scroll-snap-align:start;position:relative;
+/* ── Vertical Stories Viewer ── */
+.stories-viewer{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:32px}
+.stories-phone{
+  position:relative;width:280px;height:540px;
+  border-radius:28px;overflow:hidden;
+  background:#000;
+  border:3px solid rgba(255,255,255,0.1);
+  box-shadow:0 20px 80px rgba(0,0,0,0.6),0 0 40px rgba(196,117,43,0.06);
 }
-.vertical-card:hover{transform:translateY(-6px);border-color:rgba(196,117,43,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-.vertical-card iframe{width:100%;aspect-ratio:9/16;display:block;border:0}
-.vertical-card .vid-title{padding:10px 14px;font-size:11px}
-.vertical-label{
-  position:absolute;top:10px;left:10px;z-index:2;
-  font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+/* Progress bars at top */
+.stories-progress{
+  position:absolute;top:10px;left:12px;right:12px;z-index:10;
+  display:flex;gap:4px;
+}
+.stories-progress-bar{
+  flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,0.2);overflow:hidden;
+}
+.stories-progress-bar .fill{
+  height:100%;width:0%;border-radius:3px;
+  background:linear-gradient(90deg,var(--accent-bright),#f0b060);
+  transition:width .3s ease;
+}
+.stories-progress-bar.done .fill{width:100%}
+.stories-progress-bar.active .fill{width:100%;transition:none;animation:storyFill var(--story-dur,15s) linear forwards}
+@keyframes storyFill{from{width:0%}to{width:100%}}
+/* Video slides */
+.stories-slide{
+  position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .4s ease;
+  display:flex;flex-direction:column;
+}
+.stories-slide.active{opacity:1;pointer-events:auto}
+.stories-slide iframe{width:100%;flex:1;border:0;display:block;background:#000}
+/* Bottom overlay info */
+.stories-info{
+  position:absolute;bottom:0;left:0;right:0;z-index:5;
+  padding:48px 16px 16px;
+  background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%);
+}
+.stories-tag{
+  display:inline-block;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
   color:var(--white);background:rgba(196,117,43,0.85);
-  padding:4px 10px;border-radius:50px;pointer-events:none;
+  padding:3px 10px;border-radius:50px;margin-bottom:6px;
 }
+.stories-title{font-size:13px;font-weight:600;color:var(--white)}
+.stories-sub{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px}
+/* Nav arrows (desktop) */
+.stories-nav{
+  width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);
+  background:rgba(7,7,13,0.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--muted);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s ease;flex-shrink:0;
+}
+.stories-nav:hover{color:var(--white);border-color:var(--accent);background:rgba(196,117,43,0.15)}
+.stories-nav svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5}
+.stories-nav.disabled{opacity:0.2;pointer-events:none}
+/* Tap zones (mobile) */
+.stories-tap{position:absolute;top:30px;bottom:80px;z-index:8;width:35%}
+.stories-tap-left{left:0}
+.stories-tap-right{right:0}
+/* Counter */
+.stories-counter{
+  text-align:center;margin-top:16px;font-size:11px;color:var(--muted);letter-spacing:1px;
+}
+/* CTA under viewer */
+.stories-cta{text-align:center;margin-top:20px}
+/* Mobile: bigger phone, hide arrows */
 @media(max-width:640px){
-  .vertical-card{flex:0 0 160px}
+  .stories-phone{width:100%;max-width:320px;height:580px;border-radius:20px}
+  .stories-nav{display:none}
+  .stories-viewer{gap:0}
+}
+/* Tablet */
+@media(min-width:641px) and (max-width:899px){
+  .stories-phone{width:300px;height:560px}
+}
+/* Desktop: show arrows, hide tap zones */
+@media(min-width:900px){
+  .stories-phone{width:300px;height:560px}
+  .stories-tap{display:none}
 }
 
 /* ── Card shine on hover ── */
@@ -678,32 +738,63 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ VERTICAL CONTENT ═══ -->
 <section class="snap-section" id="vertical">
-  <div class="container" style="max-width:960px">
+  <div class="container">
     <div class="reveal">
       <p class="label">Vertical Content</p>
       <h2 class="section-title">Built for the scroll.</h2>
     </div>
-    <div class="vertical-grid reveal reveal-d1">
-      <div class="vertical-card">
-        <span class="vertical-label">UGC</span>
-        <iframe src="https://www.youtube.com/embed/5rvyNZ2bbtU?rel=0&modestbranding=1" allowfullscreen></iframe>
-        <div class="vid-title">Product UGC, Patrolapart</div>
+    <div class="stories-viewer reveal reveal-d1">
+      <button class="stories-nav" id="storiesPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div>
+        <div class="stories-phone" id="storiesPhone">
+          <!-- Progress bars -->
+          <div class="stories-progress" id="storiesProgress"></div>
+          <!-- Tap zones for mobile -->
+          <div class="stories-tap stories-tap-left" id="storyTapL"></div>
+          <div class="stories-tap stories-tap-right" id="storyTapR"></div>
+          <!-- Slides injected by JS -->
+          <div class="stories-slide active" data-story="0" data-dur="30">
+            <iframe src="https://www.youtube.com/embed/5rvyNZ2bbtU?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
+            <div class="stories-info">
+              <span class="stories-tag">UGC</span>
+              <div class="stories-title">Product UGC</div>
+              <div class="stories-sub">Patrolapart, Nissan Patrol Y61</div>
+            </div>
+          </div>
+          <div class="stories-slide" data-story="1" data-dur="25">
+            <iframe src="https://www.youtube.com/embed/dy3M-BUDIac?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
+            <div class="stories-info">
+              <span class="stories-tag">Paid Ad</span>
+              <div class="stories-title">Quad Lock, IG Style</div>
+              <div class="stories-sub">Vertical UGC for paid social</div>
+            </div>
+          </div>
+          <div class="stories-slide" data-story="2" data-dur="30">
+            <iframe src="https://www.youtube.com/embed/aSMBKRUaT_4?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
+            <div class="stories-info">
+              <span class="stories-tag">Brand</span>
+              <div class="stories-title">Earths Water, Unboxing</div>
+              <div class="stories-sub">Satisfying product reveal</div>
+            </div>
+          </div>
+          <div class="stories-slide" data-story="3" data-dur="20">
+            <iframe src="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
+            <div class="stories-info">
+              <span class="stories-tag">Hook</span>
+              <div class="stories-title">Earths Water, Awareness</div>
+              <div class="stories-sub">18-sec hook-driven brand clip</div>
+            </div>
+          </div>
+        </div>
+        <div class="stories-counter"><span id="storyCurrent">1</span> / <span id="storyTotal">4</span></div>
+        <div class="stories-cta">
+          <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="btn btn-outline" style="font-size:12px;padding:10px 22px">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            View All Vertical Work
+          </a>
+        </div>
       </div>
-      <div class="vertical-card">
-        <span class="vertical-label">Paid Ad</span>
-        <iframe src="https://www.youtube.com/embed/dy3M-BUDIac?rel=0&modestbranding=1" allowfullscreen></iframe>
-        <div class="vid-title">Quad Lock, IG Style</div>
-      </div>
-      <div class="vertical-card">
-        <span class="vertical-label">Brand</span>
-        <iframe src="https://www.youtube.com/embed/aSMBKRUaT_4?rel=0&modestbranding=1" allowfullscreen></iframe>
-        <div class="vid-title">Earths Water, Unboxing</div>
-      </div>
-      <div class="vertical-card">
-        <span class="vertical-label">Hook</span>
-        <iframe src="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1" allowfullscreen></iframe>
-        <div class="vid-title">Earths Water, Awareness</div>
-      </div>
+      <button class="stories-nav" id="storiesNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
   </div>
 </section>
@@ -990,7 +1081,69 @@ window.addEventListener('load',()=>{
   setTimeout(()=>{document.getElementById('pageLoader').classList.add('done')},400);
 });
 
-/* ═══ 13. Scroll-to-top button ═══ */
+/* ═══ 13. Stories vertical viewer ═══ */
+(function(){
+  const slides=document.querySelectorAll('.stories-slide');
+  const progressWrap=document.getElementById('storiesProgress');
+  const prevBtn=document.getElementById('storiesPrev');
+  const nextBtn=document.getElementById('storiesNext');
+  const tapL=document.getElementById('storyTapL');
+  const tapR=document.getElementById('storyTapR');
+  const curEl=document.getElementById('storyCurrent');
+  const total=slides.length;
+  let current=0,timer=null;
+
+  /* Build progress bars */
+  for(let i=0;i<total;i++){
+    const bar=document.createElement('div');
+    bar.className='stories-progress-bar';
+    bar.innerHTML='<div class="fill"></div>';
+    progressWrap.appendChild(bar);
+  }
+  const bars=[...progressWrap.children];
+
+  function goTo(idx){
+    if(idx<0||idx>=total)return;
+    clearTimeout(timer);
+    slides[current].classList.remove('active');
+    bars[current].classList.remove('active');
+    if(idx>current){for(let i=0;i<=idx-1;i++)bars[i].classList.add('done')}
+    else{for(let i=idx;i<total;i++){bars[i].classList.remove('done');bars[i].classList.remove('active')}}
+    current=idx;
+    slides[current].classList.add('active');
+    bars[current].classList.remove('done');
+    const dur=parseInt(slides[current].dataset.dur)||20;
+    bars[current].style.setProperty('--story-dur',dur+'s');
+    bars[current].classList.add('active');
+    curEl.textContent=current+1;
+    prevBtn.classList.toggle('disabled',current===0);
+    nextBtn.classList.toggle('disabled',current===total-1);
+    /* Auto-advance */
+    if(current<total-1){
+      timer=setTimeout(()=>goTo(current+1),dur*1000);
+    }
+  }
+  goTo(0);
+
+  prevBtn.addEventListener('click',()=>goTo(current-1));
+  nextBtn.addEventListener('click',()=>goTo(current+1));
+  tapL.addEventListener('click',()=>goTo(current-1));
+  tapR.addEventListener('click',()=>goTo(current+1));
+
+  /* Swipe support for touch */
+  let touchStartY=0;
+  const phone=document.getElementById('storiesPhone');
+  phone.addEventListener('touchstart',e=>{touchStartY=e.touches[0].clientY},{passive:true});
+  phone.addEventListener('touchend',e=>{
+    const diff=touchStartY-e.changedTouches[0].clientY;
+    if(Math.abs(diff)>40){
+      if(diff>0)goTo(current+1); /* swipe up = next */
+      else goTo(current-1); /* swipe down = prev */
+    }
+  },{passive:true});
+})();
+
+/* ═══ 14. Scroll-to-top button ═══ */
 const scrollTopBtn=document.getElementById('scrollTop');
 function checkScrollTop(){
   const st=window.scrollY||document.body.scrollTop||0;
