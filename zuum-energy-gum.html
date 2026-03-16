@@ -312,15 +312,51 @@ body::after{
   .pf-visit{width:100%;justify-content:center;margin-top:4px}
 }
 
-/* ── Video grid (2x2) ── */
-.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.video-card{
-  border-radius:var(--radius);overflow:hidden;border:1px solid var(--card-border);
-  background:var(--card);transition:all .4s var(--ease);will-change:transform;
+/* ── Video showcase (single large) ── */
+.vid-showcase{position:relative;max-width:960px;margin:40px auto 0}
+.vid-showcase-player{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--card-border);background:#000;
 }
-.video-card:hover{transform:translateY(-6px);border-color:rgba(196,117,43,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-.video-card iframe{width:100%;aspect-ratio:16/9;display:block;border:0}
-.vid-title{padding:12px 16px;font-size:12px;color:var(--muted);font-weight:500}
+.vid-showcase-player iframe{width:100%;aspect-ratio:16/9;display:block;border:0}
+.vid-showcase-slide{display:none}
+.vid-showcase-slide.active{display:block}
+.vid-showcase-info{
+  margin-top:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+}
+.vid-showcase-text{flex:1;min-width:0}
+.vid-showcase-title{font-size:18px;font-weight:700;color:var(--white);margin-bottom:6px}
+.vid-showcase-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.vid-showcase-tools{display:flex;flex-wrap:wrap;gap:6px}
+.vid-tool-tag{
+  font-size:10px;font-weight:600;letter-spacing:.5px;
+  color:var(--accent-bright);background:rgba(196,117,43,0.1);
+  padding:5px 12px;border-radius:50px;white-space:nowrap;
+}
+.vid-showcase-nav{display:flex;align-items:center;gap:10px;flex-shrink:0;padding-top:4px}
+.vid-showcase-btn{
+  width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);color:var(--white);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .3s ease;
+}
+.vid-showcase-btn:hover{background:rgba(196,117,43,0.15);border-color:rgba(196,117,43,0.3)}
+.vid-showcase-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.vid-showcase-counter{
+  font-size:13px;color:var(--muted);font-family:'Space Grotesk',sans-serif;font-weight:500;
+  min-width:36px;text-align:center;
+}
+.vid-showcase-dots{display:flex;gap:6px;margin-top:20px;justify-content:center}
+.vid-showcase-dot{
+  width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;padding:0;
+  background:rgba(255,255,255,0.12);transition:all .3s ease;
+}
+.vid-showcase-dot.active{background:var(--accent-bright);width:28px;border-radius:4px}
+@media(max-width:767px){
+  .vid-showcase{margin:24px auto 0}
+  .vid-showcase-info{flex-direction:column;gap:16px}
+  .vid-showcase-nav{align-self:center}
+  .vid-showcase-title{font-size:16px}
+}
 
 /* ── Why me timeline ── */
 .why-grid{display:grid;gap:0;position:relative;padding-left:4px}
@@ -667,12 +703,12 @@ body::after{
 }
 
 /* ── Card shine on hover ── */
-.metric::after,.video-card::after{
+.metric::after{
   content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);
   transition:left .6s ease;pointer-events:none;
 }
-.metric:hover::after,.video-card:hover::after{
+.metric:hover::after{
   left:150%;
 }
 
@@ -766,7 +802,6 @@ footer a:hover{color:var(--white)}
   .hero-links .btn{width:100%;max-width:280px;justify-content:center}
   .metrics{grid-template-columns:1fr 1fr;gap:10px}
   .metric{padding:20px 12px}.metric-val{font-size:24px}
-  .video-grid{grid-template-columns:1fr}
   .pf-slideshow{margin:20px auto 0}
   .cta-buttons{flex-direction:column;align-items:center}
   .cta-buttons .btn{width:100%;max-width:280px;justify-content:center}
@@ -775,7 +810,6 @@ footer a:hover{color:var(--white)}
 @media(min-width:900px){
   .container{max-width:820px}
   .metrics{gap:20px}.metric{padding:32px 20px}.metric-val{font-size:36px}
-  .video-grid{gap:20px}
 }
 </style>
 </head>
@@ -1071,29 +1105,39 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ VIDEOS ═══ -->
 <section class="snap-section" id="videos">
-
   <div class="container">
     <div class="reveal">
-      <p class="label">Video Samples</p>
+      <p class="label">Relevant Work</p>
       <h2 class="section-title">See the work in motion.</h2>
     </div>
-    <div class="video-grid">
-      <div class="video-card reveal">
-        <iframe data-lazy="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1&vq=hd2160" allowfullscreen></iframe>
-        <div class="vid-title">Brand Ad, Patrolapart and Navarapart</div>
+    <div class="vid-showcase reveal reveal-d1" id="vidShowcase">
+      <div class="vid-showcase-player">
+        <div class="vid-showcase-slide active" data-vs="0" data-title="Brand Ad, Patrolapart and Navarapart" data-desc="Full brand campaign video for Patrolapart. Shot, directed, and edited end to end. Social-first distribution across YouTube, Instagram, and Facebook." data-tools="DaVinci Resolve,Premiere Pro,After Effects,Canon R6,Drone,Scripting">
+          <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+        </div>
+        <div class="vid-showcase-slide" data-vs="1" data-title="Melbourne 4x4 Show, Event Trailer" data-desc="Same-day event coverage and highlight reel. Multi-camera setup, fast turnaround edit, delivered for social while the event was still live." data-tools="DaVinci Resolve,Canon R6,Rode Wireless,Lightroom,Content Planning">
+          <iframe data-lazy="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+        </div>
+        <div class="vid-showcase-slide" data-vs="2" data-title="Quad Lock, UGC Paid Ad" data-desc="Commissioned UGC piece for Quad Lock. Shot to feel native on Instagram, edited with pacing and hooks built for paid social performance." data-tools="Premiere Pro,After Effects,Canon R6,Paid Social Ads,Copywriting">
+          <iframe data-lazy="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+        </div>
+        <div class="vid-showcase-slide" data-vs="3" data-title="Behind the Builds, Storytelling" data-desc="Documentary-style brand storytelling for the Patrolapart community. Cinematic grading, interview segments, and lifestyle B-roll woven together." data-tools="DaVinci Resolve,Canon R6,Rode Mics,Scripting,Brand Storytelling">
+          <iframe data-lazy="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+        </div>
       </div>
-      <div class="video-card reveal reveal-d1">
-        <iframe data-lazy="https://www.youtube.com/embed/_8s_YCfoaAY?rel=0&modestbranding=1&vq=hd2160" allowfullscreen></iframe>
-        <div class="vid-title">Melbourne 4x4 Show, Event Trailer</div>
+      <div class="vid-showcase-info" id="vsInfo">
+        <div class="vid-showcase-text">
+          <div class="vid-showcase-title" id="vsTitle">Brand Ad, Patrolapart and Navarapart</div>
+          <div class="vid-showcase-desc" id="vsDesc">Full brand campaign video for Patrolapart. Shot, directed, and edited end to end. Social-first distribution across YouTube, Instagram, and Facebook.</div>
+          <div class="vid-showcase-tools" id="vsTools"></div>
+        </div>
+        <div class="vid-showcase-nav">
+          <button class="vid-showcase-btn" id="vsPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <span class="vid-showcase-counter" id="vsCounter">1 / 4</span>
+          <button class="vid-showcase-btn" id="vsNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
       </div>
-      <div class="video-card reveal reveal-d2">
-        <iframe data-lazy="https://www.youtube.com/embed/3bR7HUcPZ1c?rel=0&modestbranding=1&vq=hd2160" allowfullscreen></iframe>
-        <div class="vid-title">Quad Lock, UGC Paid Ad</div>
-      </div>
-      <div class="video-card reveal reveal-d3">
-        <iframe data-lazy="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1&vq=hd2160" allowfullscreen></iframe>
-        <div class="vid-title">Behind the Builds, Storytelling</div>
-      </div>
+      <div class="vid-showcase-dots" id="vsDots"></div>
     </div>
   </div>
 </section>
@@ -1657,7 +1701,76 @@ var storyGoTo; /* expose for YT callback */
   resetAuto();
 })();
 
-/* ═══ 15. Lazy-load iframes on scroll ═══ */
+/* ═══ 15. Video showcase ═══ */
+(function(){
+  const slides=document.querySelectorAll('.vid-showcase-slide');
+  const dotsWrap=document.getElementById('vsDots');
+  const counter=document.getElementById('vsCounter');
+  const titleEl=document.getElementById('vsTitle');
+  const descEl=document.getElementById('vsDesc');
+  const toolsEl=document.getElementById('vsTools');
+  const prevBtn=document.getElementById('vsPrev');
+  const nextBtn=document.getElementById('vsNext');
+  if(!slides.length)return;
+  const total=slides.length;
+  let cur=0;
+
+  function renderTools(s){
+    const tools=(s.dataset.tools||'').split(',').filter(Boolean);
+    toolsEl.innerHTML=tools.map(t=>'<span class="vid-tool-tag">'+t.trim()+'</span>').join('');
+  }
+
+  /* Build dots */
+  for(let i=0;i<total;i++){
+    const d=document.createElement('button');
+    d.className='vid-showcase-dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>goTo(i));
+    dotsWrap.appendChild(d);
+  }
+  const dots=[...dotsWrap.children];
+
+  /* Init first slide tools */
+  renderTools(slides[0]);
+
+  function pauseIframe(slide){
+    const f=slide.querySelector('iframe');
+    if(f&&f.src&&f.src.includes('youtube'))try{f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*')}catch(e){}
+  }
+
+  function goTo(idx){
+    if(idx<0)idx=total-1;
+    if(idx>=total)idx=0;
+    /* Pause current video */
+    pauseIframe(slides[cur]);
+    /* Lazy-load iframe if needed */
+    const nextSlide=slides[idx];
+    const iframe=nextSlide.querySelector('iframe[data-lazy]');
+    if(iframe){iframe.src=iframe.getAttribute('data-lazy');iframe.removeAttribute('data-lazy')}
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=idx;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    counter.textContent=(cur+1)+' / '+total;
+    titleEl.textContent=slides[cur].dataset.title;
+    descEl.textContent=slides[cur].dataset.desc;
+    renderTools(slides[cur]);
+  }
+
+  prevBtn.addEventListener('click',()=>goTo(cur-1));
+  nextBtn.addEventListener('click',()=>goTo(cur+1));
+
+  /* Swipe on mobile */
+  let sx=0;
+  const player=document.querySelector('.vid-showcase-player');
+  player.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  player.addEventListener('touchend',e=>{
+    const diff=sx-e.changedTouches[0].clientX;
+    if(Math.abs(diff)>40){diff>0?goTo(cur+1):goTo(cur-1)}
+  },{passive:true});
+})();
+
+/* ═══ 16. Lazy-load iframes on scroll ═══ */
 (function(){
   const lazyFrames=document.querySelectorAll('iframe[data-lazy]');
   if(!lazyFrames.length)return;
