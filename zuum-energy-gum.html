@@ -74,6 +74,11 @@ body::after{
   background:linear-gradient(135deg,#d4a84b,#e8c36a);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   transition:opacity .3s ease;
+  display:flex;align-items:center;gap:8px;
+}
+.header-logo-img{
+  width:28px;height:28px;object-fit:contain;border-radius:50%;
+  -webkit-text-fill-color:initial;
 }
 .header-logo:hover{opacity:0.7}
 .header-nav{display:flex;gap:4px;pointer-events:auto;opacity:1;transition:all .5s var(--ease)}
@@ -393,12 +398,15 @@ body::after{
 }
 .modal-overlay.show{opacity:1;pointer-events:auto}
 .modal{
-  background:var(--surface);border:1px solid rgba(196,117,43,0.2);
+  background:linear-gradient(145deg,rgba(22,22,35,0.85),rgba(14,14,22,0.75));
+  backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);
+  border:1px solid rgba(255,255,255,0.12);
+  border-top-color:rgba(255,255,255,0.2);border-left-color:rgba(255,255,255,0.15);
   border-radius:var(--radius);padding:36px 32px 28px;
   max-width:400px;width:90%;text-align:center;position:relative;
   transform:scale(0.9) translateY(20px);
   transition:transform .4s var(--ease);
-  box-shadow:0 24px 80px rgba(0,0,0,0.5),0 0 40px rgba(196,117,43,0.08);
+  box-shadow:0 24px 80px rgba(0,0,0,0.6),0 0 60px rgba(196,117,43,0.1),inset 0 1px 0 rgba(255,255,255,0.08);
 }
 .modal-overlay.show .modal{transform:scale(1) translateY(0)}
 .modal-icon{
@@ -487,7 +495,7 @@ footer a:hover{color:var(--white)}
 
 <!-- Fixed header -->
 <header class="header">
-  <a href="#hero" class="header-logo" id="headerLogo">Captured.By.Piyush</a>
+  <a href="#hero" class="header-logo" id="headerLogo"><img src="cbp-logo.png" alt="CBP" class="header-logo-img">Captured.By.Piyush</a>
   <nav class="header-nav" id="headerNav">
     <a href="#hero">Home</a>
     <a href="#about">About</a>
@@ -765,8 +773,8 @@ footer a:hover{color:var(--white)}
   let offsetX=0,offsetY=0;
 
   function draw(){
-    offsetX+=0.15; /* slow rightward drift */
-    offsetY+=0.08; /* slow downward drift */
+    offsetX+=0.35; /* faster rightward drift */
+    offsetY+=0.2; /* faster downward drift */
     ctx.clearRect(0,0,w,h);
 
     ctx.strokeStyle=`rgba(196,117,43,${ALPHA})`;
