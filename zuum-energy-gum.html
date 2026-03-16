@@ -364,22 +364,27 @@ body::after{
 .loader-text{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
 
 /* ── Vertical Stories Viewer ── */
-.stories-viewer{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:32px}
+/* Layout: phone left + info right on tablet/desktop */
+.stories-layout{display:flex;align-items:center;gap:40px;margin-top:32px}
+.stories-left{display:flex;align-items:center;gap:16px;flex-shrink:0}
 .stories-phone{
-  position:relative;width:280px;height:540px;
-  border-radius:28px;overflow:hidden;
+  position:relative;width:280px;height:520px;
+  border-radius:32px;overflow:hidden;
   background:#000;
-  border:3px solid rgba(255,255,255,0.1);
-  box-shadow:0 20px 80px rgba(0,0,0,0.6),0 0 40px rgba(196,117,43,0.06);
+  border:4px solid rgba(255,255,255,0.08);
+  box-shadow:0 20px 80px rgba(0,0,0,0.6),0 0 40px rgba(196,117,43,0.06),inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+/* Notch */
+.stories-phone::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:12;
+  width:100px;height:22px;background:#000;border-radius:0 0 16px 16px;
 }
 /* Progress bars at top */
 .stories-progress{
-  position:absolute;top:10px;left:12px;right:12px;z-index:10;
+  position:absolute;top:28px;left:12px;right:12px;z-index:10;
   display:flex;gap:4px;
 }
-.stories-progress-bar{
-  flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,0.2);overflow:hidden;
-}
+.stories-progress-bar{flex:1;height:2.5px;border-radius:3px;background:rgba(255,255,255,0.2);overflow:hidden}
 .stories-progress-bar .fill{
   height:100%;width:0%;border-radius:3px;
   background:linear-gradient(90deg,var(--accent-bright),#f0b060);
@@ -391,15 +396,14 @@ body::after{
 /* Video slides */
 .stories-slide{
   position:absolute;inset:0;opacity:0;pointer-events:none;
-  transition:opacity .4s ease;
-  display:flex;flex-direction:column;
+  transition:opacity .4s ease;display:flex;flex-direction:column;
 }
 .stories-slide.active{opacity:1;pointer-events:auto}
 .stories-slide iframe{width:100%;flex:1;border:0;display:block;background:#000}
-/* Bottom overlay info */
-.stories-info{
+/* Bottom overlay info (visible inside phone on mobile only) */
+.stories-info-inner{
   position:absolute;bottom:0;left:0;right:0;z-index:5;
-  padding:48px 16px 16px;
+  padding:40px 14px 14px;
   background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%);
 }
 .stories-tag{
@@ -407,9 +411,22 @@ body::after{
   color:var(--white);background:rgba(196,117,43,0.85);
   padding:3px 10px;border-radius:50px;margin-bottom:6px;
 }
-.stories-title{font-size:13px;font-weight:600;color:var(--white)}
-.stories-sub{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px}
-/* Nav arrows (desktop) */
+.stories-title-sm{font-size:12px;font-weight:600;color:var(--white)}
+/* Right panel (tablet/desktop) */
+.stories-right{flex:1;min-width:0}
+.stories-right-content{opacity:0;transform:translateX(20px);transition:all .5s var(--ease)}
+.stories-right-content.active{opacity:1;transform:translateX(0)}
+.sr-counter{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.sr-tag{
+  display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent-bright);background:rgba(196,117,43,0.1);
+  padding:5px 14px;border-radius:50px;margin-bottom:16px;
+  border:1px solid rgba(196,117,43,0.2);
+}
+.sr-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--white);margin-bottom:8px}
+.sr-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.sr-nav{display:flex;gap:8px;margin-bottom:20px}
+/* Nav arrows */
 .stories-nav{
   width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);
   background:rgba(7,7,13,0.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
@@ -420,30 +437,98 @@ body::after{
 .stories-nav:hover{color:var(--white);border-color:var(--accent);background:rgba(196,117,43,0.15)}
 .stories-nav svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5}
 .stories-nav.disabled{opacity:0.2;pointer-events:none}
-/* Tap zones (mobile) */
-.stories-tap{position:absolute;top:30px;bottom:80px;z-index:8;width:35%}
-.stories-tap-left{left:0}
-.stories-tap-right{right:0}
-/* Counter */
-.stories-counter{
-  text-align:center;margin-top:16px;font-size:11px;color:var(--muted);letter-spacing:1px;
+/* Tap zones (phone inside) */
+.stories-tap{position:absolute;top:30px;bottom:60px;z-index:8;width:35%}
+.stories-tap-left{left:0}.stories-tap-right{right:0}
+
+/* ── Mobile fullscreen overlay ── */
+.stories-fs-prompt{
+  display:none;margin-top:24px;text-align:center;
 }
-/* CTA under viewer */
-.stories-cta{text-align:center;margin-top:20px}
-/* Mobile: bigger phone, hide arrows */
-@media(max-width:640px){
-  .stories-phone{width:100%;max-width:320px;height:580px;border-radius:20px}
-  .stories-nav{display:none}
-  .stories-viewer{gap:0}
+.stories-fs-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:50px;font-size:13px;font-weight:600;
+  background:linear-gradient(135deg,var(--accent),var(--accent-bright));
+  color:var(--white);border:none;cursor:pointer;
+  transition:all .3s var(--ease);letter-spacing:.3px;
+  animation:btnPulse 3s ease-in-out infinite;
 }
-/* Tablet */
-@media(min-width:641px) and (max-width:899px){
-  .stories-phone{width:300px;height:560px}
+.stories-fs-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.stories-fs-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+.stories-fullscreen{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:#000;flex-direction:column;
 }
-/* Desktop: show arrows, hide tap zones */
-@media(min-width:900px){
-  .stories-phone{width:300px;height:560px}
+.stories-fullscreen.open{display:flex}
+.stories-fs-close{
+  position:absolute;top:14px;right:14px;z-index:20;
+  width:36px;height:36px;border-radius:50%;border:none;
+  background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--white);font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.stories-fs-close:hover{background:rgba(255,255,255,0.2)}
+.stories-fs-progress{
+  position:absolute;top:50px;left:12px;right:12px;z-index:15;
+  display:flex;gap:4px;
+}
+.stories-fs-progress .fs-bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,0.2);overflow:hidden}
+.stories-fs-progress .fs-bar .fs-fill{
+  height:100%;width:0%;border-radius:3px;
+  background:linear-gradient(90deg,var(--accent-bright),#f0b060);
+  transition:width .3s ease;
+}
+.stories-fs-progress .fs-bar.done .fs-fill{width:100%}
+.stories-fs-progress .fs-bar.active .fs-fill{width:100%;transition:none;animation:storyFill var(--story-dur,15s) linear forwards}
+.stories-fs-slide{
+  position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .4s ease;display:flex;flex-direction:column;
+}
+.stories-fs-slide.active{opacity:1;pointer-events:auto}
+.stories-fs-slide iframe{width:100%;flex:1;border:0;background:#000}
+.stories-fs-info{
+  position:absolute;bottom:0;left:0;right:0;z-index:5;
+  padding:60px 20px 30px;
+  background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,transparent 100%);
+  text-align:center;
+}
+.stories-fs-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:4px}
+.stories-fs-sub{font-size:12px;color:rgba(255,255,255,0.5)}
+.stories-fs-done{
+  display:none;position:absolute;inset:0;z-index:25;
+  background:rgba(0,0,0,0.9);
+  flex-direction:column;align-items:center;justify-content:center;gap:16px;
+}
+.stories-fs-done.show{display:flex}
+.stories-fs-done p{color:var(--white);font-size:16px;font-weight:600}
+.stories-fs-done-btn{
+  padding:12px 28px;border-radius:50px;font-size:13px;font-weight:600;
+  background:linear-gradient(135deg,var(--accent),var(--accent-bright));
+  color:var(--white);border:none;cursor:pointer;transition:all .3s var(--ease);
+}
+
+/* ── Responsive: mobile vs tablet/desktop ── */
+/* Mobile: hide right panel, show fullscreen prompt */
+@media(max-width:767px){
+  .stories-layout{justify-content:center}
+  .stories-left{display:none}
+  .stories-right{display:none}
+  .stories-fs-prompt{display:block}
+}
+/* Tablet: side-by-side layout */
+@media(min-width:768px){
+  .stories-layout{justify-content:center}
+  .stories-phone{width:260px;height:500px}
+  .stories-info-inner{display:none}
   .stories-tap{display:none}
+  .stories-fs-prompt{display:none}
+  .sr-title{font-size:22px}
+}
+/* Desktop: bigger phone */
+@media(min-width:1024px){
+  .stories-phone{width:300px;height:560px}
+  .sr-title{font-size:26px}
 }
 
 /* ── Card shine on hover ── */
@@ -738,66 +823,94 @@ footer a:hover{color:var(--white)}
 
 <!-- ═══ VERTICAL CONTENT ═══ -->
 <section class="snap-section" id="vertical">
-  <div class="container">
+  <div class="container" style="max-width:920px">
     <div class="reveal">
       <p class="label">Vertical Content</p>
       <h2 class="section-title">Built for the scroll.</h2>
     </div>
-    <div class="stories-viewer reveal reveal-d1">
-      <button class="stories-nav" id="storiesPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <div>
+    <!-- Tablet/Desktop: phone + info panel side by side -->
+    <div class="stories-layout reveal reveal-d1">
+      <div class="stories-left">
         <div class="stories-phone" id="storiesPhone">
-          <!-- Progress bars -->
           <div class="stories-progress" id="storiesProgress"></div>
-          <!-- Tap zones for mobile -->
           <div class="stories-tap stories-tap-left" id="storyTapL"></div>
           <div class="stories-tap stories-tap-right" id="storyTapR"></div>
-          <!-- Slides injected by JS -->
-          <div class="stories-slide active" data-story="0" data-dur="30">
+          <div class="stories-slide active" data-idx="0" data-dur="30" data-tag="UGC" data-title="Product UGC" data-desc="Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced." data-client="Patrolapart">
             <iframe src="https://www.youtube.com/embed/5rvyNZ2bbtU?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
-            <div class="stories-info">
-              <span class="stories-tag">UGC</span>
-              <div class="stories-title">Product UGC</div>
-              <div class="stories-sub">Patrolapart, Nissan Patrol Y61</div>
-            </div>
+            <div class="stories-info-inner"><span class="stories-tag">UGC</span><div class="stories-title-sm">Product UGC</div></div>
           </div>
-          <div class="stories-slide" data-story="1" data-dur="25">
+          <div class="stories-slide" data-idx="1" data-dur="25" data-tag="Paid Ad" data-title="Quad Lock, IG Style" data-desc="Commissioned UGC piece produced for Quad Lock. Vertical edit for Instagram distribution, adapted from the same shoot as the horizontal paid ad." data-client="Quad Lock">
             <iframe src="https://www.youtube.com/embed/dy3M-BUDIac?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
-            <div class="stories-info">
-              <span class="stories-tag">Paid Ad</span>
-              <div class="stories-title">Quad Lock, IG Style</div>
-              <div class="stories-sub">Vertical UGC for paid social</div>
-            </div>
+            <div class="stories-info-inner"><span class="stories-tag">Paid Ad</span><div class="stories-title-sm">Quad Lock</div></div>
           </div>
-          <div class="stories-slide" data-story="2" data-dur="30">
+          <div class="stories-slide" data-idx="2" data-dur="30" data-tag="Brand" data-title="Earths Water, Unboxing" data-desc="Satisfying UGC-style product reveal shot in a lifestyle setting. A native short that fits TikTok and Reels without feeling like an ad." data-client="Earths Water">
             <iframe src="https://www.youtube.com/embed/aSMBKRUaT_4?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
-            <div class="stories-info">
-              <span class="stories-tag">Brand</span>
-              <div class="stories-title">Earths Water, Unboxing</div>
-              <div class="stories-sub">Satisfying product reveal</div>
-            </div>
+            <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Earths Water</div></div>
           </div>
-          <div class="stories-slide" data-story="3" data-dur="20">
+          <div class="stories-slide" data-idx="3" data-dur="20" data-tag="Hook" data-title="Earths Water, Awareness" data-desc="18-second hook-driven brand awareness clip. Built around a single emotional truth with motion graphics to capture attention fast." data-client="Earths Water">
             <iframe src="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>
-            <div class="stories-info">
-              <span class="stories-tag">Hook</span>
-              <div class="stories-title">Earths Water, Awareness</div>
-              <div class="stories-sub">18-sec hook-driven brand clip</div>
-            </div>
+            <div class="stories-info-inner"><span class="stories-tag">Hook</span><div class="stories-title-sm">Earths Water</div></div>
           </div>
         </div>
-        <div class="stories-counter"><span id="storyCurrent">1</span> / <span id="storyTotal">4</span></div>
-        <div class="stories-cta">
+      </div>
+      <!-- Right info panel (tablet/desktop only) -->
+      <div class="stories-right" id="storiesRight">
+        <div class="stories-right-content active" id="srContent">
+          <div class="sr-counter" id="srCounter">1 of 4</div>
+          <div class="sr-tag" id="srTag">UGC</div>
+          <h3 class="sr-title" id="srTitle">Product UGC</h3>
+          <p class="sr-desc" id="srDesc">Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced.</p>
+          <div class="sr-nav">
+            <button class="stories-nav" id="storiesPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="stories-nav" id="storiesNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
           <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="btn btn-outline" style="font-size:12px;padding:10px 22px">
             <svg viewBox="0 0 24 24" style="width:14px;height:14px"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             View All Vertical Work
           </a>
         </div>
       </div>
-      <button class="stories-nav" id="storiesNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <!-- Mobile: fullscreen prompt -->
+    <div class="stories-fs-prompt reveal reveal-d1" id="fsMobilePrompt">
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px">4 vertical videos. Swipe through them like Stories.</p>
+      <button class="stories-fs-btn" id="fsOpenBtn">
+        <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        Open Fullscreen Viewer
+      </button>
+      <div style="margin-top:12px">
+        <a href="https://linktr.ee/Piyush_Diwte" target="_blank" style="font-size:12px;color:var(--accent-bright);text-decoration:none">or view all on Linktree &rarr;</a>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Mobile fullscreen viewer (hidden by default) -->
+<div class="stories-fullscreen" id="storiesFS">
+  <button class="stories-fs-close" id="fsCloseBtn">&times;</button>
+  <div class="stories-fs-progress" id="fsProgress"></div>
+  <div class="stories-fs-slide active" data-fs="0" data-dur="30">
+    <iframe data-src="https://www.youtube.com/embed/5rvyNZ2bbtU?rel=0&modestbranding=1&playsinline=1&autoplay=1" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">UGC</div><div class="stories-fs-title">Product UGC</div><div class="stories-fs-sub">Patrolapart, Nissan Patrol Y61</div></div>
+  </div>
+  <div class="stories-fs-slide" data-fs="1" data-dur="25">
+    <iframe data-src="https://www.youtube.com/embed/dy3M-BUDIac?rel=0&modestbranding=1&playsinline=1&autoplay=1" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Paid Ad</div><div class="stories-fs-title">Quad Lock, IG Style</div><div class="stories-fs-sub">Vertical UGC for paid social</div></div>
+  </div>
+  <div class="stories-fs-slide" data-fs="2" data-dur="30">
+    <iframe data-src="https://www.youtube.com/embed/aSMBKRUaT_4?rel=0&modestbranding=1&playsinline=1&autoplay=1" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Brand</div><div class="stories-fs-title">Earths Water, Unboxing</div><div class="stories-fs-sub">Satisfying product reveal</div></div>
+  </div>
+  <div class="stories-fs-slide" data-fs="3" data-dur="20">
+    <iframe data-src="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1&playsinline=1&autoplay=1" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Hook</div><div class="stories-fs-title">Earths Water, Awareness</div><div class="stories-fs-sub">18-sec hook-driven brand clip</div></div>
+  </div>
+  <!-- Done screen after 4th video -->
+  <div class="stories-fs-done" id="fsDoneScreen">
+    <p>That's all 4.</p>
+    <button class="stories-fs-done-btn" id="fsDoneBtn">Close Viewer</button>
+  </div>
+</div>
 
 <!-- ═══ VIDEOS ═══ -->
 <section class="snap-section" id="videos">
@@ -1081,7 +1194,7 @@ window.addEventListener('load',()=>{
   setTimeout(()=>{document.getElementById('pageLoader').classList.add('done')},400);
 });
 
-/* ═══ 13. Stories vertical viewer ═══ */
+/* ═══ 13. Stories vertical viewer (tablet/desktop) ═══ */
 (function(){
   const slides=document.querySelectorAll('.stories-slide');
   const progressWrap=document.getElementById('storiesProgress');
@@ -1089,11 +1202,14 @@ window.addEventListener('load',()=>{
   const nextBtn=document.getElementById('storiesNext');
   const tapL=document.getElementById('storyTapL');
   const tapR=document.getElementById('storyTapR');
-  const curEl=document.getElementById('storyCurrent');
+  const srContent=document.getElementById('srContent');
+  const srCounter=document.getElementById('srCounter');
+  const srTag=document.getElementById('srTag');
+  const srTitle=document.getElementById('srTitle');
+  const srDesc=document.getElementById('srDesc');
   const total=slides.length;
   let current=0,timer=null;
 
-  /* Build progress bars */
   for(let i=0;i<total;i++){
     const bar=document.createElement('div');
     bar.className='stories-progress-bar';
@@ -1101,6 +1217,17 @@ window.addEventListener('load',()=>{
     progressWrap.appendChild(bar);
   }
   const bars=[...progressWrap.children];
+
+  function updateRight(s){
+    srContent.classList.remove('active');
+    setTimeout(()=>{
+      srCounter.textContent=(current+1)+' of '+total;
+      srTag.textContent=s.dataset.tag;
+      srTitle.textContent=s.dataset.title;
+      srDesc.textContent=s.dataset.desc;
+      srContent.classList.add('active');
+    },150);
+  }
 
   function goTo(idx){
     if(idx<0||idx>=total)return;
@@ -1115,13 +1242,10 @@ window.addEventListener('load',()=>{
     const dur=parseInt(slides[current].dataset.dur)||20;
     bars[current].style.setProperty('--story-dur',dur+'s');
     bars[current].classList.add('active');
-    curEl.textContent=current+1;
+    updateRight(slides[current]);
     prevBtn.classList.toggle('disabled',current===0);
     nextBtn.classList.toggle('disabled',current===total-1);
-    /* Auto-advance */
-    if(current<total-1){
-      timer=setTimeout(()=>goTo(current+1),dur*1000);
-    }
+    if(current<total-1){timer=setTimeout(()=>goTo(current+1),dur*1000)}
   }
   goTo(0);
 
@@ -1129,18 +1253,86 @@ window.addEventListener('load',()=>{
   nextBtn.addEventListener('click',()=>goTo(current+1));
   tapL.addEventListener('click',()=>goTo(current-1));
   tapR.addEventListener('click',()=>goTo(current+1));
+})();
 
-  /* Swipe support for touch */
+/* ═══ 13b. Mobile fullscreen viewer ═══ */
+(function(){
+  const fsEl=document.getElementById('storiesFS');
+  const openBtn=document.getElementById('fsOpenBtn');
+  const closeBtn=document.getElementById('fsCloseBtn');
+  const doneScreen=document.getElementById('fsDoneScreen');
+  const doneBtn=document.getElementById('fsDoneBtn');
+  const fsProgressWrap=document.getElementById('fsProgress');
+  const fsSlides=document.querySelectorAll('.stories-fs-slide');
+  const total=fsSlides.length;
+  let current=0,timer=null;
+
+  for(let i=0;i<total;i++){
+    const bar=document.createElement('div');
+    bar.className='fs-bar';
+    bar.innerHTML='<div class="fs-fill"></div>';
+    fsProgressWrap.appendChild(bar);
+  }
+  const bars=[...fsProgressWrap.children];
+
+  function fsGoTo(idx){
+    if(idx<0)return;
+    if(idx>=total){doneScreen.classList.add('show');clearTimeout(timer);return}
+    clearTimeout(timer);
+    fsSlides[current].classList.remove('active');
+    bars[current].classList.remove('active');
+    if(idx>current){for(let i=0;i<=idx-1;i++)bars[i].classList.add('done')}
+    else{for(let i=idx;i<total;i++){bars[i].classList.remove('done');bars[i].classList.remove('active')}}
+    current=idx;
+    fsSlides[current].classList.add('active');
+    bars[current].classList.remove('done');
+    const dur=parseInt(fsSlides[current].dataset.dur)||20;
+    bars[current].style.setProperty('--story-dur',dur+'s');
+    bars[current].classList.add('active');
+    /* Load iframe lazily */
+    const iframe=fsSlides[current].querySelector('iframe');
+    if(iframe.dataset.src&&!iframe.src){iframe.src=iframe.dataset.src}
+    timer=setTimeout(()=>fsGoTo(current+1),dur*1000);
+  }
+
+  function openFS(){
+    fsEl.classList.add('open');
+    document.body.style.overflow='hidden';
+    current=0;
+    bars.forEach(b=>{b.classList.remove('done','active')});
+    fsSlides.forEach(s=>s.classList.remove('active'));
+    doneScreen.classList.remove('show');
+    fsGoTo(0);
+  }
+  function closeFS(){
+    fsEl.classList.remove('open');
+    document.body.style.overflow='';
+    clearTimeout(timer);
+    /* Kill iframes to stop audio */
+    fsSlides.forEach(s=>{const f=s.querySelector('iframe');if(f&&f.src){f.dataset.src=f.src;f.src=''}});
+  }
+
+  openBtn.addEventListener('click',openFS);
+  closeBtn.addEventListener('click',closeFS);
+  doneBtn.addEventListener('click',closeFS);
+
+  /* Swipe + tap in fullscreen */
   let touchStartY=0;
-  const phone=document.getElementById('storiesPhone');
-  phone.addEventListener('touchstart',e=>{touchStartY=e.touches[0].clientY},{passive:true});
-  phone.addEventListener('touchend',e=>{
+  fsEl.addEventListener('touchstart',e=>{touchStartY=e.touches[0].clientY},{passive:true});
+  fsEl.addEventListener('touchend',e=>{
     const diff=touchStartY-e.changedTouches[0].clientY;
-    if(Math.abs(diff)>40){
-      if(diff>0)goTo(current+1); /* swipe up = next */
-      else goTo(current-1); /* swipe down = prev */
+    if(Math.abs(diff)>50){
+      if(diff>0)fsGoTo(current+1);
+      else fsGoTo(current-1);
     }
   },{passive:true});
+  /* Tap left/right halves */
+  fsEl.addEventListener('click',e=>{
+    if(e.target.closest('.stories-fs-close,.stories-fs-done-btn,.stories-fs-done'))return;
+    const x=e.clientX/window.innerWidth;
+    if(x<0.35)fsGoTo(current-1);
+    else if(x>0.65)fsGoTo(current+1);
+  });
 })();
 
 /* ═══ 14. Scroll-to-top button ═══ */
