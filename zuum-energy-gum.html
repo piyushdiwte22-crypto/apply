@@ -32,47 +32,9 @@ body{
   width:0%;transition:width .15s ease-out;
 }
 
-/* ── Animated flowing background ── */
-.bg-flow{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bg-flow canvas{width:100%;height:100%;display:block}
-
-/* Animated gradient orbs behind everything */
-.bg-orb{
-  position:fixed;border-radius:50%;pointer-events:none;z-index:0;
-  filter:blur(120px);opacity:0.35;
-  animation:orbDrift 12s ease-in-out infinite alternate;
-}
-.bg-orb-1{width:600px;height:600px;top:-10%;left:-5%;background:rgba(196,117,43,0.5);animation-duration:14s}
-.bg-orb-2{width:500px;height:500px;bottom:-5%;right:-5%;background:rgba(232,148,58,0.4);animation-delay:-4s;animation-duration:16s}
-.bg-orb-3{width:400px;height:400px;top:40%;left:50%;background:rgba(196,117,43,0.25);animation-delay:-8s;animation-duration:18s}
-@keyframes orbDrift{
-  0%{transform:translate(0,0) scale(1)}
-  33%{transform:translate(40px,-50px) scale(1.1)}
-  66%{transform:translate(-30px,40px) scale(0.95)}
-  100%{transform:translate(50px,-20px) scale(1.15)}
-}
-
-/* Animated gradient sweep overlay */
-.bg-sweep{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:linear-gradient(
-    135deg,
-    rgba(196,117,43,0.06) 0%,
-    transparent 30%,
-    rgba(232,148,58,0.04) 50%,
-    transparent 70%,
-    rgba(196,117,43,0.06) 100%
-  );
-  background-size:400% 400%;
-  animation:gradSweep 15s ease-in-out infinite;
-}
-@keyframes gradSweep{
-  0%{background-position:0% 0%}
-  25%{background-position:100% 50%}
-  50%{background-position:50% 100%}
-  75%{background-position:0% 50%}
-  100%{background-position:0% 0%}
-}
+/* ── Flowing grid background ── */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-grid canvas{width:100%;height:100%;display:block}
 
 /* ── Noise ── */
 body::after{
@@ -117,11 +79,11 @@ body::after{
 
 /* ── Snap sections ── */
 .snap-section{
-  min-height:100vh;scroll-snap-align:start;scroll-snap-stop:always;
   position:relative;z-index:2;
   display:flex;flex-direction:column;justify-content:center;
   padding:80px 24px;
 }
+.snap-section.hero{min-height:100vh;scroll-snap-align:start}
 
 /* ── Reveal animations ── */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -333,29 +295,6 @@ body::after{
 
 
 
-/* ── Animated section dividers ── */
-.section-divider{
-  width:100%;height:1px;position:relative;overflow:visible;margin:0 auto;
-  max-width:600px;
-}
-.section-divider::before{
-  content:'';position:absolute;left:0;top:0;width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
-  opacity:0.3;
-}
-.section-divider::after{
-  content:'';position:absolute;top:-1px;width:80px;height:3px;
-  background:linear-gradient(90deg,transparent,var(--accent-bright),transparent);
-  border-radius:2px;
-  animation:dividerGlow 4s ease-in-out infinite;
-}
-@keyframes dividerGlow{
-  0%{left:-80px;opacity:0}
-  10%{opacity:1}
-  90%{opacity:1}
-  100%{left:calc(100% + 80px);opacity:0}
-}
-
 /* ── Card shine on hover ── */
 .portfolio-card::after,.metric::after,.video-card::after{
   content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
@@ -381,9 +320,7 @@ body::after{
   box-shadow:0 0 40px rgba(196,117,43,0.12);
 }
 
-/* ── Floating particles layer ── */
-.particles{position:fixed;inset:0;z-index:1;pointer-events:none}
-.particles canvas{width:100%;height:100%;display:block}
+/* (particles removed) */
 
 /* ── Footer ── */
 footer{
@@ -401,7 +338,8 @@ footer a:hover{color:var(--white)}
   .header{padding:12px 16px}
   .header-logo{font-size:10px;letter-spacing:2px}
   .header-nav{display:none}
-  .snap-section{padding:60px 16px;min-height:100vh;min-height:100dvh}
+  .snap-section{padding:48px 16px}
+  .snap-section.hero{min-height:100vh;min-height:100dvh}
   .hero{padding:0 16px}
   .hero-links{flex-direction:column;align-items:center}
   .hero-links .btn{width:100%;max-width:280px;justify-content:center}
@@ -425,13 +363,8 @@ footer a:hover{color:var(--white)}
 <!-- Progress bar -->
 <div class="progress-bar" id="progressBar"></div>
 
-<!-- Flowing background layers -->
-<div class="bg-orb bg-orb-1"></div>
-<div class="bg-orb bg-orb-2"></div>
-<div class="bg-orb bg-orb-3"></div>
-<div class="bg-sweep"></div>
-<div class="bg-flow"><canvas id="flowCanvas"></canvas></div>
-<div class="particles"><canvas id="particleCanvas"></canvas></div>
+<!-- Flowing grid background -->
+<div class="bg-grid"><canvas id="gridCanvas"></canvas></div>
 
 <!-- Cursor glow -->
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -499,7 +432,7 @@ footer a:hover{color:var(--white)}
     </p>
   </div>
 </section>
-<div class="section-divider"></div>
+
 
 <!-- ═══ METRICS ═══ -->
 <section class="snap-section" id="metrics">
@@ -519,7 +452,7 @@ footer a:hover{color:var(--white)}
     </div>
   </div>
 </section>
-<div class="section-divider"></div>
+
 
 <!-- ═══ SELECTED WORK ═══ -->
 <section class="snap-section" id="work">
@@ -553,7 +486,7 @@ footer a:hover{color:var(--white)}
     </div>
   </div>
 </section>
-<div class="section-divider"></div>
+
 
 <!-- ═══ VIDEOS ═══ -->
 <section class="snap-section" id="videos">
@@ -583,7 +516,7 @@ footer a:hover{color:var(--white)}
     </div>
   </div>
 </section>
-<div class="section-divider"></div>
+
 
 <!-- ═══ WHY ME ═══ -->
 <section class="snap-section" id="whyme">
@@ -625,7 +558,7 @@ footer a:hover{color:var(--white)}
     </div>
   </div>
 </section>
-<div class="section-divider"></div>
+
 
 <!-- ═══ CTA ═══ -->
 <section class="snap-section" id="cta">
@@ -658,26 +591,14 @@ footer a:hover{color:var(--white)}
 </footer>
 
 <script>
-/* ═══ 1. Flowing mesh background ═══ */
+/* ═══ 1. Slowly flowing grid background ═══ */
 (function(){
-  const c=document.getElementById('flowCanvas'),ctx=c.getContext('2d');
-  let w,h,nodes=[];
-  const NODE_COUNT=60,LINE_ALPHA=0.08;
+  const c=document.getElementById('gridCanvas'),ctx=c.getContext('2d');
+  let w,h;
+  const CELL=50; /* grid cell size in px */
+  const LINE_ALPHA=0.07; /* 50% dimmer than reference (~0.14 would match) */
 
-  function resize(){
-    w=c.width=window.innerWidth;h=c.height=window.innerHeight;
-    if(nodes.length===0){
-      for(let i=0;i<NODE_COUNT;i++){
-        nodes.push({
-          x:Math.random()*w, y:Math.random()*h,
-          vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4,
-          r:2+Math.random()*2,
-          phase:Math.random()*Math.PI*2,
-          speed:0.3+Math.random()*0.5
-        });
-      }
-    }
-  }
+  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight;}
   resize();window.addEventListener('resize',resize);
 
   let t=0,scrollY=0;
@@ -685,93 +606,49 @@ footer a:hover{color:var(--white)}
   window.addEventListener('scroll',()=>{scrollY=window.scrollY||document.body.scrollTop},{passive:true});
 
   function draw(){
-    t+=0.005;
+    t+=0.0008; /* very slow flow */
     ctx.clearRect(0,0,w,h);
 
-    /* Update nodes */
-    for(const n of nodes){
-      n.x+=n.vx+Math.sin(t*n.speed+n.phase)*0.3;
-      n.y+=n.vy+Math.cos(t*n.speed*0.7+n.phase)*0.2;
-      /* Wrap around */
-      if(n.x<-50)n.x=w+50;if(n.x>w+50)n.x=-50;
-      if(n.y<-50)n.y=h+50;if(n.y>h+50)n.y=-50;
+    /* Flowing offset: slow sine drift */
+    const driftX=Math.sin(t)*20;
+    const driftY=Math.cos(t*0.7)*15;
+    const scrollOff=(scrollY*0.05)%CELL;
+
+    ctx.strokeStyle=`rgba(196,117,43,${LINE_ALPHA})`;
+    ctx.lineWidth=0.5;
+
+    /* Vertical lines */
+    const cols=Math.ceil(w/CELL)+2;
+    for(let i=-1;i<=cols;i++){
+      const baseX=i*CELL+driftX;
+      ctx.beginPath();
+      ctx.moveTo(baseX,-CELL);
+      ctx.lineTo(baseX,h+CELL);
+      ctx.stroke();
     }
 
-    /* Draw connecting lines */
-    const maxDist=200;
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
-        const dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<maxDist){
-          const alpha=LINE_ALPHA*(1-dist/maxDist);
-          ctx.strokeStyle=`rgba(196,117,43,${alpha})`;
-          ctx.lineWidth=1;
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x,nodes[i].y);
-          ctx.lineTo(nodes[j].x,nodes[j].y);
-          ctx.stroke();
-        }
+    /* Horizontal lines */
+    const rows=Math.ceil(h/CELL)+2;
+    for(let j=-1;j<=rows;j++){
+      const baseY=j*CELL+driftY-scrollOff;
+      ctx.beginPath();
+      ctx.moveTo(-CELL,baseY);
+      ctx.lineTo(w+CELL,baseY);
+      ctx.stroke();
+    }
+
+    /* Subtle intersection dots */
+    ctx.fillStyle=`rgba(196,117,43,${LINE_ALPHA*1.5})`;
+    for(let i=-1;i<=cols;i++){
+      for(let j=-1;j<=rows;j++){
+        const x=i*CELL+driftX;
+        const y=j*CELL+driftY-scrollOff;
+        ctx.beginPath();
+        ctx.arc(x,y,1,0,Math.PI*2);
+        ctx.fill();
       }
     }
 
-    /* Draw nodes */
-    for(const n of nodes){
-      const pulse=0.5+0.5*Math.sin(t*2+n.phase);
-      const alpha=0.3+pulse*0.4;
-      ctx.fillStyle=`rgba(196,117,43,${alpha})`;
-      ctx.beginPath();
-      ctx.arc(n.x,n.y,n.r*(0.8+pulse*0.4),0,Math.PI*2);
-      ctx.fill();
-      /* Glow */
-      ctx.fillStyle=`rgba(232,148,58,${alpha*0.15})`;
-      ctx.beginPath();
-      ctx.arc(n.x,n.y,n.r*4,0,Math.PI*2);
-      ctx.fill();
-    }
-
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ═══ 1b. Floating particles ═══ */
-(function(){
-  const c=document.getElementById('particleCanvas'),ctx=c.getContext('2d');
-  let w,h,particles=[];
-  const COUNT=40;
-
-  function resize(){
-    w=c.width=window.innerWidth;h=c.height=window.innerHeight;
-    if(particles.length===0){
-      for(let i=0;i<COUNT;i++){
-        particles.push({
-          x:Math.random()*w,y:Math.random()*h,
-          size:1+Math.random()*2,
-          speedY:-0.2-Math.random()*0.5,
-          speedX:(Math.random()-0.5)*0.3,
-          opacity:0.1+Math.random()*0.4,
-          flicker:Math.random()*Math.PI*2
-        });
-      }
-    }
-  }
-  resize();window.addEventListener('resize',resize);
-
-  let t=0;
-  function draw(){
-    t+=0.01;
-    ctx.clearRect(0,0,w,h);
-    for(const p of particles){
-      p.x+=p.speedX+Math.sin(t+p.flicker)*0.2;
-      p.y+=p.speedY;
-      if(p.y<-10){p.y=h+10;p.x=Math.random()*w;}
-      if(p.x<-10)p.x=w+10;if(p.x>w+10)p.x=-10;
-      const flick=0.5+0.5*Math.sin(t*2+p.flicker);
-      const a=p.opacity*flick;
-      ctx.fillStyle=`rgba(232,195,106,${a})`;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
-    }
     requestAnimationFrame(draw);
   }
   draw();
