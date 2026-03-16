@@ -810,12 +810,26 @@ function parallaxUpdate(){
 document.body.addEventListener('scroll',parallaxUpdate,{passive:true});
 window.addEventListener('scroll',parallaxUpdate,{passive:true});
 
-/* ═══ 5. Scroll reveal ═══ */
+/* ═══ 5. Scroll reveal (with fallback) ═══ */
 const reveals=document.querySelectorAll('.reveal,[data-why]');
 const rObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rObs.unobserve(e.target)}});
-},{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
+},{threshold:0.01,rootMargin:'50px 0px 50px 0px'});
 reveals.forEach(el=>rObs.observe(el));
+/* Fallback: force reveal on scroll */
+function forceReveal(){
+  const scrollTop=window.scrollY||document.body.scrollTop||0;
+  const vh=window.innerHeight;
+  reveals.forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top<vh*1.1&&rect.bottom>-50){
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll',forceReveal,{passive:true});
+document.body.addEventListener('scroll',forceReveal,{passive:true});
+setTimeout(forceReveal,500);
 
 /* ═══ 6. Counter animation ═══ */
 const counters=document.querySelectorAll('[data-count]');
