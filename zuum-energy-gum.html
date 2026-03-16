@@ -363,6 +363,29 @@ body::after{
 @keyframes loaderSpin{to{transform:rotate(360deg)}}
 .loader-text{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
 
+/* ── Vertical video grid ── */
+.vertical-grid{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+.vertical-grid::-webkit-scrollbar{height:4px}
+.vertical-grid::-webkit-scrollbar-track{background:rgba(255,255,255,0.03);border-radius:4px}
+.vertical-grid::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
+.vertical-card{
+  flex:0 0 200px;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--card-border);background:var(--card);
+  transition:all .4s var(--ease);scroll-snap-align:start;position:relative;
+}
+.vertical-card:hover{transform:translateY(-6px);border-color:rgba(196,117,43,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.vertical-card iframe{width:100%;aspect-ratio:9/16;display:block;border:0}
+.vertical-card .vid-title{padding:10px 14px;font-size:11px}
+.vertical-label{
+  position:absolute;top:10px;left:10px;z-index:2;
+  font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--white);background:rgba(196,117,43,0.85);
+  padding:4px 10px;border-radius:50px;pointer-events:none;
+}
+@media(max-width:640px){
+  .vertical-card{flex:0 0 160px}
+}
+
 /* ── Card shine on hover ── */
 .portfolio-card::after,.metric::after,.video-card::after{
   content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
@@ -502,6 +525,7 @@ footer a:hover{color:var(--white)}
     <a href="#tools">Tools</a>
     <a href="#metrics">Proof</a>
     <a href="#work">Work</a>
+    <a href="#vertical">Vertical</a>
     <a href="#videos">Videos</a>
     <a href="#whyme">Why Me</a>
   </nav>
@@ -651,6 +675,38 @@ footer a:hover{color:var(--white)}
   </div>
 </section>
 
+
+<!-- ═══ VERTICAL CONTENT ═══ -->
+<section class="snap-section" id="vertical">
+  <div class="container" style="max-width:960px">
+    <div class="reveal">
+      <p class="label">Vertical Content</p>
+      <h2 class="section-title">Built for the scroll.</h2>
+    </div>
+    <div class="vertical-grid reveal reveal-d1">
+      <div class="vertical-card">
+        <span class="vertical-label">UGC</span>
+        <iframe src="https://www.youtube.com/embed/5rvyNZ2bbtU?rel=0&modestbranding=1" allowfullscreen></iframe>
+        <div class="vid-title">Product UGC, Patrolapart</div>
+      </div>
+      <div class="vertical-card">
+        <span class="vertical-label">Paid Ad</span>
+        <iframe src="https://www.youtube.com/embed/dy3M-BUDIac?rel=0&modestbranding=1" allowfullscreen></iframe>
+        <div class="vid-title">Quad Lock, IG Style</div>
+      </div>
+      <div class="vertical-card">
+        <span class="vertical-label">Brand</span>
+        <iframe src="https://www.youtube.com/embed/aSMBKRUaT_4?rel=0&modestbranding=1" allowfullscreen></iframe>
+        <div class="vid-title">Earths Water, Unboxing</div>
+      </div>
+      <div class="vertical-card">
+        <span class="vertical-label">Hook</span>
+        <iframe src="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1" allowfullscreen></iframe>
+        <div class="vid-title">Earths Water, Awareness</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══ VIDEOS ═══ -->
 <section class="snap-section" id="videos">
