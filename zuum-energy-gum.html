@@ -248,30 +248,69 @@ body::after{
 .metric-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
 
 /* ── Portfolio cards ── */
-.portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.portfolio-card{
-  display:flex;flex-direction:column;text-decoration:none;color:var(--text);
-  background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
-  overflow:hidden;transition:all .5s var(--ease);position:relative;will-change:transform;
+/* ── Portfolio slideshow ── */
+.pf-slideshow{position:relative;max-width:800px;margin:40px auto 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--card-border);background:var(--card)}
+.pf-track{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden}
+.pf-slide{
+  position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .6s var(--ease);
 }
-.portfolio-card:hover{transform:translateY(-6px);border-color:rgba(196,117,43,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-.p-thumb{
-  width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
-  transition:transform .6s var(--ease);filter:brightness(0.85);
+.pf-slide.active{opacity:1;pointer-events:auto}
+.pf-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease;filter:brightness(0.8)}
+.pf-slide.active img{transform:scale(1.06);filter:brightness(0.9)}
+/* Gradient overlay on image */
+.pf-slide::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 50%,transparent 100%);
+  pointer-events:none;
 }
-.portfolio-card:hover .p-thumb{transform:scale(1.05);filter:brightness(1)}
-.p-body{padding:18px 20px;display:flex;align-items:center;gap:12px}
-.p-tag{
+/* Text overlay */
+.pf-caption{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  padding:28px 32px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+}
+.pf-caption-text{flex:1}
+.pf-tag{
   display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  color:var(--accent-bright);background:rgba(196,117,43,0.1);
-  padding:4px 10px;border-radius:50px;flex-shrink:0;
+  color:var(--accent-bright);background:rgba(196,117,43,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  padding:5px 12px;border-radius:50px;margin-bottom:10px;
 }
-.p-info{flex:1;min-width:0}
-.p-info h3{font-size:14px;font-weight:600;color:var(--white);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.p-info p{font-size:12px;color:var(--muted)}
-.p-arrow{color:var(--muted);font-size:18px;flex-shrink:0;transition:all .3s var(--ease)}
-.portfolio-card:hover .p-arrow{color:var(--accent-bright);transform:translateX(6px)}
-@media(max-width:767px){.portfolio-grid{grid-template-columns:1fr}}
+.pf-title{font-size:18px;font-weight:700;color:var(--white);margin-bottom:4px}
+.pf-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5}
+.pf-visit{
+  flex-shrink:0;display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:600;color:var(--accent-bright);text-decoration:none;
+  padding:10px 18px;border:1px solid rgba(196,117,43,0.3);border-radius:50px;
+  background:rgba(196,117,43,0.08);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:all .3s ease;white-space:nowrap;
+}
+.pf-visit:hover{background:rgba(196,117,43,0.2);border-color:var(--accent-bright);color:var(--white)}
+/* Controls bar */
+.pf-controls{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-top:1px solid var(--card-border);background:rgba(7,7,13,0.6);
+}
+.pf-dots{display:flex;gap:8px;align-items:center}
+.pf-dot{
+  width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,0.15);transition:all .3s ease;padding:0;
+}
+.pf-dot.active{background:var(--accent-bright);width:24px;border-radius:4px}
+.pf-arrows{display:flex;gap:8px}
+.pf-arrow{
+  width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);color:var(--white);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .3s ease;
+}
+.pf-arrow:hover{background:rgba(196,117,43,0.15);border-color:rgba(196,117,43,0.3)}
+.pf-arrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pf-counter{font-size:12px;color:var(--muted);font-family:'Space Grotesk',sans-serif;font-weight:500}
+@media(max-width:767px){
+  .pf-slideshow{margin:28px auto 0;border-radius:var(--radius-sm)}
+  .pf-caption{padding:20px;flex-direction:column;align-items:flex-start}
+  .pf-title{font-size:15px}.pf-desc{font-size:12px}
+  .pf-visit{width:100%;justify-content:center;margin-top:4px}
+}
 
 /* ── Video grid (2x2) ── */
 .video-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -628,12 +667,12 @@ body::after{
 }
 
 /* ── Card shine on hover ── */
-.portfolio-card::after,.metric::after,.video-card::after{
+.metric::after,.video-card::after{
   content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);
   transition:left .6s ease;pointer-events:none;
 }
-.portfolio-card:hover::after,.metric:hover::after,.video-card:hover::after{
+.metric:hover::after,.video-card:hover::after{
   left:150%;
 }
 
@@ -728,7 +767,7 @@ footer a:hover{color:var(--white)}
   .metrics{grid-template-columns:1fr 1fr;gap:10px}
   .metric{padding:20px 12px}.metric-val{font-size:24px}
   .video-grid{grid-template-columns:1fr}
-  .portfolio-card .p-body{padding:14px 16px}
+  .pf-slideshow{margin:20px auto 0}
   .cta-buttons{flex-direction:column;align-items:center}
   .cta-buttons .btn{width:100%;max-width:280px;justify-content:center}
   .why-grid::before{left:23px}.why-num{width:40px;height:40px;font-size:14px}
@@ -1067,39 +1106,61 @@ footer a:hover{color:var(--white)}
       <p class="label">Full Portfolio</p>
       <h2 class="section-title">More relevant work,<br>available for your review.</h2>
     </div>
-    <div class="portfolio-grid">
-      <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/built-different-patrolapart-edition" target="_blank" class="portfolio-card reveal">
-        <img class="p-thumb" src="https://img.youtube.com/vi/KvzC8g-YoIY/maxresdefault.jpg" alt="Built Different, Patrolapart">
-        <div class="p-body">
-          <span class="p-tag">Brand</span>
-          <div class="p-info"><h3>Built Different, Patrolapart</h3><p>Full campaign: brand films, social ads, product content</p></div>
-          <span class="p-arrow">&rarr;</span>
+    <div class="pf-slideshow reveal reveal-d1" id="pfSlideshow">
+      <div class="pf-track">
+        <div class="pf-slide active" data-pf="0">
+          <img src="https://img.youtube.com/vi/KvzC8g-YoIY/maxresdefault.jpg" alt="Built Different, Patrolapart">
+          <div class="pf-caption">
+            <div class="pf-caption-text">
+              <span class="pf-tag">Brand Campaign</span>
+              <div class="pf-title">Built Different, Patrolapart</div>
+              <div class="pf-desc">Full campaign: brand films, social ads, product content. Built the entire content pipeline from scratch.</div>
+            </div>
+            <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/built-different-patrolapart-edition" target="_blank" class="pf-visit">View Project &rarr;</a>
+          </div>
         </div>
-      </a>
-      <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/my-project-5f9951" target="_blank" class="portfolio-card reveal reveal-d1">
-        <img class="p-thumb" src="https://img.youtube.com/vi/-2w8Q9QH2R0/maxresdefault.jpg" alt="Lifestyle and Cinematic Content">
-        <div class="p-body">
-          <span class="p-tag">Video</span>
-          <div class="p-info"><h3>Lifestyle and Cinematic Content</h3><p>Cinematic product and lifestyle storytelling</p></div>
-          <span class="p-arrow">&rarr;</span>
+        <div class="pf-slide" data-pf="1">
+          <img src="https://img.youtube.com/vi/-2w8Q9QH2R0/maxresdefault.jpg" alt="Lifestyle and Cinematic Content">
+          <div class="pf-caption">
+            <div class="pf-caption-text">
+              <span class="pf-tag">Cinematic</span>
+              <div class="pf-title">Lifestyle and Cinematic Content</div>
+              <div class="pf-desc">Product and lifestyle storytelling with cinematic grading. Shot, directed, and edited end to end.</div>
+            </div>
+            <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/my-project-5f9951" target="_blank" class="pf-visit">View Project &rarr;</a>
+          </div>
         </div>
-      </a>
-      <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/event-coverage-brand-storytelling" target="_blank" class="portfolio-card reveal reveal-d2">
-        <img class="p-thumb" src="https://img.youtube.com/vi/_8s_YCfoaAY/maxresdefault.jpg" alt="Event Coverage and Storytelling">
-        <div class="p-body">
-          <span class="p-tag">Events</span>
-          <div class="p-info"><h3>Event Coverage and Storytelling</h3><p>Fast turnaround live event content</p></div>
-          <span class="p-arrow">&rarr;</span>
+        <div class="pf-slide" data-pf="2">
+          <img src="https://img.youtube.com/vi/_8s_YCfoaAY/maxresdefault.jpg" alt="Event Coverage and Storytelling">
+          <div class="pf-caption">
+            <div class="pf-caption-text">
+              <span class="pf-tag">Events</span>
+              <div class="pf-title">Event Coverage and Storytelling</div>
+              <div class="pf-desc">Fast turnaround live event content. Same-day edits, multi-camera, highlight reels and social clips.</div>
+            </div>
+            <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/event-coverage-brand-storytelling" target="_blank" class="pf-visit">View Project &rarr;</a>
+          </div>
         </div>
-      </a>
-      <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="portfolio-card reveal reveal-d3">
-        <img class="p-thumb" src="https://img.youtube.com/vi/dy3M-BUDIac/maxresdefault.jpg" alt="Vertical Video, TikTok and Reels">
-        <div class="p-body">
-          <span class="p-tag">Short-form</span>
-          <div class="p-info"><h3>Vertical Video, TikTok / Reels</h3><p>Scroll-stopping content built for the feed</p></div>
-          <span class="p-arrow">&rarr;</span>
+        <div class="pf-slide" data-pf="3">
+          <img src="https://img.youtube.com/vi/dy3M-BUDIac/maxresdefault.jpg" alt="Vertical Video, TikTok and Reels">
+          <div class="pf-caption">
+            <div class="pf-caption-text">
+              <span class="pf-tag">Short-form</span>
+              <div class="pf-title">Vertical Video, TikTok / Reels</div>
+              <div class="pf-desc">Scroll-stopping short-form content built for the feed. Hooks, pacing, and native editing for every platform.</div>
+            </div>
+            <a href="https://linktr.ee/Piyush_Diwte" target="_blank" class="pf-visit">View All &rarr;</a>
+          </div>
         </div>
-      </a>
+      </div>
+      <div class="pf-controls">
+        <div class="pf-dots" id="pfDots"></div>
+        <span class="pf-counter" id="pfCounter">1 / 4</span>
+        <div class="pf-arrows">
+          <button class="pf-arrow" id="pfPrev"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="pf-arrow" id="pfNext"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1305,7 +1366,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 });
 
 /* ═══ 9. Tilt effect on metric cards ═══ */
-document.querySelectorAll('.metric,.portfolio-card').forEach(card=>{
+document.querySelectorAll('.metric').forEach(card=>{
   card.addEventListener('mousemove',e=>{
     const rect=card.getBoundingClientRect();
     const x=(e.clientX-rect.left)/rect.width-0.5;
@@ -1539,7 +1600,64 @@ var storyGoTo; /* expose for YT callback */
   });
 })();
 
-/* ═══ 14. Lazy-load iframes on scroll ═══ */
+/* ═══ 14. Portfolio slideshow ═══ */
+(function(){
+  const slides=document.querySelectorAll('.pf-slide');
+  const dotsWrap=document.getElementById('pfDots');
+  const counter=document.getElementById('pfCounter');
+  const prevBtn=document.getElementById('pfPrev');
+  const nextBtn=document.getElementById('pfNext');
+  if(!slides.length)return;
+  const total=slides.length;
+  let cur=0,autoTimer=null;
+
+  /* Build dots */
+  for(let i=0;i<total;i++){
+    const d=document.createElement('button');
+    d.className='pf-dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>goTo(i));
+    dotsWrap.appendChild(d);
+  }
+  const dots=[...dotsWrap.children];
+
+  function goTo(idx){
+    if(idx<0)idx=total-1;
+    if(idx>=total)idx=0;
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=idx;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    counter.textContent=(cur+1)+' / '+total;
+    resetAuto();
+  }
+
+  function resetAuto(){
+    clearInterval(autoTimer);
+    autoTimer=setInterval(()=>goTo(cur+1),5000);
+  }
+
+  prevBtn.addEventListener('click',()=>goTo(cur-1));
+  nextBtn.addEventListener('click',()=>goTo(cur+1));
+
+  /* Swipe support */
+  let sx=0;
+  const track=document.querySelector('.pf-track');
+  track.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  track.addEventListener('touchend',e=>{
+    const diff=sx-e.changedTouches[0].clientX;
+    if(Math.abs(diff)>40){diff>0?goTo(cur+1):goTo(cur-1)}
+  },{passive:true});
+
+  /* Pause on hover */
+  const ss=document.getElementById('pfSlideshow');
+  ss.addEventListener('mouseenter',()=>clearInterval(autoTimer));
+  ss.addEventListener('mouseleave',resetAuto);
+
+  resetAuto();
+})();
+
+/* ═══ 15. Lazy-load iframes on scroll ═══ */
 (function(){
   const lazyFrames=document.querySelectorAll('iframe[data-lazy]');
   if(!lazyFrames.length)return;
