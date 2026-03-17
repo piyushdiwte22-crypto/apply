@@ -881,7 +881,7 @@ footer a:hover{color:var(--white)}
 <!-- ═══ HERO ═══ -->
 <section class="snap-section hero" id="hero">
   <div class="hero-video-wrap">
-    <video src="https://video.wixstatic.com/video/070729_0e226e513381477a87b35e86bb3dc3f3/1080p/mp4/file.mp4" autoplay muted loop playsinline></video>
+    <video src="https://video.wixstatic.com/video/070729_a3a3acc4991e4d19a999eed67d961443/1080p/mp4/file.mp4" autoplay muted loop playsinline></video>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-orb hero-orb-1"></div>
@@ -1173,6 +1173,13 @@ footer a:hover{color:var(--white)}
 </div>
 
 
+<style>.client-logos{text-align:center;padding:40px 20px 10px;}.client-logos-label{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:20px;}.client-logos-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}.client-logo-btn{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:10px 22px 10px 14px;color:#fff;text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:0.3px;transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);backdrop-filter:blur(8px);}.client-logo-btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.25);transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.3);}.client-logo-btn img{width:28px;height:28px;border-radius:50%;object-fit:contain;background:rgba(255,255,255,0.9);padding:2px;}@media(max-width:600px){.client-logo-btn{padding:8px 16px 8px 10px;font-size:0.78rem;}.client-logo-btn img{width:24px;height:24px;}.client-logos-row{gap:10px;}}</style>
+<div class="client-logos reveal">
+  <p class="client-logos-label">Companies I've Worked With</p>
+  <div class="client-logos-row">
+    <a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/fire-safety-scape" target="_blank" rel="noopener" class="client-logo-btn"><img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=https://scape.com.au&amp;size=128" alt="Scape Australia" onerror="this.style.display='none'">Scape</a><a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/my-project" target="_blank" rel="noopener" class="client-logo-btn"><img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=https://hamiltonisland.com.au&amp;size=128" alt="Hamilton Island" onerror="this.style.display='none'">Hamilton Island</a><a href="https://www.capturedbypiyush.com/portfolio-collections/my-portfolio/built-different-patrolapart-edition" target="_blank" rel="noopener" class="client-logo-btn"><img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=https://patrolapart.com.au&amp;size=128" alt="Patrolapart" onerror="this.style.display='none'">Patrolapart</a><a href="https://www.capturedbypiyush.com" target="_blank" rel="noopener" class="client-logo-btn"><img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=https://capturedbypiyush.com&amp;size=128" alt="Full Portfolio" onerror="this.style.display='none'">Website</a>
+  </div>
+</div>
 <!-- ═══ ABOUT ═══ -->
 <section class="snap-section" id="about">
   <div class="section-glow section-glow-left"></div>
@@ -1711,6 +1718,6 @@ scrollTopBtn.addEventListener('click',()=>{
 });
 </script>
 
-<script>(function(){const H=[{p:"mp4",id:"https://video.wixstatic.com/video/070729_0e226e513381477a87b35e86bb3dc3f3/1080p/mp4/file.mp4"},{p:"youtube",id:"seGbAGIVsMw"},{p:"youtube",id:"KWhS3k3HOZU"},{p:"youtube",id:"W0fDzO-zibA"},{p:"vimeo",id:"1028245298"},{p:"vimeo",id:"1034751728"},{p:"vimeo",id:"1034519753"},{p:"mp4",id:"https://video.wixstatic.com/video/070729_bc7ed5279ead440fb103d6dd5d5f6a33/1080p/mp4/file.mp4"},{p:"mp4",id:"https://video.wixstatic.com/video/070729_a3a3acc4991e4d19a999eed67d961443/1080p/mp4/file.mp4"}];let i=0;const W=document.querySelector(".hero-video-wrap");if(!W||H.length<2)return;function mk(v){if(v.p==="vimeo")return'<iframe src="https://player.vimeo.com/video/'+v.id+'?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&dnt=1&quality=auto" loading="eager" allow="autoplay; fullscreen" allowfullscreen></iframe>';if(v.p==="youtube")return'<iframe src="https://www.youtube.com/embed/'+v.id+'?autoplay=1&mute=1&loop=1&playlist='+v.id+'&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1" loading="eager" allow="autoplay; fullscreen" allowfullscreen></iframe>';return'<video src="'+v.id+'" autoplay muted loop playsinline></video>';}W.style.transition="opacity 0.8s ease";setInterval(function(){i=(i+1)%H.length;W.style.opacity="0";setTimeout(function(){W.innerHTML=mk(H[i]);W.style.opacity="1";},800);},20000);})();</script>
+<script>(function(){var v=document.querySelector(".hero-video-wrap video");if(v){v.playbackRate=0.8;v.addEventListener("play",function(){v.playbackRate=0.8;});}var f=document.querySelector(".hero-video-wrap iframe");if(f&&f.src.indexOf("vimeo")>-1){f.addEventListener("load",function(){try{f.contentWindow.postMessage(JSON.stringify({method:"setPlaybackRate",value:0.8}),"*");}catch(e){}});}})();</script>
 </body>
 </html>
