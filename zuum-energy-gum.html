@@ -1474,11 +1474,12 @@ var storyGoTo; /* expose for YT callback */
     }
   };
 
-  /* Init YouTube players when API is ready */
+  /* Init YouTube players when API is ready — ONLY for slides with data-vid (skip Instagram) */
   window.onYouTubeIframeAPIReady=function(){
     ytReady=true;
     slides.forEach((s,i)=>{
       const vid=s.dataset.vid;
+      if(!vid)return; /* Skip Instagram/non-YouTube slides */
       storyPlayers[i]=new YT.Player('ytPlayer'+i,{
         videoId:vid,
         playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,enablejsapi:1,vq:'hd2160'},
