@@ -743,8 +743,8 @@ body::after{
   display:flex;align-items:center;justify-content:center;
   font-size:22px;
 }
-.modal-icon-logo{background:rgba(255,255,255,0.1);padding:6px;overflow:hidden}
-.modal-icon-logo img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+.modal-icon-logo{background:rgba(255,255,255,0.1);padding:10px;overflow:hidden;border-radius:12px}
+.modal-icon-logo img{width:100%;height:100%;object-fit:contain;border-radius:6px;image-rendering:auto;min-width:32px;min-height:32px}
 .modal-title{
   font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;
   color:var(--white);margin-bottom:10px;
@@ -822,6 +822,7 @@ footer a:hover{color:var(--white)}
   .about-text{font-size:20px}
 }
 </style>
+<script async src="https://www.instagram.com/embed.js"></script>
 </head>
 <body>
 
@@ -869,7 +870,7 @@ footer a:hover{color:var(--white)}
 <div class="modal-overlay" id="welcomeModal">
   <div class="modal">
     <button class="modal-close" id="modalClose">&times;</button>
-    <div class="modal-icon modal-icon-logo"><img src="https://logo.clearbit.com/mamasdininggroup.com.au" alt="Mamas Dining Group logo" onerror="this.parentElement.innerHTML='&#9889;';this.parentElement.classList.remove('modal-icon-logo')"></div>
+    <div class="modal-icon modal-icon-logo"><img src="https://t2.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=https://mamasdininggroup.com.au&amp;size=128" alt="Mamas Dining Group logo" onerror="this.parentElement.innerHTML='&#9889;';this.parentElement.classList.remove('modal-icon-logo')"></div>
     <h3 class="modal-title">Hey Mamas Dining Group!</h3>
     <p class="modal-text">This page was built specifically for <strong>Mamas Dining Group</strong> as part of my application. Have a look around, hope you like it.</p>
     <button class="modal-btn" id="modalExplore">Explore &rarr;</button>
@@ -1014,40 +1015,22 @@ footer a:hover{color:var(--white)}
     <div class="vid-showcase reveal reveal-d1" id="vidShowcase">
       <div class="vid-showcase-player">
         <div class="vid-showcase-slide active" data-vs="0" data-platform="vimeo" data-client="Hamilton Island" data-title="Food &amp; Beverage Training, Qualia Resort" data-desc="F&amp;B service training video for Qualia Resort staff. Part of a structured training handbook system." data-tools="Premiere Pro,Canon R6,Scripting,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1016618742?title=0&byline=0&portrait=0&dnt=1" allowfullscreen></iframe>
+          <iframe src="https://player.vimeo.com/video/1016618742?title=0&byline=0&portrait=0&dnt=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-        <div class="vid-showcase-slide" data-vs="1" data-platform="vimeo" data-client="Hamilton Island" data-title="Excelling at Manta Ray" data-desc="Service excellence training for Manta Ray restaurant staff. Sets the standard for guest experience delivery." data-tools="Premiere Pro,Canon R6,Scripting,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039394708?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
+        <div class="vid-showcase-slide" data-vs="1" data-platform="youtube" data-client="Scape Australia" data-title="Operations Reel, Stakeholder Content" data-desc="Internal stakeholder piece for the operations team. Translates day-to-day organisational work into compelling video for staff and leadership." data-tools="Premiere Pro,Canon R6,Rode Mics,Content Planning,Brand Storytelling">
+          <iframe src="https://www.youtube.com/embed/emUIKqQCwH8?rel=0&modestbranding=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-        <div class="vid-showcase-slide" data-vs="2" data-platform="vimeo" data-client="Hamilton Island" data-title="F&amp;B Standards, Manta Ray" data-desc="Food and beverage service standards training. Sets the benchmark for quality and consistency across all F&amp;B outlets." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039222664?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
+        <div class="vid-showcase-slide" data-vs="2" data-platform="vimeo" data-client="Hamilton Island" data-title="Excelling at Manta Ray" data-desc="Service excellence training for Manta Ray restaurant staff. Sets the standard for guest experience delivery." data-tools="Premiere Pro,Canon R6,Scripting,L&amp;D Content,Hospitality Training">
+          <iframe src="https://player.vimeo.com/video/1039394708?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-        <div class="vid-showcase-slide" data-vs="3" data-platform="vimeo" data-client="Hamilton Island" data-title="Barista Module, Manta Ray Restaurant" data-desc="Barista training module for Manta Ray. Step-by-step instructional content for hospitality staff." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039410407?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
+        <div class="vid-showcase-slide" data-vs="3" data-platform="youtube" data-client="Patrolapart" data-title="Brand Ad, Nissan Patrol and Navara Experts" data-desc="30-second commercial scripted, directed, and edited to establish brand authority in the Nissan 4x4 aftermarket space." data-tools="DaVinci Resolve,After Effects,Canon R6,Scripting,Brand Storytelling">
+          <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-        <div class="vid-showcase-slide" data-vs="4" data-platform="vimeo" data-client="Hamilton Island" data-title="Bar Service, Manta Ray Restaurant" data-desc="Bar service training for Manta Ray staff. Step-by-step instructional content covering service standards and procedures." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039404377?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
+        <div class="vid-showcase-slide" data-vs="4" data-platform="vimeo" data-client="Hamilton Island" data-title="F&amp;B Standards, Manta Ray" data-desc="Food and beverage service standards training. Sets the benchmark for quality and consistency across all F&amp;B outlets." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
+          <iframe src="https://player.vimeo.com/video/1039222664?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
-        <div class="vid-showcase-slide" data-vs="5" data-platform="vimeo" data-client="Hamilton Island" data-title="Bar Opening and Closing, Manta Ray" data-desc="Operational training module covering bar opening and closing procedures at Manta Ray restaurant." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039401239?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="vid-showcase-slide" data-vs="6" data-platform="vimeo" data-client="Hamilton Island" data-title="Lunch &amp; Dinner Host, Manta Ray" data-desc="Host role training covering guest greeting, seating, and front-of-house service at Manta Ray." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039255495?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="vid-showcase-slide" data-vs="7" data-platform="vimeo" data-client="Hamilton Island" data-title="Lunch &amp; Dinner Section, Manta Ray" data-desc="Section waiter training for lunch and dinner service. Covers table management, upselling, and guest interaction." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039233672?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="vid-showcase-slide" data-vs="8" data-platform="vimeo" data-client="Hamilton Island" data-title="Lunch &amp; Dinner Pass, Manta Ray" data-desc="Pass (food runner) training module for lunch and dinner service. Part of the Manta Ray F&amp;B training handbook." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039246763?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="vid-showcase-slide" data-vs="9" data-platform="vimeo" data-client="Hamilton Island" data-title="Menu Knowledge, Manta Ray" data-desc="Menu knowledge training covering dish descriptions, allergens, and recommendation techniques for Manta Ray staff." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1039224726?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="vid-showcase-slide" data-vs="10" data-platform="vimeo" data-client="Hamilton Island" data-title="Venue Orientation, Manta Ray" data-desc="New staff venue orientation for Manta Ray restaurant. Covers layout, stations, BOH areas, and emergency exits." data-tools="Premiere Pro,Canon R6,Instructional Design,L&amp;D Content,Hospitality Training">
-          <iframe src="https://player.vimeo.com/video/1038446768?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="vid-showcase-slide" data-vs="11" data-platform="vimeo" data-client="Hamilton Island" data-title="20 Extraordinary Years of Hamilton Island (Short Cut)" data-desc="1-minute highlight cut of the 20 Extraordinary Years piece. Optimised for social and stakeholder distribution." data-tools="DaVinci Resolve,Canon R6,Brand Storytelling,Cinematic,Social Editing">
-          <iframe src="https://player.vimeo.com/video/1041460991?title=0&byline=0&portrait=0&dnt=1" loading="lazy" allowfullscreen></iframe>
+        <div class="vid-showcase-slide" data-vs="5" data-platform="youtube" data-client="Earths Water" data-title="Your Tap Water Is Full of Chemicals" data-desc="Hook-driven 18-second brand awareness clip with motion graphics. Built to grab attention and drive product interest in under 20 seconds." data-tools="After Effects,Premiere Pro,Motion Graphics,Copywriting,Paid Social Ads">
+          <iframe src="https://www.youtube.com/embed/3-wYjmU7fC0?rel=0&modestbranding=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
       <div class="vid-showcase-info" id="vsInfo">
@@ -1083,29 +1066,29 @@ footer a:hover{color:var(--white)}
           <div class="stories-progress" id="storiesProgress"></div>
           <div class="stories-tap stories-tap-left" id="storyTapL"></div>
           <div class="stories-tap stories-tap-right" id="storyTapR"></div>
-          <div class="stories-slide active" data-idx="0" data-vid="5rvyNZ2bbtU" data-dur="30" data-tag="UGC" data-title="Product UGC" data-desc="Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced." data-client="Patrolapart">
-            <div id="ytPlayer0"></div>
-            <div class="stories-info-inner"><span class="stories-tag">UGC</span><div class="stories-title-sm">Product UGC</div></div>
+          <div class="stories-slide active" data-idx="0" data-dur="30" data-tag="Sales" data-title="Best-Selling Product Reel" data-desc="The reel that generated 2,000+ clicks across platforms and $165K in sales over a single long weekend. Proof that the right content drives real commercial outcomes." data-client="Patrolapart">
+            <iframe src="https://www.instagram.com/reel/DKDL6ldSWuC/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Sales</span><div class="stories-title-sm">Best-Selling Product Reel</div></div>
           </div>
           <div class="stories-slide" data-idx="1" data-dur="30" data-tag="Reel" data-title="Latest Reel" data-desc="Recent Instagram Reel from the Captured By Piyush feed." data-client="Piyush Diwte">
-            <iframe src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allowfullscreen></iframe>
+            <iframe src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
             <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Latest Reel</div></div>
           </div>
-          <div class="stories-slide" data-idx="2" data-dur="30" data-tag="Reel" data-title="Lifestyle Reel" data-desc="Lifestyle vertical content. Hooks, pacing, and native editing built to stop the scroll." data-client="Piyush Diwte">
-            <iframe src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allowfullscreen></iframe>
-            <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Lifestyle Reel</div></div>
+          <div class="stories-slide" data-idx="2" data-vid="5rvyNZ2bbtU" data-dur="30" data-tag="UGC" data-title="Product UGC" data-desc="Vertical product demo shot in the field for Patrolapart. Native-feeling social content that fits the platform without looking overproduced." data-client="Patrolapart">
+            <div id="ytPlayer2"></div>
+            <div class="stories-info-inner"><span class="stories-tag">UGC</span><div class="stories-title-sm">Product UGC</div></div>
           </div>
-          <div class="stories-slide" data-idx="3" data-dur="30" data-tag="Reel" data-title="Brand Reel" data-desc="Brand-focused vertical content that balances product storytelling with platform-native editing." data-client="Piyush Diwte">
-            <iframe src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allowfullscreen></iframe>
-            <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Brand Reel</div></div>
+          <div class="stories-slide" data-idx="3" data-vid="dy3M-BUDIac" data-dur="25" data-tag="Paid Ad" data-title="Quad Lock, IG Style" data-desc="Commissioned UGC piece produced for Quad Lock. Vertical edit for Instagram distribution." data-client="Quad Lock">
+            <div id="ytPlayer3"></div>
+            <div class="stories-info-inner"><span class="stories-tag">Paid Ad</span><div class="stories-title-sm">Quad Lock, IG Style</div></div>
           </div>
           <div class="stories-slide" data-idx="4" data-vid="aSMBKRUaT_4" data-dur="30" data-tag="Brand" data-title="Earths Water, Unboxing" data-desc="Satisfying UGC-style product reveal shot in a lifestyle setting. A native short that fits TikTok and Reels without feeling like an ad." data-client="Earths Water">
             <div id="ytPlayer4"></div>
             <div class="stories-info-inner"><span class="stories-tag">Brand</span><div class="stories-title-sm">Earths Water, Unboxing</div></div>
           </div>
-          <div class="stories-slide" data-idx="5" data-vid="dy3M-BUDIac" data-dur="25" data-tag="Paid Ad" data-title="Quad Lock, IG Style" data-desc="Commissioned UGC piece produced for Quad Lock. Vertical edit for Instagram distribution." data-client="Quad Lock">
-            <div id="ytPlayer5"></div>
-            <div class="stories-info-inner"><span class="stories-tag">Paid Ad</span><div class="stories-title-sm">Quad Lock, IG Style</div></div>
+          <div class="stories-slide" data-idx="5" data-dur="30" data-tag="Reel" data-title="Lifestyle Reel" data-desc="Lifestyle vertical content. Hooks, pacing, and native editing built to stop the scroll." data-client="Piyush Diwte">
+            <iframe src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="stories-info-inner"><span class="stories-tag">Reel</span><div class="stories-title-sm">Lifestyle Reel</div></div>
           </div>
         </div>
       </div>
@@ -1158,28 +1141,28 @@ footer a:hover{color:var(--white)}
     <button class="fs-nav-btn" id="fsNavDown"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
   </div>
   <div class="stories-fs-slide active" data-fs="0" data-dur="30">
-    <iframe data-src="https://www.youtube.com/embed/5rvyNZ2bbtU?rel=0&modestbranding=1&playsinline=1&autoplay=1&vq=hd2160" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">UGC</div><div class="stories-fs-title">Product UGC</div><div class="stories-fs-sub">Patrolapart</div></div>
+    <iframe data-src="https://www.instagram.com/reel/DKDL6ldSWuC/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Sales</div><div class="stories-fs-title">Best-Selling Product Reel</div><div class="stories-fs-sub">Patrolapart</div></div>
   </div>
   <div class="stories-fs-slide" data-fs="1" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allowfullscreen></iframe>
+    <iframe data-src="https://www.instagram.com/reel/DNXiYOygJ83/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
     <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Reel</div><div class="stories-fs-title">Latest Reel</div><div class="stories-fs-sub">Piyush Diwte</div></div>
   </div>
   <div class="stories-fs-slide" data-fs="2" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Reel</div><div class="stories-fs-title">Lifestyle Reel</div><div class="stories-fs-sub">Piyush Diwte</div></div>
+    <iframe data-src="https://www.youtube.com/embed/5rvyNZ2bbtU?rel=0&modestbranding=1&playsinline=1&autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">UGC</div><div class="stories-fs-title">Product UGC</div><div class="stories-fs-sub">Patrolapart</div></div>
   </div>
-  <div class="stories-fs-slide" data-fs="3" data-dur="30">
-    <iframe data-src="https://www.instagram.com/reel/DGGvLdeJlNL/embed/" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Reel</div><div class="stories-fs-title">Brand Reel</div><div class="stories-fs-sub">Piyush Diwte</div></div>
+  <div class="stories-fs-slide" data-fs="3" data-dur="25">
+    <iframe data-src="https://www.youtube.com/embed/dy3M-BUDIac?rel=0&modestbranding=1&playsinline=1&autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Paid Ad</div><div class="stories-fs-title">Quad Lock, IG Style</div><div class="stories-fs-sub">Quad Lock</div></div>
   </div>
   <div class="stories-fs-slide" data-fs="4" data-dur="30">
-    <iframe data-src="https://www.youtube.com/embed/aSMBKRUaT_4?rel=0&modestbranding=1&playsinline=1&autoplay=1&vq=hd2160" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/aSMBKRUaT_4?rel=0&modestbranding=1&playsinline=1&autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Brand</div><div class="stories-fs-title">Earths Water, Unboxing</div><div class="stories-fs-sub">Earths Water</div></div>
   </div>
-  <div class="stories-fs-slide" data-fs="5" data-dur="25">
-    <iframe data-src="https://www.youtube.com/embed/dy3M-BUDIac?rel=0&modestbranding=1&playsinline=1&autoplay=1&vq=hd2160" allowfullscreen></iframe>
-    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Paid Ad</div><div class="stories-fs-title">Quad Lock, IG Style</div><div class="stories-fs-sub">Quad Lock</div></div>
+  <div class="stories-fs-slide" data-fs="5" data-dur="30">
+    <iframe data-src="https://www.instagram.com/reel/DLdU-pgMd03/embed/" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="stories-fs-info"><div class="stories-tag" style="margin-bottom:8px">Reel</div><div class="stories-fs-title">Lifestyle Reel</div><div class="stories-fs-sub">Piyush Diwte</div></div>
   </div>
   <!-- Done screen after 4th video -->
   <div class="stories-fs-done" id="fsDoneScreen">
