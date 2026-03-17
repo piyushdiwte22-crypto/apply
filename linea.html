@@ -1483,8 +1483,13 @@ var storyGoTo; /* expose for YT callback */
   storyGoTo=function goTo(idx){
     if(idx<0||idx>=total)return;
     clearTimeout(timer);
-    /* Pause old player */
+    /* Pause old player — YouTube API + iframe fallback for IG/Vimeo */
     if(storyPlayers[current])try{storyPlayers[current].pauseVideo()}catch(e){}
+    var oldF=slides[current].querySelector('iframe');
+    if(oldF&&oldF.src){
+      if(oldF.src.indexOf('vimeo')>-1)try{oldF.contentWindow.postMessage(JSON.stringify({method:'pause'}),'*')}catch(e){}
+      if(oldF.src.indexOf('instagram')>-1){var s=oldF.src;oldF.src='';oldF.src=s}
+    }
     slides[current].classList.remove('active');
     bars[current].classList.remove('active');
     if(idx>current){for(let i=0;i<=idx-1;i++)bars[i].classList.add('done')}
@@ -1573,6 +1578,13 @@ var storyGoTo; /* expose for YT callback */
     if(idx>=total){doneScreen.classList.add('show');clearTimeout(timer);return}
     clearTimeout(timer);
     doneScreen.classList.remove('show');
+    /* Pause old slide iframe */
+    var oldF=fsSlides[current].querySelector('iframe');
+    if(oldF&&oldF.src){
+      if(oldF.src.indexOf('youtube')>-1)try{oldF.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*')}catch(e){}
+      if(oldF.src.indexOf('vimeo')>-1)try{oldF.contentWindow.postMessage(JSON.stringify({method:'pause'}),'*')}catch(e){}
+      if(oldF.src.indexOf('instagram')>-1){var s=oldF.src;oldF.src='';oldF.src=s}
+    }
     fsSlides[current].classList.remove('active');
     bars[current].classList.remove('active');
     if(idx>current){for(let i=0;i<=idx-1;i++)bars[i].classList.add('done')}
@@ -1681,7 +1693,10 @@ var storyGoTo; /* expose for YT callback */
 
   function pauseIframe(slide){
     const f=slide.querySelector('iframe');
-    if(f&&f.src&&f.src.includes('youtube'))try{f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*')}catch(e){}
+    if(!f||!f.src)return;
+    if(f.src.indexOf('youtube')>-1)try{f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*')}catch(e){}
+    if(f.src.indexOf('vimeo')>-1)try{f.contentWindow.postMessage(JSON.stringify({method:'pause'}),'*')}catch(e){}
+    if(f.src.indexOf('instagram')>-1){var s=f.src;f.src='';f.src=s}
   }
 
   function goTo(idx){
@@ -1750,6 +1765,6 @@ scrollTopBtn.addEventListener('click',()=>{
 </script>
 
 <script>(function(){var v=document.querySelector(".hero-video-wrap video");if(v){v.playbackRate=0.8;v.addEventListener("play",function(){v.playbackRate=0.8;});}var f=document.querySelector(".hero-video-wrap iframe");if(f&&f.src.indexOf("vimeo")>-1){f.addEventListener("load",function(){try{f.contentWindow.postMessage(JSON.stringify({method:"setPlaybackRate",value:0.8}),"*");}catch(e){}});}})();</script>
-<script>(function(){function pauseFrame(f){if(!f||!f.src)return;if(f.src.indexOf("youtube")>-1)try{f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*')}catch(e){}if(f.src.indexOf("vimeo")>-1)try{f.contentWindow.postMessage(JSON.stringify({method:"pause"}),"*")}catch(e){}}var origVS=document.querySelectorAll(".vid-showcase-slide");origVS.forEach(function(s){s.addEventListener("transitionend",function(){if(!s.classList.contains("active")){var f=s.querySelector("iframe");pauseFrame(f);}});});var storySlides=document.querySelectorAll(".stories-slide");var mo=new MutationObserver(function(muts){muts.forEach(function(m){if(m.attributeName==="class"){var el=m.target;if(!el.classList.contains("active")){var f=el.querySelector("iframe");pauseFrame(f);}}});});storySlides.forEach(function(s){mo.observe(s,{attributes:true,attributeFilter:["class"]});});})();</script>
+<script>(function(){function pauseFrame(f){if(!f||!f.src)return;if(f.src.indexOf("youtube")>-1)try{f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*')}catch(e){}if(f.src.indexOf("vimeo")>-1)try{f.contentWindow.postMessage(JSON.stringify({method:"pause"}),"*")}catch(e){}if(f.src.indexOf("instagram")>-1){var s=f.src;f.src="";f.src=s}}var allSlides=document.querySelectorAll(".vid-showcase-slide,.stories-slide,.stories-fs-slide");var mo=new MutationObserver(function(muts){muts.forEach(function(m){if(m.attributeName==="class"){var el=m.target;if(!el.classList.contains("active")){var f=el.querySelector("iframe");pauseFrame(f);}}});});allSlides.forEach(function(s){mo.observe(s,{attributes:true,attributeFilter:["class"]});});})();</script>
 </body>
 </html>
