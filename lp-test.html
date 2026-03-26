@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piyush Diwte</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:hidden;background:#000;color:#f5efe8}
+body{font-family:'Inter',sans-serif;cursor:none}
+
+/* ═══ CURSOR ═══ */
+.cur{
+  position:fixed;width:24px;height:24px;
+  border:1px solid rgba(232,148,58,0.5);
+  border-radius:50%;pointer-events:none;z-index:10000;
+  transform:translate(-50%,-50%);
+  transition:width 0.4s cubic-bezier(.16,1,.3,1),height 0.4s cubic-bezier(.16,1,.3,1),background 0.4s,border-color 0.3s;
+  mix-blend-mode:difference;
+}
+.cur.big{width:60px;height:60px;border-color:rgba(232,148,58,0.8)}
+.cur-dot{
+  position:fixed;width:5px;height:5px;
+  background:#e8943a;border-radius:50%;
+  pointer-events:none;z-index:10001;
+  transform:translate(-50%,-50%);
+}
+
+/* ═══ THREE CANVAS ═══ */
+#c{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+/* ═══ CONTENT LAYER ═══ */
+.wrap{position:relative;z-index:2}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:36px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+  mix-blend-mode:difference;
+  opacity:0;
+}
+.n-logo{font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#fff}
+.n-links{display:flex;gap:40px}
+.n-links a{
+  font-size:9px;letter-spacing:3.5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);text-decoration:none;
+  transition:color 0.5s;
+}
+.n-links a:hover{color:#fff}
+
+/* ═══ HERO ═══ */
+#hero{height:350vh;position:relative}
+.hero-pin{
+  position:sticky;top:0;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-vid{
+  position:absolute;inset:0;z-index:0;overflow:hidden;
+  opacity:0;
+}
+.hero-vid iframe{
+  position:absolute;top:50%;left:50%;
+  width:177.78vh;height:100vh;
+  min-width:100%;min-height:56.25vw;
+  transform:translate(-50%,-50%);border:none;
+}
+.hero-vid::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.85) 100%);
+}
+
+.hero-text{
+  position:relative;z-index:3;
+  text-align:center;pointer-events:none;
+}
+.h-pre{
+  font-size:10px;letter-spacing:8px;text-transform:uppercase;
+  color:rgba(232,148,58,0.5);
+  margin-bottom:48px;
+  opacity:0;transform:translateY(40px);
+}
+.h-title{
+  font-size:clamp(72px,14vw,200px);
+  font-weight:900;
+  line-height:0.82;
+  letter-spacing:-6px;
+}
+.h-title .row{display:block;overflow:hidden}
+.h-title .row span{
+  display:inline-block;
+  transform:translateY(110%);
+}
+.h-title .stroke{
+  -webkit-text-stroke:2px rgba(245,239,232,0.9);
+  color:transparent;
+}
+.h-title .fill{
+  background:linear-gradient(135deg,#b5651d 0%,#e8943a 40%,#f0a848 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.h-sub{
+  margin-top:48px;
+  font-size:clamp(12px,1.2vw,15px);
+  font-weight:300;
+  color:rgba(245,239,232,0.25);
+  letter-spacing:0.5px;
+  line-height:1.9;
+  max-width:380px;
+  margin-left:auto;margin-right:auto;
+  opacity:0;transform:translateY(30px);
+}
+
+.scroll-hint{
+  position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
+  z-index:3;opacity:0;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+.scroll-hint em{
+  font-style:normal;font-size:8px;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.2);
+}
+.scroll-hint .bar{
+  width:1px;height:36px;position:relative;overflow:hidden;
+}
+.scroll-hint .bar::after{
+  content:'';position:absolute;left:0;width:100%;height:100%;
+  background:linear-gradient(180deg,transparent,#e8943a);
+  animation:pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse{0%{top:-100%}50%{top:0}100%{top:100%}}
+
+/* ═══ INTERLUDE ═══ */
+.interlude{height:250vh;position:relative}
+.interlude-pin{
+  position:sticky;top:0;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 12vw;
+}
+.int-text{
+  font-size:clamp(30px,5.5vw,72px);
+  font-weight:600;
+  line-height:1.15;
+  letter-spacing:-1.5px;
+  text-align:center;
+}
+.int-text .w{
+  display:inline-block;
+  opacity:0.06;
+  transition:none;
+}
+.int-text .w.on{opacity:1}
+.int-text .hi{color:#e8943a}
+
+/* ═══ REEL ═══ */
+#reel{height:200vh;position:relative}
+.reel-pin{
+  position:sticky;top:0;height:100vh;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.reel-pin iframe{
+  position:absolute;top:50%;left:50%;
+  width:177.78vh;height:100vh;
+  min-width:100%;min-height:56.25vw;
+  transform:translate(-50%,-50%);
+  border:none;
+}
+.reel-vig{
+  position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.7) 100%);
+}
+.reel-text{
+  position:relative;z-index:2;
+  text-align:center;
+  opacity:0;transform:translateY(30px);
+}
+.reel-text h2{
+  font-size:clamp(36px,7vw,96px);
+  font-weight:700;
+  letter-spacing:-3px;
+  text-shadow:0 4px 80px rgba(0,0,0,0.9);
+}
+.reel-text h2 .glow{
+  color:#e8943a;
+  text-shadow:0 0 60px rgba(232,148,58,0.4);
+}
+
+/* ═══ NUMBERS ═══ */
+#numbers{height:400vh;position:relative}
+.num-pin{
+  position:sticky;top:0;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+}
+.num-item{
+  position:absolute;
+  text-align:center;
+  opacity:0;
+  transform:scale(0.85);
+  transition:none;
+}
+.num-item.active{opacity:1;transform:scale(1)}
+.num-val{
+  font-size:clamp(80px,18vw,200px);
+  font-weight:900;
+  line-height:0.9;
+  letter-spacing:-6px;
+  background:linear-gradient(135deg,#c4752b,#e8943a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.num-val .u{font-size:0.35em;letter-spacing:0;-webkit-text-fill-color:#e8943a}
+.num-lbl{
+  margin-top:20px;
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(245,239,232,0.2);
+}
+
+/* ═══ WORK ═══ */
+#work{height:450vh;position:relative}
+.work-pin{
+  position:sticky;top:0;height:100vh;
+  overflow:hidden;
+  display:flex;align-items:center;
+}
+.work-label{
+  position:absolute;top:56px;left:56px;z-index:10;
+}
+.work-label h2{
+  font-size:9px;letter-spacing:6px;text-transform:uppercase;
+  color:rgba(232,148,58,0.4);
+}
+.work-track{
+  display:flex;gap:3vw;
+  padding:0 8vw;
+  will-change:transform;
+}
+.w-card{
+  flex-shrink:0;
+  width:60vw;height:70vh;
+  border-radius:6px;
+  overflow:hidden;
+  position:relative;
+  background:#0a0a0a;
+}
+.w-card iframe{width:100%;height:100%;border:none;pointer-events:none}
+.w-card .w-grad{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(0,0,0,0.85) 0%,transparent 40%,transparent 80%,rgba(0,0,0,0.4) 100%);
+  pointer-events:none;
+}
+.w-card .w-meta{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:36px;z-index:2;
+}
+.w-card .w-client{
+  font-size:9px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(232,148,58,0.7);
+  margin-bottom:6px;
+}
+.w-card .w-name{
+  font-size:clamp(18px,2vw,26px);font-weight:600;
+  color:rgba(245,239,232,0.9);
+}
+.w-card .w-num{
+  position:absolute;top:28px;right:36px;
+  font-size:11px;letter-spacing:2px;
+  color:rgba(255,255,255,0.12);z-index:2;
+}
+.work-counter{
+  position:absolute;bottom:56px;right:56px;z-index:10;
+  font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.15);
+}
+
+/* ═══ TOOLKIT ═══ */
+#toolkit{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+  padding:140px 56px;
+}
+.tk-title{
+  font-size:clamp(36px,5vw,64px);
+  font-weight:700;
+  letter-spacing:-2px;
+  margin-bottom:64px;
+  text-align:center;
+}
+.tk-title .hi{color:#e8943a}
+.tk-grid{
+  display:flex;flex-wrap:wrap;gap:12px;
+  justify-content:center;
+  max-width:860px;
+}
+.tk-tag{
+  padding:10px 22px;
+  border:1px solid rgba(232,148,58,0.1);
+  border-radius:100px;
+  font-size:12px;font-weight:400;
+  color:rgba(245,239,232,0.25);
+  background:transparent;
+  transition:all 0.5s cubic-bezier(.16,1,.3,1);
+  cursor:none;
+  opacity:0;transform:translateY(20px) scale(0.9);
+}
+.tk-tag:hover{
+  border-color:#e8943a;
+  color:#f5efe8;
+  background:rgba(232,148,58,0.06);
+  box-shadow:0 0 30px rgba(232,148,58,0.1);
+  transform:translateY(-2px) scale(1.05);
+}
+
+/* ═══ CLOSE ═══ */
+#close{
+  height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+}
+.cta-outer{
+  width:260px;height:260px;
+  border-radius:50%;
+  border:1px solid rgba(232,148,58,0.15);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  cursor:none;
+  text-decoration:none;
+  transition:all 0.7s cubic-bezier(.16,1,.3,1);
+}
+.cta-outer::before{
+  content:'';position:absolute;
+  inset:-24px;border-radius:50%;
+  border:1px solid rgba(232,148,58,0.06);
+  transition:all 0.7s cubic-bezier(.16,1,.3,1);
+}
+.cta-outer::after{
+  content:'';position:absolute;
+  inset:-48px;border-radius:50%;
+  border:1px solid rgba(232,148,58,0.03);
+  transition:all 0.7s cubic-bezier(.16,1,.3,1);
+}
+.cta-outer:hover{border-color:rgba(232,148,58,0.5);box-shadow:0 0 100px rgba(232,148,58,0.1)}
+.cta-outer:hover::before{inset:-32px;border-color:rgba(232,148,58,0.12)}
+.cta-outer:hover::after{inset:-60px;border-color:rgba(232,148,58,0.06)}
+.cta-inner{text-align:center}
+.cta-inner span{
+  display:block;font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(245,239,232,0.7);
+}
+.cta-inner .arr{
+  display:block;margin:14px auto 0;
+  width:18px;height:18px;
+  border-right:1px solid #e8943a;border-bottom:1px solid #e8943a;
+  transform:rotate(-45deg);
+  transition:transform 0.5s cubic-bezier(.16,1,.3,1);
+}
+.cta-outer:hover .arr{transform:rotate(-45deg) translate(4px,4px)}
+
+.cta-links{
+  margin-top:56px;display:flex;gap:36px;
+}
+.cta-links a{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(245,239,232,0.15);text-decoration:none;
+  transition:color 0.5s;
+}
+.cta-links a:hover{color:#e8943a}
+
+/* ═══ FOOTER ═══ */
+footer{
+  padding:36px 56px;
+  display:flex;justify-content:space-between;
+  font-size:10px;letter-spacing:2px;
+  color:rgba(255,255,255,0.08);
+}
+footer a{color:rgba(255,255,255,0.12);text-decoration:none}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  body{cursor:auto}
+  .cur,.cur-dot{display:none}
+  nav{padding:24px 28px}
+  .n-links{gap:24px}
+  .h-title{letter-spacing:-3px}
+  .interlude-pin{padding:0 8vw}
+  .w-card{width:85vw;height:55vh}
+  .work-track{gap:5vw;padding:0 5vw}
+  #toolkit{padding:80px 28px}
+  .tk-grid{gap:8px}
+  .tk-tag{font-size:11px;padding:8px 16px}
+  .cta-links{gap:24px}
+  footer{padding:28px;flex-direction:column;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="cur"></div>
+<div class="cur-dot"></div>
+<canvas id="c"></canvas>
+
+<div class="wrap">
+
+<nav>
+  <div class="n-logo">Piyush Diwte</div>
+  <div class="n-links">
+    <a href="#work">Work</a>
+    <a href="#toolkit">Tools</a>
+    <a href="mailto:piyushdiwte22@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-pin">
+    <div class="hero-vid">
+      <iframe src="https://player.vimeo.com/video/1028245298?background=1&autoplay=1&loop=1&muted=1&quality=1080p" allow="autoplay;fullscreen" loading="eager"></iframe>
+    </div>
+    <div class="hero-text">
+      <div class="h-pre">Portfolio Experience</div>
+      <h1 class="h-title">
+        <span class="row"><span class="stroke">CONTENT.</span></span>
+        <span class="row"><span class="fill">REVOLUTIONISED.</span></span>
+      </h1>
+      <p class="h-sub">50M+ views across channels. 1,500+ videos delivered. Six years of making brands impossible to scroll past.</p>
+    </div>
+    <div class="scroll-hint">
+      <em>Scroll</em>
+      <div class="bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTERLUDE ═══ -->
+<section class="interlude" id="int1">
+  <div class="interlude-pin">
+    <div class="int-text">
+      I learn the <span class="hi">brand</span>. I find the story worth telling. Then I make every single <span class="hi">frame</span> count.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REEL ═══ -->
+<section id="reel">
+  <div class="reel-pin">
+    <iframe src="https://player.vimeo.com/video/1027500811?background=1&autoplay=1&loop=1&muted=1&quality=1080p" allow="autoplay;fullscreen" loading="lazy"></iframe>
+    <div class="reel-vig"></div>
+    <div class="reel-text">
+      <h2>Then I bring it<br>to <span class="glow">life</span>.</h2>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NUMBERS ═══ -->
+<section id="numbers">
+  <div class="num-pin">
+    <div class="num-item" data-idx="0">
+      <div class="num-val">157<span class="u">%</span></div>
+      <div class="num-lbl">CTR Increase</div>
+    </div>
+    <div class="num-item" data-idx="1">
+      <div class="num-val">50<span class="u">M+</span></div>
+      <div class="num-lbl">Channel Views</div>
+    </div>
+    <div class="num-item" data-idx="2">
+      <div class="num-val">1,500<span class="u">+</span></div>
+      <div class="num-lbl">Videos Produced</div>
+    </div>
+    <div class="num-item" data-idx="3">
+      <div class="num-val">35<span class="u">%</span></div>
+      <div class="num-lbl">Engagement Uplift</div>
+    </div>
+    <div class="num-item" data-idx="4">
+      <div class="num-val">43</div>
+      <div class="num-lbl">Properties Managed</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTERLUDE 2 ═══ -->
+<section class="interlude" id="int2">
+  <div class="interlude-pin">
+    <div class="int-text">
+      From <span class="hi">concept</span> to final cut. Strategy, scripting, shooting, editing, publishing. One person. Zero handoff <span class="hi">friction</span>.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORK ═══ -->
+<section id="work">
+  <div class="work-pin">
+    <div class="work-label"><h2>Selected Work</h2></div>
+    <div class="work-track">
+      <div class="w-card">
+        <iframe src="https://player.vimeo.com/video/1028238498?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+        <div class="w-grad"></div>
+        <div class="w-meta"><div class="w-client">Patrolapart</div><div class="w-name">Brand Campaign Film</div></div>
+        <div class="w-num">01</div>
+      </div>
+      <div class="w-card">
+        <iframe src="https://player.vimeo.com/video/1028244550?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+        <div class="w-grad"></div>
+        <div class="w-meta"><div class="w-client">Arise Racing</div><div class="w-name">Event Trailer</div></div>
+        <div class="w-num">02</div>
+      </div>
+      <div class="w-card">
+        <iframe src="https://player.vimeo.com/video/1028242498?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+        <div class="w-grad"></div>
+        <div class="w-meta"><div class="w-client">Patrolapart</div><div class="w-name">Behind the Scenes</div></div>
+        <div class="w-num">03</div>
+      </div>
+      <div class="w-card">
+        <iframe src="https://player.vimeo.com/video/1027500811?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+        <div class="w-grad"></div>
+        <div class="w-meta"><div class="w-client">Hamilton Island</div><div class="w-name">20 Extraordinary Years</div></div>
+        <div class="w-num">04</div>
+      </div>
+      <div class="w-card">
+        <iframe src="https://player.vimeo.com/video/1028245298?background=1&autoplay=1&loop=1&muted=1" allow="autoplay" loading="lazy"></iframe>
+        <div class="w-grad"></div>
+        <div class="w-meta"><div class="w-client">HIE</div><div class="w-name">Lifestyle Content</div></div>
+        <div class="w-num">05</div>
+      </div>
+    </div>
+    <div class="work-counter"><span id="wc-cur">01</span> / 05</div>
+  </div>
+</section>
+
+<!-- ═══ TOOLKIT ═══ -->
+<section id="toolkit">
+  <h2 class="tk-title">The <span class="hi">toolkit</span>.</h2>
+  <div class="tk-grid"></div>
+</section>
+
+<!-- ═══ CLOSE ═══ -->
+<section id="close">
+  <a href="mailto:piyushdiwte22@gmail.com" class="cta-outer">
+    <div class="cta-inner">
+      <span>Let's talk</span>
+      <div class="arr"></div>
+    </div>
+  </a>
+  <div class="cta-links">
+    <a href="https://www.capturedbypiyush.com" target="_blank">Portfolio</a>
+    <a href="https://linktr.ee/Piyush_Diwte" target="_blank">Vertical Work</a>
+    <a href="https://www.linkedin.com/in/piyushdiwte" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Piyush Diwte</span>
+  <a href="mailto:piyushdiwte22@gmail.com">piyushdiwte22@gmail.com</a>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ═══════════════════════════════════════════
+   CURSOR
+   ═══════════════════════════════════════════ */
+const cur = document.querySelector('.cur');
+const curDot = document.querySelector('.cur-dot');
+let mx = -100, my = -100, cx = -100, cy = -100;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  curDot.style.left = mx + 'px';
+  curDot.style.top = my + 'px';
+});
+
+(function curLoop(){
+  cx += (mx - cx) * 0.09;
+  cy += (my - cy) * 0.09;
+  cur.style.left = cx + 'px';
+  cur.style.top = cy + 'px';
+  requestAnimationFrame(curLoop);
+})();
+
+// Hover targets
+document.querySelectorAll('a,.w-card,.tk-tag,.cta-outer').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('big'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+});
+
+
+/* ═══════════════════════════════════════════
+   THREE.JS — PARTICLE SPHERE
+   A sphere of particles that forms on load
+   and explodes outward as you scroll.
+   Mouse pushes nearby particles away.
+   ═══════════════════════════════════════════ */
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+cam.position.z = 18;
+
+// Particle count
+const SPHERE_N = 500;   // particles on the sphere surface
+const FIELD_N = 600;    // ambient particles in the deep field
+const TOTAL = SPHERE_N + FIELD_N;
+
+// Buffers
+const positions = new Float32Array(TOTAL * 3);
+const colors = new Float32Array(TOTAL * 3);
+const sizes = new Float32Array(TOTAL);
+const spherePos = [];   // original sphere positions
+const scatterPos = [];  // scattered/exploded positions
+
+const amber = new THREE.Color(0xc4752b);
+const bright = new THREE.Color(0xe8943a);
+const dimAmber = new THREE.Color(0x7C4A1E);
+const faint = new THREE.Color(0x3a2e22);
+
+// Fibonacci sphere distribution
+for (let i = 0; i < SPHERE_N; i++) {
+  const phi = Math.acos(1 - 2 * (i + 0.5) / SPHERE_N);
+  const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+  const r = 5.5;
+  const x = r * Math.sin(phi) * Math.cos(theta);
+  const y = r * Math.sin(phi) * Math.sin(theta);
+  const z = r * Math.cos(phi);
+
+  spherePos.push({ x, y, z });
+  // Scattered position: explode outward + randomise
+  const explodeR = 25 + Math.random() * 40;
+  scatterPos.push({
+    x: x / r * explodeR + (Math.random() - 0.5) * 20,
+    y: y / r * explodeR + (Math.random() - 0.5) * 20,
+    z: z / r * explodeR + (Math.random() - 0.5) * 15
+  });
+
+  positions[i * 3] = x;
+  positions[i * 3 + 1] = y;
+  positions[i * 3 + 2] = z;
+
+  const c = Math.random() > 0.5 ? bright : amber;
+  colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+  sizes[i] = Math.random() * 3.5 + 1.5;
+}
+
+// Ambient field particles
+for (let i = SPHERE_N; i < TOTAL; i++) {
+  const x = (Math.random() - 0.5) * 100;
+  const y = (Math.random() - 0.5) * 150;
+  const z = (Math.random() - 0.5) * 50;
+  positions[i * 3] = x; positions[i * 3 + 1] = y; positions[i * 3 + 2] = z;
+  spherePos.push({ x, y, z });
+  scatterPos.push({ x, y, z }); // ambient particles don't move
+
+  const c = Math.random() > 0.7 ? dimAmber : faint;
+  colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+  sizes[i] = Math.random() * 1.8 + 0.3;
+}
+
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+const mat = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
+    uExplode: { value: 0 },  // 0 = sphere, 1 = scattered
+    uFade: { value: 1 }
+  },
+  vertexShader: `
+    attribute float size;
+    attribute vec3 color;
+    varying vec3 vCol;
+    varying float vAlpha;
+    uniform float uTime;
+    uniform vec2 uMouse;
+    uniform float uFade;
+
+    void main() {
+      vCol = color;
+      vec3 p = position;
+
+      // Organic breathing
+      p.x += sin(uTime * 0.35 + p.y * 0.15) * 0.18;
+      p.y += cos(uTime * 0.28 + p.x * 0.12) * 0.15;
+      p.z += sin(uTime * 0.22 + p.z * 0.1) * 0.1;
+
+      // Mouse repulsion in screen space
+      vec4 mv = modelViewMatrix * vec4(p, 1.0);
+      vec4 proj = projectionMatrix * mv;
+      vec2 screen = proj.xy / proj.w;
+      vec2 diff = screen - uMouse;
+      float dist = length(diff);
+      if (dist < 0.5) {
+        float push = (0.5 - dist) * 3.5;
+        vec2 dir = normalize(diff);
+        p.x += dir.x * push * 2.5;
+        p.y += dir.y * push * 2.5;
+      }
+
+      mv = modelViewMatrix * vec4(p, 1.0);
+      gl_PointSize = size * (220.0 / -mv.z);
+      gl_PointSize = max(gl_PointSize, 1.0);
+      gl_Position = projectionMatrix * mv;
+      vAlpha = smoothstep(80.0, 8.0, -mv.z) * uFade;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vCol;
+    varying float vAlpha;
+
+    void main() {
+      float d = length(gl_PointCoord - 0.5);
+      if (d > 0.5) discard;
+
+      // Soft glowing dot
+      float core = smoothstep(0.5, 0.05, d);
+      float halo = exp(-d * 5.0);
+      vec3 c = vCol * (core * 0.9 + halo * 0.4);
+      float a = (core * 0.85 + halo * 0.3) * vAlpha;
+
+      gl_FragColor = vec4(c, a);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending
+});
+
+const particles = new THREE.Points(geo, mat);
+scene.add(particles);
+
+// Connection lines for sphere particles
+const MAX_LINES = 800;
+const lineArr = new Float32Array(MAX_LINES * 6);
+const lineGeo = new THREE.BufferGeometry();
+lineGeo.setAttribute('position', new THREE.BufferAttribute(lineArr, 3));
+const lineMat = new THREE.LineBasicMaterial({
+  color: 0xc4752b, transparent: true, opacity: 0.07,
+  blending: THREE.AdditiveBlending
+});
+const linesMesh = new THREE.LineSegments(lineGeo, lineMat);
+scene.add(linesMesh);
+
+// State
+let scrollY = 0;
+let mouseNorm = { x: 0, y: 0 };
+let time = 0;
+let explodeProgress = 0;
+let frameCount = 0;
+
+window.addEventListener('scroll', () => { scrollY = window.pageYOffset; }, { passive: true });
+document.addEventListener('mousemove', e => {
+  mouseNorm.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouseNorm.y = -(e.clientY / window.innerHeight) * 2 + 1;
+});
+
+function updateSpherePositions() {
+  const pos = geo.attributes.position.array;
+  for (let i = 0; i < SPHERE_N; i++) {
+    const sp = spherePos[i];
+    const sc = scatterPos[i];
+    const t = explodeProgress;
+    // Ease
+    const e = t * t * (3 - 2 * t); // smoothstep
+    pos[i * 3]     = sp.x + (sc.x - sp.x) * e;
+    pos[i * 3 + 1] = sp.y + (sc.y - sp.y) * e;
+    pos[i * 3 + 2] = sp.z + (sc.z - sp.z) * e;
+  }
+  geo.attributes.position.needsUpdate = true;
+}
+
+function updateLines() {
+  const pos = geo.attributes.position.array;
+  let idx = 0;
+  const threshold = 2.2 + explodeProgress * 8; // lines stretch then break
+  const maxOpacity = Math.max(0, 0.07 - explodeProgress * 0.06);
+  lineMat.opacity = maxOpacity;
+
+  for (let i = 0; i < SPHERE_N && idx < MAX_LINES * 6; i += 3) {
+    for (let j = i + 3; j < SPHERE_N && idx < MAX_LINES * 6; j += 3) {
+      const dx = pos[i*3] - pos[j*3];
+      const dy = pos[i*3+1] - pos[j*3+1];
+      const dz = pos[i*3+2] - pos[j*3+2];
+      const d2 = dx*dx + dy*dy + dz*dz;
+      if (d2 < threshold * threshold) {
+        lineArr[idx++] = pos[i*3]; lineArr[idx++] = pos[i*3+1]; lineArr[idx++] = pos[i*3+2];
+        lineArr[idx++] = pos[j*3]; lineArr[idx++] = pos[j*3+1]; lineArr[idx++] = pos[j*3+2];
+      }
+    }
+  }
+  for (let k = idx; k < lineArr.length; k++) lineArr[k] = 0;
+  lineGeo.attributes.position.needsUpdate = true;
+  lineGeo.setDrawRange(0, idx / 3);
+}
+
+function render() {
+  requestAnimationFrame(render);
+  time += 0.016;
+  frameCount++;
+
+  mat.uniforms.uTime.value = time;
+  mat.uniforms.uMouse.value.set(mouseNorm.x, mouseNorm.y);
+
+  // Explode based on scroll through hero
+  const heroH = document.getElementById('hero').offsetHeight;
+  const heroProgress = Math.min(1, Math.max(0, scrollY / (heroH * 0.5)));
+  explodeProgress = heroProgress;
+  mat.uniforms.uExplode.value = heroProgress;
+
+  // Fade particles slightly in mid-page, bring back at end
+  const totalH = document.body.scrollHeight - window.innerHeight;
+  const globalP = scrollY / totalH;
+  let fade = 1;
+  if (globalP > 0.15 && globalP < 0.7) fade = 0.3;
+  else if (globalP >= 0.7) fade = 0.3 + (globalP - 0.7) / 0.3 * 0.7;
+  mat.uniforms.uFade.value += (fade - mat.uniforms.uFade.value) * 0.05;
+
+  updateSpherePositions();
+
+  // Camera
+  cam.position.x = Math.sin(time * 0.08) * 1 + mouseNorm.x * 1.5;
+  cam.position.y = Math.cos(time * 0.06) * 0.8 - scrollY * 0.005;
+  cam.lookAt(0, -scrollY * 0.005, 0);
+
+  // Rotate sphere gently when formed
+  particles.rotation.y = time * 0.06 * (1 - explodeProgress);
+  particles.rotation.x = Math.sin(time * 0.04) * 0.1 * (1 - explodeProgress);
+
+  if (frameCount % 5 === 0) updateLines();
+
+  renderer.render(scene, cam);
+}
+render();
+
+window.addEventListener('resize', () => {
+  cam.aspect = window.innerWidth / window.innerHeight;
+  cam.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+
+/* ═══════════════════════════════════════════
+   GSAP ANIMATIONS
+   ═══════════════════════════════════════════ */
+gsap.registerPlugin(ScrollTrigger);
+
+// — HERO ENTRANCE —
+const htl = gsap.timeline({ delay: 0.5 });
+htl.to('nav', { opacity: 1, duration: 1 }, 0);
+htl.to('.h-pre', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, 0.4);
+htl.to('.h-title .row span', { y: 0, duration: 1.3, ease: 'power3.out', stagger: 0.12 }, 0.6);
+htl.to('.h-sub', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, 1.2);
+htl.to('.scroll-hint', { opacity: 1, duration: 0.8 }, 1.8);
+
+// — HERO SCROLL —
+gsap.to('.hero-text', {
+  y: -250, opacity: 0, ease: 'none',
+  scrollTrigger: { trigger: '#hero', start: 'top top', end: '40% top', scrub: true }
+});
+gsap.to('.scroll-hint', {
+  opacity: 0, ease: 'none',
+  scrollTrigger: { trigger: '#hero', start: '5% top', end: '15% top', scrub: true }
+});
+// Video fades in as sphere explodes
+gsap.to('.hero-vid', {
+  opacity: 1, ease: 'none',
+  scrollTrigger: { trigger: '#hero', start: '25% top', end: '50% top', scrub: true }
+});
+
+// — WORD-BY-WORD REVEAL —
+document.querySelectorAll('.int-text').forEach(el => {
+  // Wrap each word, preserving spans
+  const nodes = el.childNodes;
+  let html = '';
+  nodes.forEach(node => {
+    if (node.nodeType === 3) { // text
+      const words = node.textContent.split(/(\s+)/);
+      words.forEach(w => {
+        if (w.trim()) html += '<span class="w">' + w + '</span>';
+        else html += w;
+      });
+    } else {
+      // It's a span.hi - wrap its text content
+      const words = node.textContent.split(/(\s+)/);
+      words.forEach(w => {
+        if (w.trim()) html += '<span class="w hi">' + w + '</span>';
+        else html += w;
+      });
+    }
+  });
+  el.innerHTML = html;
+
+  const words = el.querySelectorAll('.w');
+  ScrollTrigger.create({
+    trigger: el.closest('.interlude'),
+    start: 'top top',
+    end: 'bottom top',
+    onUpdate: self => {
+      const p = self.progress;
+      words.forEach((w, i) => {
+        const threshold = (i / words.length) * 0.65 + 0.08;
+        w.classList.toggle('on', p > threshold);
+      });
+    }
+  });
+});
+
+// — REEL —
+gsap.to('.reel-text', {
+  opacity: 1, y: 0, duration: 1.2, ease: 'power3.out',
+  scrollTrigger: { trigger: '#reel', start: 'top 50%', toggleActions: 'play none none reverse' }
+});
+
+// — NUMBERS — scroll through each metric one at a time —
+const numItems = document.querySelectorAll('.num-item');
+const numCount = numItems.length;
+
+ScrollTrigger.create({
+  trigger: '#numbers',
+  start: 'top top',
+  end: 'bottom top',
+  onUpdate: self => {
+    const p = self.progress;
+    const activeIdx = Math.min(numCount - 1, Math.floor(p * numCount));
+    numItems.forEach((item, i) => {
+      if (i === activeIdx) {
+        item.classList.add('active');
+        item.style.opacity = 1;
+        item.style.transform = 'scale(1)';
+      } else {
+        item.classList.remove('active');
+        item.style.opacity = 0;
+        item.style.transform = i < activeIdx ? 'scale(1.1)' : 'scale(0.85)';
+      }
+    });
+  }
+});
+
+// — HORIZONTAL SHOWCASE —
+const track = document.querySelector('.work-track');
+const scrollDist = track.scrollWidth - window.innerWidth;
+const wcCur = document.getElementById('wc-cur');
+
+gsap.to(track, {
+  x: () => -scrollDist,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '#work',
+    start: 'top top',
+    end: () => '+=' + scrollDist,
+    pin: '.work-pin',
+    scrub: 1,
+    anticipatePin: 1,
+    invalidateOnRefresh: true
+  }
+});
+
+ScrollTrigger.create({
+  trigger: '#work',
+  start: 'top top',
+  end: () => '+=' + scrollDist,
+  onUpdate: self => {
+    const cards = document.querySelectorAll('.w-card');
+    const idx = Math.min(cards.length, Math.max(1, Math.ceil(self.progress * cards.length)));
+    wcCur.textContent = String(idx).padStart(2, '0');
+  }
+});
+
+// — TOOLKIT —
+const toolNames = [
+  'Premiere Pro','After Effects','DaVinci Resolve','Lightroom','Photoshop',
+  'Canva','CapCut','Meta Ads Manager','Google Analytics','Hootsuite',
+  'Meta Business Suite','Mailchimp','Squarespace','Shopify','Figma',
+  'Final Cut Pro','Notion'
+];
+const tkGrid = document.querySelector('.tk-grid');
+toolNames.forEach((name, i) => {
+  const tag = document.createElement('span');
+  tag.className = 'tk-tag';
+  tag.textContent = name;
+  tag.style.cursor = 'none';
+  tkGrid.appendChild(tag);
+
+  gsap.to(tag, {
+    opacity: 1, y: 0, scale: 1,
+    duration: 0.5, delay: i * 0.04,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '#toolkit', start: 'top 70%', toggleActions: 'play none none reverse' }
+  });
+
+  tag.addEventListener('mouseenter', () => cur.classList.add('big'));
+  tag.addEventListener('mouseleave', () => cur.classList.remove('big'));
+});
+
+// — CTA —
+gsap.fromTo('.cta-outer',
+  { opacity: 0, scale: 0.7 },
+  { opacity: 1, scale: 1, duration: 1.2, ease: 'elastic.out(1,0.6)',
+    scrollTrigger: { trigger: '#close', start: 'top 65%', toggleActions: 'play none none reverse' }
+  }
+);
+gsap.fromTo('.cta-links',
+  { opacity: 0, y: 20 },
+  { opacity: 1, y: 0, duration: 0.8, delay: 0.3,
+    scrollTrigger: { trigger: '#close', start: 'top 65%', toggleActions: 'play none none reverse' }
+  }
+);
+
+})();
+</script>
+</body>
+</html>
