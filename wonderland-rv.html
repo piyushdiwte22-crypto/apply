@@ -30,7 +30,7 @@
 :root{
   --dark:#07070d;--surface:#0d0d16;
   --card:rgba(14,14,22,0.9);--card-border:rgba(255,255,255,0.06);--card-hover:rgba(22,22,35,0.95);
-  --accent:#2d6a4f;--accent-bright:#40916c;--accent-glow:rgba(196,117,43,0.35);
+  --accent:#c4752b;--accent-bright:#e8943a;--accent-glow:rgba(196,117,43,0.35);
   --text:#d4d4dc;--muted:#7a7a8e;--white:#f5f5f7;
   --radius:20px;--radius-sm:12px;
   --ease:cubic-bezier(.16,1,.3,1);
@@ -126,7 +126,7 @@ body::after{
   padding:0 24px;
 }
 .hero-video-wrap{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero-video-wrap iframe{
+.hero-video-wrap iframe,.hero-video-wrap video{
   position:absolute;top:50%;left:50%;width:300%;height:300%;
   transform:translate(-50%,-50%);border:0;pointer-events:none;
 }
@@ -350,7 +350,7 @@ body::after{
   100%{background-position:0% 50%}
 }
 .hero h1 span{
-  background:linear-gradient(135deg,var(--accent-bright),#f0b060,#40916c,#f0c870,var(--accent-bright));
+  background:linear-gradient(135deg,var(--accent-bright),#f0b060,#e8943a,#f0c870,var(--accent-bright));
   background-size:300% 300%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   animation:gradShimmer 5s ease infinite;
@@ -879,7 +879,7 @@ footer a:hover{color:var(--white)}
 <!-- ═══ HERO ═══ -->
 <section class="snap-section hero" id="hero">
   <div class="hero-video-wrap">
-    <iframe src="https://player.vimeo.com/video/1028245298?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&dnt=1&quality=auto" loading="eager" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover" src="https://video.wixstatic.com/video/070729_77b34e3e9b4c4820b9f6e1eca4803c69/1080p/mp4/file.mp4"></video>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-orb hero-orb-1"></div>
@@ -1005,17 +1005,17 @@ footer a:hover{color:var(--white)}
     </div>
     <div class="vid-showcase reveal reveal-d1" id="vidShowcase">
       <div class="vid-showcase-player">
-        <div class="vid-showcase-slide active" data-vs="0" data-platform="youtube" data-client="Patrolapart" data-title="Behind the Builds, Brand Storytelling" data-desc="Documentary-style piece taking the audience inside R&amp;D. Interview segments, lifestyle B-roll, and cinematic grading." data-tools="DaVinci Resolve,Canon R6,Rode Mics,Scripting,Brand Storytelling">
-          <iframe src="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
+        <div class="vid-showcase-slide active" data-vs="0" data-platform="youtube" data-client="Patrolapart" data-title="Melbourne 4x4 Outdoors Show, Event Highlights" data-desc="Full event highlights from the Melbourne 4x4 Outdoors Show. Solo filming and editing across the full show day." data-tools="Canon R6,DaVinci Resolve,Rode Wireless,Event Coverage,Content Planning">
+          <iframe src="https://www.youtube.com/embed/zFR0Vs3o2fs?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" allowfullscreen></iframe>
         </div>
         <div class="vid-showcase-slide" data-vs="1" data-platform="youtube" data-client="Patrolapart" data-title="Brand Ad, Nissan Patrol and Navara Experts" data-desc="30-second commercial scripted, directed, and edited to establish brand authority in the Nissan 4x4 aftermarket space." data-tools="DaVinci Resolve,After Effects,Canon R6,Scripting,Brand Storytelling">
           <iframe src="https://www.youtube.com/embed/KvzC8g-YoIY?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" loading="lazy" allowfullscreen></iframe>
         </div>
-        <div class="vid-showcase-slide" data-vs="2" data-platform="youtube" data-client="Patrolapart" data-title="Melbourne 4x4 Outdoors Show, Event Highlights" data-desc="Full event highlights from the Melbourne 4x4 Outdoors Show. Solo filming and editing across the full show day." data-tools="Canon R6,DaVinci Resolve,Rode Wireless,Event Coverage,Content Planning">
-          <iframe src="https://www.youtube.com/embed/zFR0Vs3o2fs?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="vid-showcase-slide" data-vs="3" data-platform="youtube" data-client="Patrolapart" data-title="Easy Rear Lift for Y62, Product Explainer" data-desc="Product-focused explainer designed to convert. Part of a content system that drove 157% CTR lift and 15%+ monthly sales growth." data-tools="DaVinci Resolve,Canon R6,Copywriting,Content Planning,Google Analytics">
+        <div class="vid-showcase-slide" data-vs="2" data-platform="youtube" data-client="Patrolapart" data-title="Easy Rear Lift for Y62, Product Explainer" data-desc="Product-focused explainer designed to convert. Part of a content system that drove 157% CTR lift and 15%+ monthly sales growth." data-tools="DaVinci Resolve,Canon R6,Copywriting,Content Planning,Google Analytics">
           <iframe src="https://www.youtube.com/embed/n7SDop-fo9Q?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="vid-showcase-slide" data-vs="3" data-platform="youtube" data-client="Patrolapart" data-title="Behind the Builds, Brand Storytelling" data-desc="Documentary-style piece taking the audience inside R&amp;D. Interview segments, lifestyle B-roll, and cinematic grading." data-tools="DaVinci Resolve,Canon R6,Rode Mics,Scripting,Brand Storytelling">
+          <iframe src="https://www.youtube.com/embed/-2w8Q9QH2R0?rel=0&modestbranding=1&vq=hd2160&enablejsapi=1" loading="lazy" allowfullscreen></iframe>
         </div>
       </div>
       <div class="vid-showcase-info" id="vsInfo">
