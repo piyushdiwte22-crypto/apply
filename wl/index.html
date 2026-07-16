@@ -22,8 +22,10 @@
   the ActiveCampaign form (hidden Ad Source field, form 47).
   ============================================================
 -->
+<meta name="theme-color" content="#FFFFFF">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -39,6 +41,8 @@
     --line-dark:rgba(255,255,255,.14);
     --font-display:'Archivo','Aviano Sans',sans-serif;
     --font-body:'Poppins','Gordita',sans-serif;
+    --ease-out:cubic-bezier(0.23,1,0.32,1);
+    --ease-in-out:cubic-bezier(0.77,0,0.175,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -48,17 +52,22 @@
   .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
   .eyebrow{font-family:var(--font-display);font-stretch:125%;font-weight:700;letter-spacing:.35em;text-transform:uppercase;font-size:12px;color:var(--wl-orange)}
   h1,h2,h3{font-family:var(--font-display);font-stretch:125%;text-transform:uppercase;line-height:1.12}
-  h1{font-weight:900;font-size:clamp(38px,6vw,72px);letter-spacing:.02em}
-  h2{font-weight:900;font-size:clamp(26px,3.6vw,42px);letter-spacing:.03em}
+  h1{font-weight:900;font-size:clamp(38px,6vw,72px);letter-spacing:.02em;text-wrap:balance}
+  h2{font-weight:900;font-size:clamp(26px,3.6vw,42px);letter-spacing:.03em;text-wrap:balance}
   h3{font-weight:700;font-size:17px;letter-spacing:.12em}
   section{padding:92px 0}
-  .btn{display:inline-block;font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:13px;padding:16px 34px;border:1px solid var(--wl-orange);transition:all .25s ease;cursor:pointer}
+  section[id]{scroll-margin-top:90px}
+  a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  .btn{display:inline-block;font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:13px;padding:16px 34px;border:1px solid var(--wl-orange);transition:background-color .25s var(--ease-out),color .25s var(--ease-out),border-color .25s var(--ease-out),transform 160ms var(--ease-out);cursor:pointer}
+  .btn:active{transform:scale(.97)}
   .btn-solid{background:var(--wl-orange);color:#fff}
   .btn-solid:hover{background:#A85F1B;border-color:#A85F1B}
   .btn-outline{color:var(--ink)}
   .btn-outline:hover{background:var(--wl-orange);color:#fff}
   .on-dark .btn-outline{color:#fff}
   a:focus-visible,button:focus-visible{outline:2px solid var(--wl-orange);outline-offset:3px;border-radius:2px}
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--wl-orange);color:#fff;padding:12px 20px;font-size:14px}
+  .skip-link:focus{left:0}
 
   .mock-ribbon{position:fixed;bottom:18px;left:18px;z-index:99;background:var(--wl-orange);color:#fff;font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:8px 14px;border-radius:3px;opacity:.92}
 
@@ -116,8 +125,8 @@
   @media(max-width:860px){.g-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:560px){.g-grid{grid-template-columns:1fr}}
   .g-grid figure{position:relative;overflow:hidden;margin:0}
-  .g-grid img{aspect-ratio:4/3;object-fit:cover;width:100%;transition:transform .5s ease}
-  .g-grid figure:hover img{transform:scale(1.04)}
+  .g-grid img{aspect-ratio:4/3;object-fit:cover;width:100%;height:auto;transition:transform .5s var(--ease-out)}
+  @media (hover:hover) and (pointer:fine){.g-grid figure:hover img{transform:scale(1.04)}}
   .g-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;background:linear-gradient(0deg,rgba(13,13,13,.75),transparent);color:#fff;font-size:12.5px;letter-spacing:.06em}
   .gallery .fineprint{text-align:center;margin-top:24px;font-size:12.5px;color:var(--muted)}
 
@@ -125,8 +134,8 @@
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}}
   @media(max-width:620px){.cards{grid-template-columns:1fr}}
-  .card{background:var(--paper);border:1px solid var(--line);padding:34px 28px;transition:border-color .25s,transform .25s,box-shadow .25s}
-  .card:hover{border-color:var(--wl-orange);transform:translateY(-4px);box-shadow:0 14px 30px rgba(26,26,26,.07)}
+  .card{background:var(--paper);border:1px solid var(--line);padding:34px 28px;transition:border-color .25s var(--ease-out),transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  @media (hover:hover) and (pointer:fine){.card:hover{border-color:var(--wl-orange);transform:translateY(-4px);box-shadow:0 14px 30px rgba(26,26,26,.07)}}
   .card .icon{width:44px;height:44px;margin-bottom:20px;color:var(--wl-orange)}
   .card h3{margin-bottom:12px}
   .card p{font-size:14.5px;color:var(--muted)}
@@ -154,7 +163,7 @@
   /* zones tabs */
   .zones{background:var(--paper-alt)}
   .tab-btns{display:flex;gap:6px;flex-wrap:wrap;margin:44px 0 0;border-bottom:1px solid var(--line)}
-  .tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.15em;font-size:13px;padding:16px 24px;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s}
+  .tab-btn{background:none;border:none;color:var(--muted);font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.15em;font-size:13px;padding:16px 24px;cursor:pointer;border-bottom:3px solid transparent;transition:color .2s var(--ease-out),border-color .2s var(--ease-out)}
   .tab-btn:hover{color:var(--ink)}
   .tab-btn.active{color:var(--wl-orange);border-bottom-color:var(--wl-orange)}
   .tab-btn:focus-visible{outline-offset:-2px}
@@ -179,6 +188,7 @@
 
   /* specs */
   .specs table{width:100%;border-collapse:collapse;margin-top:44px}
+  .specs table,.compare table{font-variant-numeric:tabular-nums}
   .specs th,.specs td{text-align:left;padding:18px 20px;border-bottom:1px solid var(--line);font-size:15px}
   .specs th{font-family:var(--font-display);font-stretch:125%;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--muted);font-weight:700}
   .specs td:first-child{color:var(--ink);font-weight:500}
@@ -264,6 +274,7 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <div class="mock-ribbon">Design mock &nbsp;|&nbsp; specs TBC</div>
 
 <header>
@@ -281,9 +292,9 @@
 </header>
 
 <!-- HERO -->
-<section class="hero on-dark" style="padding:0 0 76px">
+<main id="main"></main><section class="hero on-dark" style="padding:0 0 76px">
   <div class="hero-media">
-    <img class="fallback" src="assets/hero-fallback.jpg" alt="Wonderland RV XTR 2300 towed along an outback road">
+    <img class="fallback" src="assets/hero-fallback.jpg" width="1920" height="1280" alt="Wonderland RV XTR 2300 towed along an outback road">
     <iframe id="heroVideo" src="https://www.youtube-nocookie.com/embed/19nFAphbTqI?autoplay=1&mute=1&loop=1&playlist=19nFAphbTqI&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&enablejsapi=1" title="Wonderland RV XTR on the road" allow="autoplay; encrypted-media" loading="lazy"></iframe>
   </div>
   <button class="video-toggle" id="videoToggle" aria-label="Pause background video" aria-pressed="false">
@@ -324,7 +335,7 @@
       <p class="copy-note">*Copy note: confirm with production exactly what replaces the deleted bunk (cupboard, hanging robe or open bay) before publish.</p>
     </div>
     <div class="img-frame">
-      <img src="assets/interior-queen.jpg" alt="North-south island queen bed inside the Wonderland RV XTR" loading="lazy">
+      <img src="assets/interior-queen.jpg" width="1600" height="1066" alt="North-south island queen bed inside the Wonderland RV XTR" loading="lazy">
     </div>
   </div>
 </section>
@@ -337,12 +348,12 @@
       <h2>Take a look around</h2>
     </div>
     <div class="g-grid reveal">
-      <figure><img src="assets/bunks.jpg" alt="Bunk beds with storage drawers in the kids' zone" loading="lazy"><figcaption>The kids' zone</figcaption></figure>
-      <figure><img src="assets/interior-queen.jpg" alt="North-south island queen bed" loading="lazy"><figcaption>Parents' retreat</figcaption></figure>
-      <figure><img src="assets/kitchen.jpg" alt="Meal prep at the door-side kitchen" loading="lazy"><figcaption>Door-side kitchen</figcaption></figure>
-      <figure><img src="assets/dinette.jpg" alt="Dinette set for dinner" loading="lazy"><figcaption>The family hub</figcaption></figure>
-      <figure><img src="assets/kids-desk-detail.jpg" alt="Kids' study nook beside the bunks" loading="lazy"><figcaption>Study nook</figcaption></figure>
-      <figure><img src="assets/bbq-external.jpg" alt="Slide-out BBQ on the external kitchen" loading="lazy"><figcaption>External BBQ</figcaption></figure>
+      <figure><img src="assets/bunks.jpg" width="1600" height="1066" alt="Bunk beds with storage drawers in the kids' zone" loading="lazy"><figcaption>The kids' zone</figcaption></figure>
+      <figure><img src="assets/interior-queen.jpg" width="1600" height="1066" alt="North-south island queen bed" loading="lazy"><figcaption>Parents' retreat</figcaption></figure>
+      <figure><img src="assets/kitchen.jpg" width="1200" height="799" alt="Meal prep at the door-side kitchen" loading="lazy"><figcaption>Door-side kitchen</figcaption></figure>
+      <figure><img src="assets/dinette.jpg" width="1200" height="799" alt="Dinette set for dinner" loading="lazy"><figcaption>The family hub</figcaption></figure>
+      <figure><img src="assets/kids-desk-detail.jpg" width="1200" height="800" alt="Kids' study nook beside the bunks" loading="lazy"><figcaption>Study nook</figcaption></figure>
+      <figure><img src="assets/bbq-external.jpg" width="1200" height="800" alt="Slide-out BBQ on the external kitchen" loading="lazy"><figcaption>External BBQ</figcaption></figure>
     </div>
     <p class="fineprint">*Photos show the 2026 XTR 2300 family van. Some images may contain optional upgrades, please confirm inclusions with our sales team.</p>
   </div>
@@ -446,7 +457,7 @@
       <div class="zone-copy">
         <h3>Everyone gets their own spot</h3>
         <p>Parents up front, kids down back. The island queen sits north-south with walkway access on both sides, so nobody climbs over anyone at 2am. The three bunks each get their own drawers, and the space where the fourth bunk would sit works for gear instead of guests.</p>
-        <img src="assets/bunks.jpg" alt="Bunk beds in the kids' zone of the Wonderland RV XTR" loading="lazy">
+        <img src="assets/bunks.jpg" width="1600" height="1066" alt="Bunk beds in the kids' zone of the Wonderland RV XTR" loading="lazy">
       </div>
       <ul>
         <li><strong>Caravan queen bed</strong> 1530 x 1880mm, north-south island orientation</li>
@@ -461,7 +472,7 @@
       <div class="zone-copy">
         <h3>Pack for the term, not the weekend</h3>
         <p>Family travel means family gear. This layout was already the storage king of the range. Deleting the fourth bunk adds another dedicated bay right where the kids' clutter lives.</p>
-        <img src="assets/kids-desk.jpg" alt="Kids' study nook beside the bunks" loading="lazy">
+        <img src="assets/kids-desk.jpg" width="1200" height="800" alt="Kids' study nook beside the bunks" loading="lazy">
       </div>
       <ul>
         <li><strong>670L tunnel boot</strong> (700W x 430H x 2245D) via external doors</li>
@@ -476,7 +487,7 @@
       <div class="zone-copy">
         <h3>The family hub</h3>
         <p>The L-shape lounge is where homework, card games and rainy day movies happen. The telescopic table adjusts to any height, swivels and slides in four directions, and drops down to make an extra bed when the kids bring a mate.</p>
-        <img src="assets/dinette.jpg" alt="Dinette table set for dinner inside the XTR" loading="lazy">
+        <img src="assets/dinette.jpg" width="1200" height="799" alt="Dinette table set for dinner inside the XTR" loading="lazy">
       </div>
       <ul>
         <li><strong>L-shape lounge</strong> with telescopic, adjustable table leg</li>
@@ -490,7 +501,7 @@
       <div class="zone-copy">
         <h3>Meals with a view</h3>
         <p>The straight door-side kitchen faces the awning, so whoever is cooking stays part of the campsite action. A 300mm full-height pantry swallows the big shop, and the slide-out external BBQ handles the rest.</p>
-        <img src="assets/kitchen.jpg" alt="Meal prep in the XTR kitchen" loading="lazy">
+        <img src="assets/kitchen.jpg" width="1200" height="799" alt="Meal prep in the XTR kitchen" loading="lazy">
       </div>
       <ul>
         <li><strong>Straight door-side kitchen</strong> for outdoor visibility while cooking</li>
@@ -634,7 +645,7 @@
     <h2 class="reveal">Similar family layouts</h2>
     <div class="cards reveal">
       <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" alt="XT2311F-B4" loading="lazy">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT2311F-B4" loading="lazy">
         <div class="body">
           <h3>XT2311F-B4</h3>
           <ul><li>23ft 11in</li><li>Quad bunks</li><li>North-south island queen</li></ul>
@@ -642,7 +653,7 @@
         </div>
       </div>
       <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" alt="XT2211F-B2-D" loading="lazy">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" width="1024" height="576" alt="XT2211F-B2-D" loading="lazy">
         <div class="body">
           <h3>XT2211F-B2-D</h3>
           <ul><li>22ft 11in</li><li>Twin bunks</li><li>North-south queen with roadside bedside storage</li></ul>
@@ -650,7 +661,7 @@
         </div>
       </div>
       <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" alt="XT1806F-B2" loading="lazy">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT1806F-B2" loading="lazy">
         <div class="body">
           <h3>XT1806F-B2</h3>
           <ul><li>18ft 6in</li><li>Twin bunks</li><li>East-west queen</li></ul>
