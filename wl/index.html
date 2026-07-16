@@ -160,9 +160,9 @@
   @media (hover:none){.expand-btn{opacity:1;transform:none}}
   @media (hover:hover) and (pointer:fine){
     .carousel figure{cursor:pointer}
-    .cursor-chip{position:fixed;z-index:150;left:0;top:0;pointer-events:none;display:flex;align-items:center;gap:9px;background:var(--wl-orange);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:13px 20px;border-radius:999px;box-shadow:0 8px 22px rgba(13,13,13,.35);opacity:0;transform:translate(-50%,-50%) scale(.7);transition:opacity .2s var(--ease-out),transform .2s var(--ease-out)}
-    .cursor-chip svg{width:17px;height:17px}
-    .cursor-chip.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    .cursor-chip{position:fixed;z-index:150;left:0;top:0;pointer-events:none;display:flex;align-items:center;justify-content:center;width:56px;height:56px;background:var(--wl-orange);color:#fff;border-radius:50%;opacity:0;transform:translate(-50%,-50%) scale(.6);transition:opacity .25s var(--ease-out),transform .25s var(--ease-out)}
+    .cursor-chip svg{width:22px;height:22px}
+    .cursor-chip.on{opacity:.65;transform:translate(-50%,-50%) scale(1)}
   }
   @media (hover:none),(pointer:coarse){.cursor-chip{display:none}}
   .expand-btn:hover{background:#A85F1B}
@@ -937,7 +937,7 @@
         <label for="fq-phone">Phone*</label>
         <input type="tel" id="fq-phone" name="phone" autocomplete="tel" required>
       </div>
-      <div class="f-field" style="grid-column:1/-1">
+      <div class="f-field">
         <label for="fq-state">State*</label>
         <select id="fq-state" name="field[27]" required>
           <option value="" selected disabled>Select your state</option>
@@ -949,6 +949,16 @@
           <option>Northern Territory</option>
           <option>Tasmania</option>
           <option>New Zealand</option>
+        </select>
+      </div>
+      <div class="f-field">
+        <label for="fq-budget">Budget</label>
+        <select id="fq-budget" name="field[32]">
+          <option value="Just exploring my options">Just exploring my options</option>
+          <option value="Under $100k">Under $100k</option>
+          <option value="$100k - $130k">$100k - $130k</option>
+          <option value="$130k - $160k" selected>$130k - $160k</option>
+          <option value="$160k+">$160k+</option>
         </select>
       </div>
       <div class="f-submit">
@@ -1139,13 +1149,20 @@
     // cursor-follow expand chip (desktop)
     if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
       var chip=document.createElement('div');
+      var chipTX=0,chipTY=0,chipX=0,chipY=0,chipInit=false;
       chip.className='cursor-chip';
-      chip.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand';
+      (function follow(){
+        if(!chipInit&&(chipTX||chipTY)){chipX=chipTX;chipY=chipTY;chipInit=true;}
+        chipX+=(chipTX-chipX)*.18;chipY+=(chipTY-chipY)*.18;
+        chip.style.left=chipX+'px';chip.style.top=chipY+'px';
+        requestAnimationFrame(follow);
+      })();
+      chip.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>';
       document.body.appendChild(chip);
       document.querySelectorAll('#galleryCarousel figure').forEach(function(fig){
         fig.addEventListener('mouseenter',function(){chip.classList.add('on')});
         fig.addEventListener('mouseleave',function(){chip.classList.remove('on')});
-        fig.addEventListener('mousemove',function(e){chip.style.left=e.clientX+'px';chip.style.top=e.clientY+'px'});
+        fig.addEventListener('mousemove',function(e){chipTX=e.clientX;chipTY=e.clientY;});
         fig.addEventListener('click',function(e){
           if(e.target.closest('.expand-btn'))return;
           chip.classList.remove('on');
