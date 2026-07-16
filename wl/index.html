@@ -125,16 +125,22 @@
   .split .img-frame::after{content:'';position:absolute;top:18px;left:18px;right:-18px;bottom:-18px;border:1px solid var(--wl-orange);z-index:-1}
   .copy-note{font-size:13px;color:var(--wl-orange)}
 
-  /* video facade (intro walkthrough) */
-  .video-facade{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--wl-black);cursor:pointer;border:1px solid var(--line)}
-  .video-facade img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .3s var(--ease-out),transform .5s var(--ease-out)}
-  @media (hover:hover) and (pointer:fine){.video-facade:hover img{opacity:1;transform:scale(1.03)}}
-  .video-facade button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;border:none;background:var(--wl-orange);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .16s var(--ease-out),background-color .2s}
-  .video-facade button svg{width:30px;height:30px;margin-left:3px}
-  .video-facade button:hover{background:#A85F1B}
-  .video-facade:active button{transform:translate(-50%,-50%) scale(.94)}
-  .video-facade .facade-tag{position:absolute;left:0;bottom:0;background:rgba(13,13,13,.75);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:11px;padding:10px 16px}
-  .video-facade iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  /* video facade (intro walkthrough): fills the column, begs to be clicked */
+  #walkthrough .split{align-items:stretch}
+  .video-facade{position:relative;overflow:hidden;background:var(--wl-black);cursor:pointer;height:100%;min-height:520px}
+  @media(max-width:900px){.video-facade{height:auto;min-height:0;aspect-ratio:16/10}}
+  .video-facade img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out)}
+  .video-facade::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,13,13,.55),transparent 45%);transition:background .3s}
+  @media (hover:hover) and (pointer:fine){.video-facade:hover img{transform:scale(1.04)}}
+  .video-facade button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96px;height:96px;border-radius:50%;border:none;background:var(--wl-orange);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s var(--ease-out),background-color .2s;z-index:2}
+  .video-facade button::before{content:'';position:absolute;inset:-14px;border:1px solid rgba(255,255,255,.55);border-radius:50%;animation:pulse 2.4s var(--ease-out) infinite}
+  @keyframes pulse{0%{transform:scale(.85);opacity:0}45%{opacity:1}100%{transform:scale(1.18);opacity:0}}
+  .video-facade button svg{width:38px;height:38px;margin-left:4px}
+  @media (hover:hover) and (pointer:fine){.video-facade:hover button{transform:translate(-50%,-50%) scale(1.08)}}
+  .video-facade:active button{transform:translate(-50%,-50%) scale(.95)}
+  .video-facade .facade-tag{position:absolute;left:0;bottom:0;background:var(--wl-orange);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;text-transform:uppercase;letter-spacing:.16em;font-size:12px;padding:13px 20px;z-index:2}
+  .video-facade iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
+  @media (prefers-reduced-motion: reduce){.video-facade button::before{animation:none}}
 
   /* gallery slideshow */
   .gallery{background:var(--paper-alt)}
@@ -255,19 +261,32 @@
   .video-embed{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--line-dark)}
   .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-  /* specs: centred spec sheet card */
-  .specs .head-center{text-align:center;max-width:640px;margin:0 auto}
-  .spec-sheet{max-width:860px;margin:48px auto 0;border:1px solid var(--line);background:#fff;font-variant-numeric:tabular-nums}
-  .spec-sheet .sheet-title{background:var(--wl-charcoal);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding:16px 28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .spec-sheet .sheet-title span:last-child{color:var(--wl-orange-bright)}
-  .spec-row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:15px 28px;border-bottom:1px solid var(--line);font-size:15px}
-  .spec-row:last-child{border-bottom:none}
-  .spec-row:nth-child(even){background:#FBFAF8}
-  .spec-row dt{color:var(--ink);font-weight:500}
-  .spec-row dd{color:var(--muted);text-align:right;margin:0}
+  /* specs: at-a-glance (matches WL site pattern) */
+  .specs h2{margin-top:14px}
+  .spec-glance{display:grid;grid-template-columns:300px 1fr;gap:64px;margin-top:52px;align-items:start}
+  @media(max-width:860px){.spec-glance{grid-template-columns:1fr;gap:36px}}
+  .spec-cats{list-style:none}
+  .spec-cat{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;border-bottom:1px solid var(--ink);padding:20px 2px;font-family:var(--font-body);font-size:18px;font-weight:400;color:var(--ink);cursor:pointer;text-align:left;transition:color .2s var(--ease-out)}
+  .spec-cat svg{width:16px;height:16px;transition:transform .25s var(--ease-out),color .2s}
+  .spec-cat.active{font-weight:500}
+  .spec-cat.active svg{color:var(--wl-orange);transform:rotate(180deg)}
+  .spec-cat:hover{color:var(--wl-orange)}
+  @media(max-width:860px){
+    .spec-cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+    .spec-cat{white-space:nowrap;border:1px solid var(--line);padding:10px 18px;font-size:14px}
+    .spec-cat.active{border-color:var(--wl-orange);color:var(--wl-orange)}
+    .spec-cat svg{display:none}
+  }
+  .spec-panel{display:none}
+  .spec-panel.active{display:block}
+  .spec-panel .cat-title{font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+  .spec-table{width:100%;border:1px solid var(--line);border-collapse:collapse;font-variant-numeric:tabular-nums}
+  .spec-table tr:nth-child(even){background:#F5F3F0}
+  .spec-table th,.spec-table td{border:1px solid var(--line);padding:17px 22px;font-size:15px;text-align:left;vertical-align:top}
+  .spec-table th{width:34%;font-weight:400;color:var(--ink)}
+  .spec-table td{color:var(--muted)}
   .tbc{color:var(--wl-orange);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
   .fineprint{margin-top:22px;font-size:12.5px;color:#8B8578}
-  .specs .fineprint{max-width:860px;margin-left:auto;margin-right:auto;text-align:center}
 
   /* comparison: two option cards */
   .compare{background:var(--paper-alt)}
@@ -324,16 +343,15 @@
   .enquire{padding:80px 0}
   .enquire .grid{align-items:center}
 
-  /* similar */
+  /* similar: compact rectangles, render + name */
   .similar .cards{margin-top:52px}
-  .sim-card{background:#fff;border:1px solid var(--line);overflow:hidden;transition:border-color .25s,box-shadow .25s}
-  .sim-card:hover{border-color:var(--wl-orange);box-shadow:0 14px 30px rgba(26,26,26,.07)}
-  .sim-card img{aspect-ratio:16/9;object-fit:contain;object-position:center;background:#fff;width:100%;padding:12px 12px 0}
-  .sim-card .body{padding:26px}
-  .sim-card h3{margin-bottom:12px}
-  .sim-card ul{list-style:none;margin-bottom:20px}
-  .sim-card li{font-size:13.5px;color:var(--muted);padding:4px 0}
-  .sim-card .link{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--wl-orange)}
+  .sim-card{display:block;background:#fff;border:1px solid var(--line);overflow:hidden;transition:border-color .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  @media (hover:hover) and (pointer:fine){.sim-card:hover{border-color:var(--wl-orange);box-shadow:0 14px 30px rgba(26,26,26,.07)}}
+  .sim-card img{width:100%;height:auto;display:block}
+  .sim-card .body{display:flex;align-items:center;gap:14px;padding:18px 22px;border-top:1px solid var(--line)}
+  .sim-card .size-badge{margin:0;flex-shrink:0}
+  .sim-card h3{font-size:16px;letter-spacing:.08em;margin:0}
+  .sim-card .tagline{font-size:12.5px;color:var(--muted);margin:2px 0 0}
 
   /* footer (white, matches wonderlandrv.com.au) */
   footer{background:#fff;border-top:1px solid var(--line);padding:72px 0 40px;color:var(--ink)}
@@ -430,16 +448,6 @@
   </div>
 </nav>
 
-<!-- STAT BAR -->
-<div class="stats">
-  <div class="wrap">
-    <div class="stat"><div class="num">23'11"</div><div class="lbl">Cabin length</div></div>
-    <div class="stat"><div class="num">3</div><div class="lbl">Bunks</div></div>
-    <div class="stat"><div class="num">N-S Queen</div><div class="lbl">Island bed</div></div>
-    <div class="stat"><div class="num tbc">TBC</div><div class="lbl">ATM <span class="tbc">*confirm</span></div></div>
-  </div>
-</div>
-
 <!-- INTRO + WALKTHROUGH VIDEO (Kokoda style: video left, copy right) -->
 <section id="walkthrough">
   <div class="wrap split reveal">
@@ -492,7 +500,7 @@
 <!-- FEATURES + VIRTUAL TOUR (Kokoda two-col) -->
 <section class="features" id="features">
   <div class="wrap">
-    <div class="head reveal" style="max-width:680px;margin-bottom:48px">
+    <div class="head reveal" style="max-width:680px;margin:0 auto 48px;text-align:center">
       <span class="eyebrow">Features</span>
       <h2>For families who pack real life</h2>
     </div>
@@ -641,22 +649,61 @@
 <!-- SPECS -->
 <section class="specs" id="specs">
   <div class="wrap reveal">
-    <div class="head-center">
-      <span class="eyebrow">Tech specs</span>
-      <h2>The numbers</h2>
+    <span class="eyebrow">Tech specs</span>
+    <h2>Specifications at a glance</h2>
+    <div class="spec-glance">
+      <ul class="spec-cats" role="tablist">
+        <li><button class="spec-cat active" data-spec="dimensions" role="tab">Dimensions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="weights" role="tab">Weights<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="sleeping" role="tab">Sleeping<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="storage" role="tab">Storage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="power" role="tab">Water &amp; Power<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+      </ul>
+      <div class="spec-panels">
+        <div class="spec-panel active" id="spec-dimensions">
+          <p class="cat-title">Dimensions</p>
+          <table class="spec-table">
+            <tr><th>Cabin length</th><td>23ft 11in</td></tr>
+            <tr><th>External length</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Internal height</th><td><span class="tbc">TBC</span></td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-weights">
+          <p class="cat-title">Weights</p>
+          <table class="spec-table">
+            <tr><th>ATM</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Tare</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Ball weight</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Payload</th><td><span class="tbc">TBC</span></td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-sleeping">
+          <p class="cat-title">Sleeping</p>
+          <table class="spec-table">
+            <tr><th>Main bed</th><td>Caravan queen 1530 x 1880mm, north-south island orientation</td></tr>
+            <tr><th>Bunks</th><td>Three full-size bunks in the rear kids' zone</td></tr>
+            <tr><th>Extra bed</th><td>Lounge converts with in-fill cushion (sold separately)</td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-storage">
+          <p class="cat-title">Storage</p>
+          <table class="spec-table">
+            <tr><th>Tunnel boot</th><td>670L (700W x 430H x 2245D), external doors both sides</td></tr>
+            <tr><th>Under-bed</th><td>650L (1100W x 450H x 1360D), gas-lift bed access</td></tr>
+            <tr><th>Deleted bunk bay</th><td>Dedicated storage in the kids' zone <span class="tbc">fit-out TBC</span></td></tr>
+            <tr><th>Wardrobes</th><td>Mirrored, with hanging space each side of the queen</td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-power">
+          <p class="cat-title">Water &amp; Power</p>
+          <table class="spec-table">
+            <tr><th>Water capacity</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Solar and battery</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Laundry</th><td>3kg space-saving wall-mounted washing machine</td></tr>
+          </table>
+        </div>
+      </div>
     </div>
-    <dl class="spec-sheet">
-      <div class="sheet-title"><span>Quad Bunk Delete</span><span>XT2311F-B4 base</span></div>
-      <div class="spec-row"><dt>Cabin length</dt><dd>23ft 11in</dd></div>
-      <div class="spec-row"><dt>Sleeping</dt><dd>Queen + 3 bunks, optional lounge conversion</dd></div>
-      <div class="spec-row"><dt>ATM</dt><dd><span class="tbc">TBC</span></dd></div>
-      <div class="spec-row"><dt>Tare</dt><dd><span class="tbc">TBC</span></dd></div>
-      <div class="spec-row"><dt>Ball weight</dt><dd><span class="tbc">TBC</span></dd></div>
-      <div class="spec-row"><dt>Payload</dt><dd><span class="tbc">TBC</span></dd></div>
-      <div class="spec-row"><dt>External length</dt><dd><span class="tbc">TBC</span></dd></div>
-      <div class="spec-row"><dt>Water capacity</dt><dd><span class="tbc">TBC</span></dd></div>
-      <div class="spec-row"><dt>Solar and battery</dt><dd><span class="tbc">TBC</span></dd></div>
-    </dl>
     <p class="fineprint">*TBC values to be confirmed with production before publish. Technical specifications may vary depending on options selected. Images shown may have optional extras fitted. Wonderland RV reserves the right to change models, features, specifications or designs without prior notice.</p>
   </div>
 </section>
@@ -757,36 +804,27 @@
       <p>Same family thinking, three cabin lengths. Pick the size that suits your crew and your tow vehicle.</p>
     </div>
     <div class="cards reveal">
-      <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT1806F-B2" loading="lazy">
+      <a class="sim-card" href="https://wonderlandrv.com.au/range/xtr/xt1806f-b2/">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT1806F-B2 cutaway" loading="lazy">
         <div class="body">
           <span class="size-badge">18'6"</span>
-          <h3>XT1806F-B2</h3>
-          <p class="tagline">The compact family tourer</p>
-          <ul><li>Twin bunks</li><li>East-west queen</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt1806f-b2/">See details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+          <div><h3>XT1806F-B2</h3><p class="tagline">Twin bunks, east-west queen</p></div>
         </div>
-      </div>
-      <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT2211F-B2-D" loading="lazy">
+      </a>
+      <a class="sim-card" href="https://wonderlandrv.com.au/range/xtr/xt2211f-b2-d/">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT2211F-B2-D cutaway" loading="lazy">
         <div class="body">
           <span class="size-badge">22'11"</span>
-          <h3>XT2211F-B2-D</h3>
-          <p class="tagline">Room to move</p>
-          <ul><li>Twin bunks</li><li>North-south queen with roadside bedside storage</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2211f-b2-d/">See details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+          <div><h3>XT2211F-B2-D</h3><p class="tagline">Twin bunks, north-south queen</p></div>
         </div>
-      </div>
-      <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT2311F-B4" loading="lazy">
+      </a>
+      <a class="sim-card" href="https://wonderlandrv.com.au/range/xtr/xt2311f-b4/">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT2311F-B4 cutaway" loading="lazy">
         <div class="body">
           <span class="size-badge">23'11"</span>
-          <h3>XT2311F-B4<span class="this-page">This page</span></h3>
-          <p class="tagline">The full family flagship</p>
-          <ul><li>Quad bunks, or three with the bunk delete</li><li>North-south island queen</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2311f-b4/">See details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+          <div><h3>XT2311F-B4<span class="this-page">This page</span></h3><p class="tagline">Quad bunks, or three with the bunk delete</p></div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -968,8 +1006,6 @@
       scrollTrigger:{trigger:'.g-grid',start:'top 84%',once:true}});
     gsap.to('.photo-break .parallax-img',{yPercent:12,ease:'none',
       scrollTrigger:{trigger:'.photo-break',scrub:.5}});
-    gsap.from('.stat',{opacity:0,y:12,duration:.4,stagger:.08,ease:'power2.out',
-      scrollTrigger:{trigger:'.stats',start:'top 90%',once:true}});
     window.addEventListener('load',function(){ScrollTrigger.refresh()});
   } else {
     var io=new IntersectionObserver(function(entries){
@@ -1013,6 +1049,16 @@
     document.querySelector('.car-btn.prev').addEventListener('click',function(){car.scrollBy({left:-step(),behavior:'smooth'})});
     document.querySelector('.car-btn.next').addEventListener('click',function(){car.scrollBy({left:step(),behavior:'smooth'})});
   })();
+
+  // spec category tabs
+  document.querySelectorAll('.spec-cat').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.spec-cat').forEach(function(b){b.classList.remove('active')});
+      document.querySelectorAll('.spec-panel').forEach(function(p){p.classList.remove('active')});
+      btn.classList.add('active');
+      document.getElementById('spec-'+btn.dataset.spec).classList.add('active');
+    });
+  });
 </script>
 </body>
 </html>
