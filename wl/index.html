@@ -1192,7 +1192,7 @@
     function step(){return car.querySelector('figure').getBoundingClientRect().width+14}
     function glide(delta){
       if(window.gsap && !reducedMotion){
-        gsap.to(car,{scrollTo:null,scrollLeft:car.scrollLeft+delta,duration:.6,ease:'power2.inOut',overwrite:'auto'});
+        gsap.to(car,{scrollLeft:car.scrollLeft+delta,duration:.6,ease:'power2.inOut',overwrite:'auto'});
       } else {
         car.scrollBy({left:delta,behavior:'smooth'});
       }
