@@ -196,15 +196,13 @@
 
   /* colour options */
   .colours{background:var(--paper-alt)}
-  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   @media(max-width:900px){.swatch-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.swatch-grid{grid-template-columns:1fr}}
-  .swatch{background:#fff;border:1px solid var(--line);padding:22px;margin:0;transition:border-color .25s var(--ease-out),transform .25s var(--ease-out)}
+  .swatch{background:#fff;border:1px solid var(--line);padding:0;margin:0;overflow:hidden;transition:border-color .25s var(--ease-out),transform .25s var(--ease-out)}
   @media (hover:hover) and (pointer:fine){.swatch:hover{border-color:var(--wl-orange);transform:translateY(-4px)}}
-  .swatch .chips{display:flex;height:110px;border:1px solid var(--line);overflow:hidden}
-  .swatch .chips i{flex:1}
-  .swatch figcaption{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:13px}
-  .swatch .tbc{color:var(--wl-orange);font-size:11px;letter-spacing:.08em}
+  .swatch img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+  .swatch figcaption{padding:14px 18px;font-family:var(--font-display);font-stretch:125%;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:13px}
 
   /* why cards */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -327,13 +325,13 @@
   .why-wl .aus{height:54px;margin-top:40px}
 
 
-  /* owner story */
-  .owner-story{background:var(--wl-charcoal);color:#fff;text-align:center}
-  .owner-story .mark{font-family:var(--font-display);font-size:80px;line-height:.5;color:var(--wl-orange);display:block;margin-bottom:26px}
-  .owner-story blockquote{font-size:clamp(20px,2.4vw,30px);line-height:1.5;font-weight:300;max-width:820px;margin:0 auto;text-wrap:balance}
-  .owner-story .who{display:block;margin-top:26px;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--wl-orange-bright)}
-  .owner-story .join{margin-top:34px;font-size:15px;color:#B9B4AE}
-  .owner-story .join a{color:var(--wl-orange-bright);font-weight:500}
+  /* owner story (light, matches site testimonial style) */
+  .owner-story{background:#fff;text-align:center}
+  .owner-story .mark{display:none}
+  .owner-story blockquote{font-size:clamp(20px,2.4vw,28px);line-height:1.55;font-weight:400;max-width:780px;margin:0 auto;text-wrap:balance;color:var(--wl-orange)}
+  .owner-story .who{display:block;margin-top:26px;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+  .owner-story .join{margin-top:30px;font-size:15px;color:var(--muted)}
+  .owner-story .join a{color:var(--wl-orange);font-weight:500}
 
   /* enquiry (light, matches WL site form) */
   .enquire{background:var(--paper-alt)}
@@ -559,22 +557,12 @@
       <button class="tab-btn" data-fp="quad" role="tab">Standard Quad Bunk (4 bunks)</button>
     </div>
     <div class="fp-panel active" id="fp-delete">
-      <div class="frame reveal">
-        <span class="eyebrow">Floorplan artwork to come</span>
-        <p>Drop the Quad Bunk Delete floorplan render here (2000px wide minimum). Source file to be requested from the design team.</p>
-      </div>
+      <img class="fp-img" src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TOP-1024x576.jpg" width="1024" height="576" alt="Overhead floorplan of the XT2311F-B4, quad bunk shown" loading="lazy">
+      <p class="tour-note">*Render shows the standard quad bunk. In the Quad Bunk Delete, the fourth bunk becomes dedicated storage. Updated render to come.</p>
     </div>
     <div class="fp-panel" id="fp-quad">
-      <div class="frame">
-        <span class="eyebrow">Floorplan artwork to come</span>
-        <p>Standard XT2311F-B4 quad bunk floorplan render goes here for comparison.</p>
-      </div>
-    </div>
-    <div class="legend reveal">
-      <span><i></i>Sleeping zones</span>
-      <span><i class="b"></i>Living and kitchen</span>
-      <span><i class="b"></i>Bathroom and laundry</span>
-      <span><i></i>Storage (including deleted bunk bay)</span>
+      <img class="fp-img" src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TOP-1024x576.jpg" width="1024" height="576" alt="Overhead floorplan of the XT2311F-B4 quad bunk layout" loading="lazy">
+      <p class="tour-note">*XT2311F-B4 standard quad bunk floorplan.</p>
     </div>
   </div>
 </section>
@@ -657,10 +645,14 @@
         </div>
         <div class="spec-panel" id="spec-power" role="tabpanel">
           <p class="cat-title">Water &amp; Power</p>
-          <p class="cat-blurb">Set up for proper off-grid stints.</p>
+          <p class="cat-blurb">Set up for proper off-grid stints. XTR range standard, confirm final spec for this layout.</p>
           <table class="spec-table">
-            <tr><th>Water capacity</th><td><span class="tbc">TBC</span></td></tr>
-            <tr><th>Solar and battery</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Fresh water</th><td>2 x 90-100L fresh water tanks plus 1 x 90L drinking water tank</td></tr>
+            <tr><th>Grey water</th><td>1 x 100L grey water tank with grey water bypass</td></tr>
+            <tr><th>External shower</th><td>1 x external shower, hot and cold taps at tunnel boot</td></tr>
+            <tr><th>Electrical</th><td>Victron off-grid system with 1000W solar: 12V with 900Ah lithium, or 24V with 11kWh battery</td></tr>
+            <tr><th>Heating and hot water</th><td>Hydronic diesel hot water and heating (gasless internally)</td></tr>
+            <tr><th>Laundry</th><td>3kg - 3.5kg wall-mounted washing machine</td></tr>
           </table>
         </div>
       </div>
@@ -800,28 +792,40 @@
     </div>
     <div class="swatch-grid reveal">
       <figure class="swatch">
-        <div class="chips"><i style="background:#F2EFEA"></i><i style="background:#D8CFC2"></i><i style="background:#8B8578"></i></div>
-        <figcaption><strong>Scheme 1</strong><span class="tbc">name TBC</span></figcaption>
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Beach-Days-hero-1.webp" width="640" height="474" alt="Beach Days interior colour scheme" loading="lazy">
+        <figcaption><strong>Beach Days</strong></figcaption>
       </figure>
       <figure class="swatch">
-        <div class="chips"><i style="background:#F5F5F5"></i><i style="background:#BFC5C9"></i><i style="background:#4A5257"></i></div>
-        <figcaption><strong>Scheme 2</strong><span class="tbc">name TBC</span></figcaption>
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Forest-Track-hero-1.webp" width="640" height="474" alt="Forest Track interior colour scheme" loading="lazy">
+        <figcaption><strong>Forest Track</strong></figcaption>
       </figure>
       <figure class="swatch">
-        <div class="chips"><i style="background:#F0EBE3"></i><i style="background:#C9A97E"></i><i style="background:#5C4A38"></i></div>
-        <figcaption><strong>Scheme 3</strong><span class="tbc">name TBC</span></figcaption>
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Natural-Warmth-hero-1.webp" width="640" height="474" alt="Natural Warmth interior colour scheme" loading="lazy">
+        <figcaption><strong>Natural Warmth</strong></figcaption>
       </figure>
       <figure class="swatch">
-        <div class="chips"><i style="background:#EFEFEF"></i><i style="background:#9AA5A0"></i><i style="background:#2F3835"></i></div>
-        <figcaption><strong>Scheme 4</strong><span class="tbc">name TBC</span></figcaption>
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Rustic-Charm-hero-1.webp" width="640" height="474" alt="Rustic Charm interior colour scheme" loading="lazy">
+        <figcaption><strong>Rustic Charm</strong></figcaption>
+      </figure>
+      <figure class="swatch">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Sand-Dunes-hero-1.webp" width="640" height="474" alt="Sand Dunes interior colour scheme" loading="lazy">
+        <figcaption><strong>Sand Dunes</strong></figcaption>
+      </figure>
+      <figure class="swatch">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Coastal-Slate-hero-1.webp" width="640" height="474" alt="Coastal Slate interior colour scheme" loading="lazy">
+        <figcaption><strong>Coastal Slate</strong></figcaption>
+      </figure>
+      <figure class="swatch">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Opium-Noir-hero-1.webp" width="640" height="474" alt="Opium Noir interior colour scheme" loading="lazy">
+        <figcaption><strong>Opium Noir</strong></figcaption>
       </figure>
     </div>
-    <p class="fineprint" style="text-align:center">*Design placeholder: swap in the real interior scheme photos and names from the production options list before publish.</p>
+    <p class="fineprint" style="text-align:center">Explore the world of colour and textures across the 2026 range. Ask our team for the full benchtop, door, floor, splashback and upholstery combinations.</p>
   </div>
 </section>
 
 <!-- OWNER STORY -->
-<section class="owner-story">
+<section class="owner-story" style="padding:80px 0">
   <div class="wrap reveal">
     <span class="mark" aria-hidden="true">&ldquo;</span>
     <blockquote>Placeholder: swap in a real Wonderlanders family quote here. Two sentences about life on the road with the kids in their van, sourced from the owners group.</blockquote>
