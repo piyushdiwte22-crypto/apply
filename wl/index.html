@@ -420,6 +420,43 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
 
+
+  /* ===== mobile optimisation ===== */
+  @media(max-width:760px){
+    section{padding:60px 0}
+    .wrap{padding:0 20px}
+    h1{font-size:clamp(30px,9vw,40px)}
+    h2{font-size:clamp(22px,6.4vw,28px)}
+    .hero{min-height:72vh;padding-bottom:56px}
+    .hero p.sub{font-size:16px;margin:16px 0 26px}
+    .hero .actions .btn{padding:14px 22px;font-size:12px}
+    .video-toggle{right:14px;bottom:14px;padding:8px 12px}
+    #walkthrough .split{gap:32px}
+    .video-facade button{width:76px;height:52px;border-radius:12px}
+    .video-facade button svg{width:26px;height:26px}
+    .video-facade .facade-tag{font-size:10px;padding:10px 14px}
+    .feature-card{padding:26px 20px}
+    .tour-embed{min-height:240px}
+    .features .cols{gap:18px}
+    .why-wl .grid{gap:40px;margin-top:36px}
+    .why-wl .items{gap:26px 22px}
+    .quote{font-size:19px}
+    .spec-glance{margin-top:32px}
+    .spec-table th,.spec-table td{padding:13px 14px;font-size:14px}
+    .spec-table th{width:38%}
+    .photo-break{min-height:44vh}
+    .photo-break .wrap{min-height:44vh;padding-bottom:44px}
+    .owner-story{padding:56px 0 !important}
+    .enquire .grid{gap:32px}
+    .contact-list li{font-size:14px}
+    .form-card .form-title{font-size:18px}
+    .wl-form{gap:24px}
+    .swatch figcaption{padding:12px 14px;font-size:12px}
+    .sim-card .body{padding:14px 16px}
+    footer{padding:52px 0 32px}
+    footer .cols{gap:32px;padding-bottom:32px}
+  }
+
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
