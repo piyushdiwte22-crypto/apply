@@ -208,13 +208,6 @@
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   @media(max-width:900px){.cards{grid-template-columns:1fr 1fr}}
   @media(max-width:620px){.cards{grid-template-columns:1fr}}
-  .card{background:var(--paper);border:1px solid var(--line);padding:34px 28px;transition:border-color .25s var(--ease-out),transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
-  @media (hover:hover) and (pointer:fine){.card:hover{border-color:var(--wl-orange);transform:translateY(-4px);box-shadow:0 14px 30px rgba(26,26,26,.07)}}
-  .card .icon{width:44px;height:44px;margin-bottom:20px;color:var(--wl-orange)}
-  .card h3{margin-bottom:12px}
-  .card p{font-size:14.5px;color:var(--muted)}
-  .why .head{text-align:center;max-width:680px;margin:0 auto 60px}
-  .why .head h2{margin-top:14px}
 
   /* floorplan */
   .floorplan{background:var(--paper-alt)}
@@ -581,16 +574,16 @@
     <p class="pick-hint">Pick a zone to see what it packs.</p>
     <div class="spec-glance">
       <ul class="spec-cats" role="tablist">
-        <li><button class="spec-cat active" data-spec="sleeping" role="tab" aria-selected="true">Sleeping<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="storage" role="tab" aria-selected="false">Storage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="living" role="tab" aria-selected="false">Living<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="kitchen" role="tab" aria-selected="false">Kitchen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="bathroom" role="tab" aria-selected="false">Bathroom &amp; Laundry<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="weights" role="tab" aria-selected="false">Dimensions &amp; Weights<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="power" role="tab" aria-selected="false">Water &amp; Power<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat active" data-spec="sleeping" role="tab" aria-controls="spec-sleeping" aria-selected="true">Sleeping<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="storage" role="tab" aria-controls="spec-storage" aria-selected="false">Storage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="living" role="tab" aria-controls="spec-living" aria-selected="false">Living<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="kitchen" role="tab" aria-controls="spec-kitchen" aria-selected="false">Kitchen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="bathroom" role="tab" aria-controls="spec-bathroom" aria-selected="false">Bathroom &amp; Laundry<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="weights" role="tab" aria-controls="spec-weights" aria-selected="false">Dimensions &amp; Weights<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="power" role="tab" aria-controls="spec-power" aria-selected="false">Water &amp; Power<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
       </ul>
       <div class="spec-panels">
-        <div class="spec-panel active" id="spec-sleeping">
+        <div class="spec-panel active" id="spec-sleeping" role="tabpanel">
           <p class="cat-title">Sleeping</p>
           <p class="cat-blurb">Parents up front, kids down back. Nobody climbs over anyone at 2am.</p>
           <table class="spec-table">
@@ -600,7 +593,7 @@
             <tr><th>Extra bed</th><td>Lounge converts with in-fill cushion (sold separately)</td></tr>
           </table>
         </div>
-        <div class="spec-panel" id="spec-storage">
+        <div class="spec-panel" id="spec-storage" role="tabpanel">
           <p class="cat-title">Storage</p>
           <p class="cat-blurb">Already the storage king of the range, then the bunk delete adds another full bay.</p>
           <table class="spec-table">
@@ -610,7 +603,7 @@
             <tr><th>Wardrobes</th><td>Mirrored, with hanging space each side of the queen</td></tr>
           </table>
         </div>
-        <div class="spec-panel" id="spec-living">
+        <div class="spec-panel" id="spec-living" role="tabpanel">
           <p class="cat-title">Living</p>
           <p class="cat-blurb">Where homework, card games and rainy day movies happen.</p>
           <table class="spec-table">
@@ -619,7 +612,7 @@
             <tr><th>Extra bed</th><td>Table drops down with in-fill cushion (sold separately)</td></tr>
           </table>
         </div>
-        <div class="spec-panel" id="spec-kitchen">
+        <div class="spec-panel" id="spec-kitchen" role="tabpanel">
           <p class="cat-title">Kitchen</p>
           <p class="cat-blurb">Faces the awning, so the cook stays part of the campsite conversation.</p>
           <table class="spec-table">
@@ -628,7 +621,7 @@
             <tr><th>Storage</th><td>Overhead cabinets, six drawers and an under-sink cabinet</td></tr>
           </table>
         </div>
-        <div class="spec-panel" id="spec-bathroom">
+        <div class="spec-panel" id="spec-bathroom" role="tabpanel">
           <p class="cat-title">Bathroom &amp; Laundry</p>
           <p class="cat-blurb">Three kids generate washing at an industrial rate. This keeps up.</p>
           <table class="spec-table">
@@ -637,7 +630,7 @@
             <tr><th>Storage</th><td>Overhead and vanity cabinets, three open shelves</td></tr>
           </table>
         </div>
-        <div class="spec-panel" id="spec-weights">
+        <div class="spec-panel" id="spec-weights" role="tabpanel">
           <p class="cat-title">Dimensions &amp; Weights</p>
           <p class="cat-blurb">The tow-planning numbers.</p>
           <table class="spec-table">
@@ -649,7 +642,7 @@
             <tr><th>Payload</th><td><span class="tbc">TBC</span></td></tr>
           </table>
         </div>
-        <div class="spec-panel" id="spec-power">
+        <div class="spec-panel" id="spec-power" role="tabpanel">
           <p class="cat-title">Water &amp; Power</p>
           <p class="cat-blurb">Set up for proper off-grid stints.</p>
           <table class="spec-table">
@@ -741,7 +734,7 @@
         </div>
       </div>
       <div>
-        <p class="quote">'Really impressed with the build quality and the attention to detail. The van turned out amazing.'<span class="who">Gary Humphrey</span></p>
+        <p class="quote">‘Really impressed with the build quality and the attention to detail. The van turned out amazing.’<span class="who">Gary Humphrey</span></p>
         <a class="btn btn-solid" href="https://wonderlandrv.com.au/contact-us/" style="margin-top:34px">Book a factory tour</a>
         <br>
         <img class="aus" src="https://wonderlandrv.com.au/wp-content/uploads/2026/02/proudly-made-in-au.svg" alt="Wonderland proudly made in Australia">
@@ -851,7 +844,7 @@
       </div>
       <div class="f-field">
         <label for="fq-email">Email*</label>
-        <input type="email" id="fq-email" name="email" autocomplete="email" required>
+        <input type="email" id="fq-email" name="email" autocomplete="email" spellcheck="false" required>
       </div>
       <div class="f-field">
         <label for="fq-phone">Phone*</label>
@@ -985,12 +978,8 @@
       gsap.from(el,{opacity:0,y:28,duration:.7,ease:'power2.out',
         scrollTrigger:{trigger:el,start:'top 86%',once:true}});
     });
-    gsap.from('.why .card',{opacity:0,y:16,scale:.96,duration:.4,ease:'back.out(1.4)',
-      stagger:{each:.06,from:'start',grid:'auto'},
-      scrollTrigger:{trigger:'.why .cards',start:'top 82%',once:true}});
-    gsap.from('.g-grid figure',{opacity:0,y:18,duration:.45,ease:'power2.out',
-      stagger:{each:.07,grid:'auto'},
-      scrollTrigger:{trigger:'.g-grid',start:'top 84%',once:true}});
+    gsap.from('.carousel figure',{opacity:0,x:24,duration:.45,ease:'power2.out',stagger:.08,
+      scrollTrigger:{trigger:'.carousel',start:'top 84%',once:true}});
     gsap.to('.photo-break .parallax-img',{yPercent:12,ease:'none',
       scrollTrigger:{trigger:'.photo-break',scrub:.5}});
     window.addEventListener('load',function(){ScrollTrigger.refresh()});
