@@ -50,15 +50,15 @@
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-  .eyebrow{font-family:var(--font-display);font-stretch:125%;font-weight:700;letter-spacing:.35em;text-transform:uppercase;font-size:12px;color:var(--wl-orange)}
-  h1,h2,h3{font-family:var(--font-display);font-stretch:125%;text-transform:uppercase;line-height:1.12}
-  h1{font-weight:900;font-size:clamp(38px,6vw,72px);letter-spacing:.02em;text-wrap:balance}
-  h2{font-weight:900;font-size:clamp(26px,3.6vw,42px);letter-spacing:.03em;text-wrap:balance}
-  h3{font-weight:700;font-size:17px;letter-spacing:.12em}
+  .eyebrow{font-family:var(--font-display);font-stretch:125%;font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:13px;color:var(--wl-orange)}
+  h1,h2,h3{font-family:var(--font-display);font-stretch:125%;text-transform:uppercase;line-height:1.14}
+  h1{font-weight:700;font-size:clamp(36px,5.4vw,64px);letter-spacing:.04em;text-wrap:balance}
+  h2{font-weight:700;font-size:clamp(24px,3.2vw,38px);letter-spacing:.05em;text-wrap:balance}
+  h3{font-weight:600;font-size:16px;letter-spacing:.12em}
   section{padding:92px 0}
   section[id]{scroll-margin-top:90px}
   a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-  .btn{display:inline-block;font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:13px;padding:16px 34px;border:1px solid var(--wl-orange);transition:background-color .25s var(--ease-out),color .25s var(--ease-out),border-color .25s var(--ease-out),transform 160ms var(--ease-out);cursor:pointer}
+  .btn{display:inline-block;font-family:var(--font-display);font-stretch:125%;font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:13px;padding:16px 34px;border:1px solid var(--wl-orange);transition:background-color .25s var(--ease-out),color .25s var(--ease-out),border-color .25s var(--ease-out),transform 160ms var(--ease-out);cursor:pointer}
   .btn:active{transform:scale(.97)}
   .btn-solid{background:var(--wl-orange);color:#fff}
   .btn-solid:hover{background:#A85F1B;border-color:#A85F1B}
@@ -75,9 +75,17 @@
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
   .nav img.logo{height:46px}
-  .nav ul{display:flex;gap:34px;list-style:none}
-  .nav ul a{font-size:13px;text-transform:lowercase;letter-spacing:.08em;color:var(--muted);transition:color .2s}
-  .nav ul a:hover{color:var(--wl-orange)}
+  .nav ul{display:flex;gap:30px;list-style:none}
+  .nav ul a{font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink);transition:color .2s}
+  .nav ul a:hover,.nav ul a.active{color:var(--wl-orange)}
+
+  /* anchor sub-nav (dark bar, like WL model pages) */
+  .anchor-bar{background:#3D3D3D;position:sticky;top:78px;z-index:40}
+  .anchor-bar ul{display:flex;gap:8px;list-style:none;overflow-x:auto;scrollbar-width:none;justify-content:center}
+  .anchor-bar ul::-webkit-scrollbar{display:none}
+  .anchor-bar a{display:block;padding:18px 20px;color:#EDEAE5;font-size:14px;white-space:nowrap;transition:color .2s var(--ease-out)}
+  .anchor-bar a:hover{color:var(--wl-orange-bright)}
+  @media(max-width:760px){.anchor-bar ul{justify-content:flex-start}.anchor-bar{top:0;position:static}}
   .nav .btn{padding:11px 22px;font-size:11px}
   @media(max-width:900px){.nav ul{display:none}}
 
@@ -169,7 +177,15 @@
   .fp-panel.active{display:block}
 
   /* sizes */
-  .size-badge{display:inline-block;font-family:var(--font-display);font-stretch:125%;font-weight:900;font-size:24px;color:var(--wl-orange);margin-bottom:6px}
+  .similar .head-center{text-align:center;max-width:660px;margin:0 auto 52px}
+  .similar .head-center p{color:var(--muted);margin-top:16px}
+  .size-badge{display:inline-block;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--wl-orange);border:1px solid var(--wl-orange);padding:5px 12px;margin-bottom:14px}
+  .sim-card .body h3{font-size:18px;letter-spacing:.08em;margin-bottom:4px}
+  .sim-card .tagline{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .sim-card ul{margin-top:2px}
+  .sim-card .link{display:inline-flex;align-items:center;gap:8px}
+  .sim-card .link svg{width:14px;height:14px}
+  .this-page{display:inline-block;background:var(--wl-orange);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;margin-left:8px;vertical-align:middle}
 
   /* colour options */
   .colours{background:var(--paper-alt)}
@@ -239,25 +255,38 @@
   .video-embed{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--line-dark)}
   .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-  /* specs */
-  .specs table{width:100%;border-collapse:collapse;margin-top:44px}
-  .specs table,.compare table{font-variant-numeric:tabular-nums}
-  .specs th,.specs td{text-align:left;padding:18px 20px;border-bottom:1px solid var(--line);font-size:15px}
-  .specs th{font-family:var(--font-display);font-stretch:125%;text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--muted);font-weight:700}
-  .specs td:first-child{color:var(--ink);font-weight:500}
-  .specs td{color:var(--muted)}
-  .specs .tbc,.compare .tbc{color:var(--wl-orange);font-size:12px;letter-spacing:.08em}
+  /* specs: centred spec sheet card */
+  .specs .head-center{text-align:center;max-width:640px;margin:0 auto}
+  .spec-sheet{max-width:860px;margin:48px auto 0;border:1px solid var(--line);background:#fff;font-variant-numeric:tabular-nums}
+  .spec-sheet .sheet-title{background:var(--wl-charcoal);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding:16px 28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .spec-sheet .sheet-title span:last-child{color:var(--wl-orange-bright)}
+  .spec-row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:15px 28px;border-bottom:1px solid var(--line);font-size:15px}
+  .spec-row:last-child{border-bottom:none}
+  .spec-row:nth-child(even){background:#FBFAF8}
+  .spec-row dt{color:var(--ink);font-weight:500}
+  .spec-row dd{color:var(--muted);text-align:right;margin:0}
+  .tbc{color:var(--wl-orange);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
   .fineprint{margin-top:22px;font-size:12.5px;color:#8B8578}
+  .specs .fineprint{max-width:860px;margin-left:auto;margin-right:auto;text-align:center}
 
-  /* comparison */
+  /* comparison: two option cards */
   .compare{background:var(--paper-alt)}
-  .compare table{width:100%;border-collapse:collapse;margin-top:44px;background:#fff}
-  .compare th,.compare td{padding:18px 20px;font-size:15px;border-bottom:1px solid var(--line);text-align:left}
-  .compare thead th{font-family:var(--font-display);font-stretch:125%;text-transform:uppercase;letter-spacing:.1em;font-size:13px}
-  .compare thead th.hl{color:var(--wl-orange);border-bottom:3px solid var(--wl-orange)}
-  .compare td:first-child{color:var(--ink);font-weight:500}
-  .compare td{color:var(--muted)}
-  .compare td.hl{background:rgba(201,118,37,.06);color:var(--ink)}
+  .compare .head-center{text-align:center;max-width:660px;margin:0 auto 52px}
+  .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:960px;margin:0 auto;align-items:stretch}
+  @media(max-width:820px){.vs-grid{grid-template-columns:1fr}}
+  .vs-card{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column}
+  .vs-card.hl{border-color:var(--wl-orange);box-shadow:0 18px 40px rgba(201,118,37,.10)}
+  .vs-card .vs-head{padding:26px 30px 20px;border-bottom:1px solid var(--line)}
+  .vs-card.hl .vs-head{border-bottom-color:var(--wl-orange)}
+  .vs-card .vs-head h3{font-size:19px;letter-spacing:.08em}
+  .vs-card .vs-head .sub{font-size:13px;color:var(--muted);margin-top:6px}
+  .vs-card .vs-head .flag{display:inline-block;background:var(--wl-orange);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:4px 12px;margin-bottom:12px}
+  .vs-rows{padding:8px 30px 18px}
+  .vs-row{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .vs-row:last-child{border-bottom:none}
+  .vs-row .k{font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+  .vs-row .v{color:var(--ink)}
+  .compare .shared{max-width:960px;margin:26px auto 0;text-align:center;font-size:13.5px;color:var(--muted)}
 
   /* photo break */
   .photo-break{padding:0;position:relative;min-height:60vh;overflow:hidden;color:#fff}
@@ -266,14 +295,19 @@
   .photo-break .wrap{position:relative;z-index:2;display:flex;align-items:flex-end;min-height:60vh;padding-bottom:64px}
   .photo-break h2{max-width:560px}
 
-  /* trust strip */
-  .trust{border-bottom:1px solid var(--line);padding:56px 0}
-  .trust .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center}
-  @media(max-width:760px){.trust .wrap{grid-template-columns:1fr}}
-  .trust h3{margin-bottom:8px}
-  .trust p{font-size:14px;color:var(--muted)}
-  .trust img.aus{height:60px;margin:0 auto 14px}
-  .trust .icon{width:40px;height:40px;margin:0 auto 14px;color:var(--wl-orange)}
+  /* why wonderland (matches WL site section) */
+  .why-wl{background:var(--paper-alt)}
+  .why-wl .grid{display:grid;grid-template-columns:1.4fr 1fr;gap:72px;align-items:start;margin-top:52px}
+  @media(max-width:900px){.why-wl .grid{grid-template-columns:1fr}}
+  .why-wl .items{display:grid;grid-template-columns:1fr 1fr;gap:44px 48px}
+  @media(max-width:560px){.why-wl .items{grid-template-columns:1fr}}
+  .why-item{display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start}
+  .why-item .icon{width:38px;height:38px;color:var(--wl-orange)}
+  .why-item h3{margin-bottom:6px}
+  .why-item p{font-size:14.5px;color:var(--muted)}
+  .quote{font-size:clamp(20px,2vw,26px);line-height:1.5;color:var(--wl-orange);font-weight:400}
+  .quote .who{display:block;margin-top:18px;font-size:15px;font-weight:500}
+  .why-wl .aus{height:54px;margin-top:40px}
 
   /* enquiry (dark band + AC form) */
   .enquire{background:linear-gradient(180deg,var(--wl-charcoal),var(--wl-black));color:#fff;position:relative}
@@ -286,26 +320,41 @@
   .contact-list li{padding:12px 0;border-bottom:1px solid var(--line-dark);font-size:15px;color:#EDEAE5}
   .contact-list a{color:var(--wl-orange-bright);font-weight:500}
   .form-shell{background:#fff;border-top:4px solid var(--wl-orange);min-height:560px}
-  .form-shell iframe{width:100%;height:640px;border:0;display:block}
+  .form-shell iframe{width:100%;height:780px;border:0;display:block}
+  .enquire{padding:80px 0}
+  .enquire .grid{align-items:center}
 
   /* similar */
   .similar .cards{margin-top:52px}
   .sim-card{background:#fff;border:1px solid var(--line);overflow:hidden;transition:border-color .25s,box-shadow .25s}
   .sim-card:hover{border-color:var(--wl-orange);box-shadow:0 14px 30px rgba(26,26,26,.07)}
-  .sim-card img{aspect-ratio:16/9;object-fit:cover;width:100%}
+  .sim-card img{aspect-ratio:16/9;object-fit:contain;object-position:center;background:#fff;width:100%;padding:12px 12px 0}
   .sim-card .body{padding:26px}
   .sim-card h3{margin-bottom:12px}
   .sim-card ul{list-style:none;margin-bottom:20px}
   .sim-card li{font-size:13.5px;color:var(--muted);padding:4px 0}
   .sim-card .link{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--wl-orange)}
 
-  /* footer (dark, like site) */
-  footer{background:var(--wl-black);color:#B9B4AE;padding:64px 0 40px}
-  footer .top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;padding-bottom:36px;border-bottom:1px solid var(--line-dark)}
-  footer img.logo{height:44px}
-  footer .contact p{font-size:14px;margin-bottom:6px}
-  footer .contact a{color:var(--wl-orange-bright)}
-  footer .fine{padding-top:28px;font-size:12px;color:#7d7973;max-width:820px}
+  /* footer (white, matches wonderlandrv.com.au) */
+  footer{background:#fff;border-top:1px solid var(--line);padding:72px 0 40px;color:var(--ink)}
+  footer .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px}
+  @media(max-width:900px){footer .cols{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){footer .cols{grid-template-columns:1fr}}
+  footer img.logo{height:44px;margin-bottom:22px}
+  footer .blurb{font-size:14.5px;color:var(--muted);max-width:340px}
+  footer h4{font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--wl-orange);margin-bottom:18px}
+  footer .col a,footer .col p{display:block;font-size:14.5px;color:var(--ink);padding:5px 0;transition:color .2s}
+  footer .col a:hover{color:var(--wl-orange)}
+  footer .socials{display:flex;gap:18px;margin-top:22px}
+  footer .socials a{color:var(--muted);transition:color .2s}
+  footer .socials a:hover{color:var(--wl-orange)}
+  footer .socials svg{width:20px;height:20px}
+  footer img.aus{height:48px;margin-top:26px}
+  footer .base{border-top:1px solid var(--line);padding-top:28px;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+  footer .base .legal a{display:inline-block;margin-right:22px;font-size:13px;color:var(--ink)}
+  footer .base .legal a:hover{color:var(--wl-orange)}
+  footer .base .legal p{font-size:13px;color:var(--muted);margin-top:10px}
+  footer .base .fine{font-size:12.5px;color:var(--muted);max-width:640px}
 
   /* sticky mobile CTA */
   .sticky-cta{display:none}
@@ -335,7 +384,7 @@
     <a href="https://wonderlandrv.com.au/"><img class="logo" src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/logo.svg" alt="Wonderland RV Caravans"></a>
     <ul>
       <li><a href="https://wonderlandrv.com.au/range/">range</a></li>
-      <li><a href="https://wonderlandrv.com.au/layout/family-off-road-caravans/">layouts</a></li>
+      <li><a class="active" href="https://wonderlandrv.com.au/layout/family-off-road-caravans/">layouts</a></li>
       <li><a href="https://wonderlandrv.com.au/caravans-for-sale-melbourne/">buy</a></li>
       <li><a href="https://wonderlandrv.com.au/events/">events</a></li>
       <li><a href="https://wonderlandrv.com.au/contact-us/">contact</a></li>
@@ -367,6 +416,20 @@
   </div>
 </section>
 
+<!-- ANCHOR SUB-NAV (like WL model pages) -->
+<nav class="anchor-bar" aria-label="Page sections">
+  <div class="wrap">
+    <ul>
+      <li><a href="#walkthrough">Overview</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#floorplan">Floorplans</a></li>
+      <li><a href="#specs">Specifications</a></li>
+      <li><a href="#colours">Colour schemes</a></li>
+      <li><a href="#enquire">Contact us</a></li>
+    </ul>
+  </div>
+</nav>
+
 <!-- STAT BAR -->
 <div class="stats">
   <div class="wrap">
@@ -381,7 +444,7 @@
 <section id="walkthrough">
   <div class="wrap split reveal">
     <div class="video-facade" id="walkthroughFacade">
-      <img src="https://i.ytimg.com/vi/Yk4vxl-iUcU/sddefault.jpg" width="640" height="480" alt="Walkthrough video of the Wonderland RV family van" loading="lazy">
+      <img src="https://i.ytimg.com/vi/Yk4vxl-iUcU/maxresdefault.jpg" width="1280" height="720" alt="Walkthrough video of the Wonderland RV family van" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Yk4vxl-iUcU/sddefault.jpg'">
       <button type="button" aria-label="Play the walkthrough video">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
       </button>
@@ -578,49 +641,61 @@
 <!-- SPECS -->
 <section class="specs" id="specs">
   <div class="wrap reveal">
-    <span class="eyebrow">Tech specs</span>
-    <h2>The numbers</h2>
-    <table>
-      <thead><tr><th>Specification</th><th>Quad Bunk Delete (XT2311F-B4 base)</th></tr></thead>
-      <tbody>
-        <tr><td>Cabin length</td><td>23ft 11in</td></tr>
-        <tr><td>Sleeping</td><td>Queen + 3 bunks (+ optional lounge conversion)</td></tr>
-        <tr><td>ATM</td><td><span class="tbc">TBC, confirm with production</span></td></tr>
-        <tr><td>Tare</td><td><span class="tbc">TBC, confirm with production</span></td></tr>
-        <tr><td>Ball weight</td><td><span class="tbc">TBC, confirm with production</span></td></tr>
-        <tr><td>Payload</td><td><span class="tbc">TBC, confirm with production</span></td></tr>
-        <tr><td>External length</td><td><span class="tbc">TBC, confirm with production</span></td></tr>
-        <tr><td>Water capacity</td><td><span class="tbc">TBC, confirm with production</span></td></tr>
-        <tr><td>Solar and battery</td><td><span class="tbc">TBC, confirm with production</span></td></tr>
-      </tbody>
-    </table>
-    <p class="fineprint">Technical specifications may vary depending on options selected. Images shown may have optional extras fitted. Wonderland RV reserves the right to change models, features, specifications or designs without prior notice.</p>
+    <div class="head-center">
+      <span class="eyebrow">Tech specs</span>
+      <h2>The numbers</h2>
+    </div>
+    <dl class="spec-sheet">
+      <div class="sheet-title"><span>Quad Bunk Delete</span><span>XT2311F-B4 base</span></div>
+      <div class="spec-row"><dt>Cabin length</dt><dd>23ft 11in</dd></div>
+      <div class="spec-row"><dt>Sleeping</dt><dd>Queen + 3 bunks, optional lounge conversion</dd></div>
+      <div class="spec-row"><dt>ATM</dt><dd><span class="tbc">TBC</span></dd></div>
+      <div class="spec-row"><dt>Tare</dt><dd><span class="tbc">TBC</span></dd></div>
+      <div class="spec-row"><dt>Ball weight</dt><dd><span class="tbc">TBC</span></dd></div>
+      <div class="spec-row"><dt>Payload</dt><dd><span class="tbc">TBC</span></dd></div>
+      <div class="spec-row"><dt>External length</dt><dd><span class="tbc">TBC</span></dd></div>
+      <div class="spec-row"><dt>Water capacity</dt><dd><span class="tbc">TBC</span></dd></div>
+      <div class="spec-row"><dt>Solar and battery</dt><dd><span class="tbc">TBC</span></dd></div>
+    </dl>
+    <p class="fineprint">*TBC values to be confirmed with production before publish. Technical specifications may vary depending on options selected. Images shown may have optional extras fitted. Wonderland RV reserves the right to change models, features, specifications or designs without prior notice.</p>
   </div>
 </section>
 
 <!-- COMPARISON -->
 <section class="compare">
   <div class="wrap reveal">
-    <span class="eyebrow">Which one suits your crew?</span>
-    <h2>Quad bunk vs bunk delete</h2>
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">&nbsp;</th>
-          <th scope="col">XT2311F-B4 (Quad Bunk)</th>
-          <th scope="col" class="hl">Quad Bunk Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Bunks</td><td>4</td><td class="hl">3</td></tr>
-        <tr><td>Sleeps</td><td>6 (+ lounge conversion)</td><td class="hl">5 (+ lounge conversion)</td></tr>
-        <tr><td>Kids' zone storage</td><td>Under-bunk and built-in drawers</td><td class="hl">Under-bunk drawers plus a full extra storage bay <span class="tbc">(fit-out TBC)</span></td></tr>
-        <tr><td>Tunnel boot</td><td>670L</td><td class="hl">670L</td></tr>
-        <tr><td>Under-bed storage</td><td>650L</td><td class="hl">650L</td></tr>
-        <tr><td>Best for</td><td>Bigger families, four kids or the grandkids</td><td class="hl">One to three kids and serious amounts of gear</td></tr>
-      </tbody>
-    </table>
-    <p class="fineprint">Both layouts share the same 23ft 11in XTR platform, north-south island queen, L-shape lounge, door-side kitchen and rear bathroom.</p>
+    <div class="head-center">
+      <span class="eyebrow">Which one suits your crew?</span>
+      <h2>Quad bunk vs bunk delete</h2>
+    </div>
+    <div class="vs-grid">
+      <div class="vs-card">
+        <div class="vs-head">
+          <h3>Standard Quad Bunk</h3>
+          <p class="sub">XT2311F-B4 as it comes</p>
+        </div>
+        <div class="vs-rows">
+          <div class="vs-row"><span class="k">Bunks</span><span class="v">4</span></div>
+          <div class="vs-row"><span class="k">Sleeps</span><span class="v">6, plus lounge conversion</span></div>
+          <div class="vs-row"><span class="k">Kids' storage</span><span class="v">Under-bunk and built-in drawers</span></div>
+          <div class="vs-row"><span class="k">Best for</span><span class="v">Bigger families, four kids or the grandkids</span></div>
+        </div>
+      </div>
+      <div class="vs-card hl">
+        <div class="vs-head">
+          <span class="flag">This layout</span>
+          <h3>Quad Bunk Delete</h3>
+          <p class="sub">One bunk swapped for storage</p>
+        </div>
+        <div class="vs-rows">
+          <div class="vs-row"><span class="k">Bunks</span><span class="v">3</span></div>
+          <div class="vs-row"><span class="k">Sleeps</span><span class="v">5, plus lounge conversion</span></div>
+          <div class="vs-row"><span class="k">Kids' storage</span><span class="v">Under-bunk drawers plus a full extra bay <span class="tbc">fit-out TBC</span></span></div>
+          <div class="vs-row"><span class="k">Best for</span><span class="v">One to three kids and serious amounts of gear</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="shared">Both share the same 23ft 11in XTR platform: north-south island queen, L-shape lounge, door-side kitchen, rear bathroom, 670L tunnel boot and 650L under-bed storage.</p>
   </div>
 </section>
 
@@ -632,23 +707,43 @@
   </div>
 </section>
 
-<!-- TRUST STRIP -->
-<section class="trust">
-  <div class="wrap reveal">
-    <div>
-      <img class="aus" src="https://wonderlandrv.com.au/wp-content/uploads/2026/02/proudly-made-in-au.svg" alt="Proudly made in Australia">
-      <h3>Australian made</h3>
-      <p>Designed and built at our factory in Campbellfield, Victoria.</p>
-    </div>
-    <div>
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
-      <h3>Built to be lived in</h3>
-      <p>Off-grid capability and full luxury features for extended travel in extreme terrain.</p>
-    </div>
-    <div>
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l9-8 9 8M5 10v10h14V10"/></svg>
-      <h3>See it in person</h3>
-      <p>Book a factory tour and walk through the layout before you decide.</p>
+<!-- WHY WONDERLAND RV (matches site section) -->
+<section class="why-wl">
+  <div class="wrap">
+    <h2 class="reveal">Why Wonderland RV?</h2>
+    <div class="grid reveal">
+      <div class="items">
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 20l4-4M14 4l6 6-8 8-6-6zM12 6l-2-2M18 12l2 2"/></svg>
+          <div><h3>Built tough</h3><p>Unique jigsaw construction for strength and durability.</p></div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 3h12l3 5-9 13L3 8z"/><path d="M3 8h18M9 3l3 5 3-5"/></svg>
+          <div><h3>Luxury finish</h3><p>Impeccable, comfortable interiors that offer a welcome retreat.</p></div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-2M12 12v5M12 12l-4-3"/></svg>
+          <div><h3>Cutting edge</h3><p>Constantly innovating to improve ease, comfort and performance.</p></div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 8h16M4 8v2M20 8v2M7 14h10M7 14v2M17 14v2"/><circle cx="8" cy="8" r="1.4"/><circle cx="14" cy="14" r="1.4"/></svg>
+          <div><h3>Custom made</h3><p>A caravan to suit your family and the trips you want to take.</p></div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="8" r="2.4"/><circle cx="16" cy="9.5" r="2"/><path d="M4.5 19c.5-3 2.2-4.5 4.5-4.5s4 1.5 4.5 4.5M13.5 17.5c.6-2 1.8-3 3.2-3 1.6 0 2.8 1.2 3.3 3.5"/></svg>
+          <div><h3>Family business</h3><p>Unrivalled personalised customer service from a team that cares.</p></div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21c-4-2.5-7-5-7-9V6l7-3 7 3v6c0 4-3 6.5-7 9z"/></svg>
+          <div><h3>Peace of mind</h3><p>3 year factory-backed warranty and premium aftersales service.</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="quote">'Really impressed with the build quality and the attention to detail. The van turned out amazing.'<span class="who">Gary Humphrey</span></p>
+        <a class="btn btn-solid" href="https://wonderlandrv.com.au/contact-us/" style="margin-top:34px">Book a factory tour</a>
+        <br>
+        <img class="aus" src="https://wonderlandrv.com.au/wp-content/uploads/2026/02/proudly-made-in-au.svg" alt="Wonderland proudly made in Australia">
+      </div>
     </div>
   </div>
 </section>
@@ -656,34 +751,40 @@
 <!-- SAME LAYOUT, OTHER SIZES -->
 <section class="similar">
   <div class="wrap">
-    <span class="eyebrow reveal">Need more or less van?</span>
-    <h2 class="reveal">The family layout in other sizes</h2>
+    <div class="head-center reveal">
+      <span class="eyebrow">Need more or less van?</span>
+      <h2>The family layout in other sizes</h2>
+      <p>Same family thinking, three cabin lengths. Pick the size that suits your crew and your tow vehicle.</p>
+    </div>
     <div class="cards reveal">
       <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT1806F-B2" loading="lazy">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT1806F-B2" loading="lazy">
         <div class="body">
           <span class="size-badge">18'6"</span>
           <h3>XT1806F-B2</h3>
-          <ul><li>Twin bunks</li><li>East-west queen</li><li>The compact family tourer</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt1806f-b2/">See details</a>
+          <p class="tagline">The compact family tourer</p>
+          <ul><li>Twin bunks</li><li>East-west queen</li></ul>
+          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt1806f-b2/">See details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
         </div>
       </div>
       <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" width="1024" height="576" alt="XT2211F-B2-D" loading="lazy">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT2211F-B2-D" loading="lazy">
         <div class="body">
           <span class="size-badge">22'11"</span>
           <h3>XT2211F-B2-D</h3>
-          <ul><li>Twin bunks</li><li>North-south queen with roadside bedside storage</li><li>Room to move</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2211f-b2-d/">See details</a>
+          <p class="tagline">Room to move</p>
+          <ul><li>Twin bunks</li><li>North-south queen with roadside bedside storage</li></ul>
+          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2211f-b2-d/">See details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
         </div>
       </div>
-      <div class="sim-card" style="border-color:var(--wl-orange)">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT2311F-B4" loading="lazy">
+      <div class="sim-card">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" width="1024" height="576" alt="Wonderland RV XT2311F-B4" loading="lazy">
         <div class="body">
           <span class="size-badge">23'11"</span>
-          <h3>XT2311F-B4 <span style="color:var(--wl-orange);font-size:12px;letter-spacing:.15em">/ This page</span></h3>
-          <ul><li>Quad bunks, or three with the bunk delete</li><li>North-south island queen</li><li>The full family flagship</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2311f-b4/">See details</a>
+          <h3>XT2311F-B4<span class="this-page">This page</span></h3>
+          <p class="tagline">The full family flagship</p>
+          <ul><li>Quad bunks, or three with the bunk delete</li><li>North-south island queen</li></ul>
+          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2311f-b4/">See details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </div>
@@ -742,15 +843,56 @@
 
 <footer>
   <div class="wrap">
-    <div class="top">
-      <img class="logo" src="https://wonderlandrv.com.au/wp-content/uploads/2026/02/logo.png" alt="Wonderland RV Caravans">
-      <div class="contact">
-        <p><a href="tel:0386920032">(03) 8692 0032</a></p>
-        <p><a href="mailto:sales@wonderlandrv.com.au">sales@wonderlandrv.com.au</a></p>
+    <div class="cols">
+      <div class="col">
+        <img class="logo" src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/logo.svg" alt="Wonderland RV Caravans">
+        <p class="blurb">Join the Facebook group where Wonderland owners share their adventures, photos, stories, comments, reviews and advice about travels in their Wonderland RV. <a href="https://www.facebook.com/groups/1381649308598634/" style="color:var(--wl-orange);font-weight:500">Find out more</a></p>
+        <div class="socials">
+          <a href="http://facebook.com/wonderlandrv" aria-label="Wonderland RV on Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V4.9c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5V11H8.6v3H11v7z"/></svg></a>
+          <a href="http://instagram.com/wonderlandrvcaravans" aria-label="Wonderland RV on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.youtube.com/@WonderlandRVCaravans" aria-label="Wonderland RV on YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.tiktok.com/@wonderlandrv.au" aria-label="Wonderland RV on TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.1 1.8 3.6 3.9 3.9v3c-1.5 0-2.9-.5-3.9-1.3v6.3c0 3.4-2.5 5.6-5.6 5.6-3 0-5.4-2.4-5.4-5.4 0-3.2 2.9-5.7 6.3-5.3v3.1c-1.7-.4-3.2.7-3.2 2.2 0 1.3 1 2.3 2.3 2.3 1.4 0 2.5-1 2.5-2.7V3z"/></svg></a>
+        </div>
+        <img class="aus" src="https://wonderlandrv.com.au/wp-content/uploads/2026/02/proudly-made-in-au.svg" alt="Wonderland proudly made in Australia">
+      </div>
+      <div class="col">
+        <h4>Range</h4>
+        <a href="https://wonderlandrv.com.au/range/solara/">Solara</a>
+        <a href="https://wonderlandrv.com.au/range/xtr/">XTR</a>
+        <a href="https://wonderlandrv.com.au/range/hornet/">Hornet</a>
+        <a href="https://wonderlandrv.com.au/range/amaroo/">Amaroo</a>
+        <h4 style="margin-top:30px">Owners support</h4>
+        <a href="https://wonderlandrv.com.au/owners-manual">Owners manual</a>
+        <a href="https://wonderlandrv.com.au/collateral/warranty-statement/">Warranty &amp; repairs</a>
+        <a href="https://wonderlandrv.com.au/contact-us/">Contact us</a>
+      </div>
+      <div class="col">
+        <h4>Explore</h4>
+        <a href="https://wonderlandrv.com.au/blog/">Blog</a>
+        <a href="https://wonderlandrv.com.au/media/">Media features</a>
+        <a href="https://wonderlandrv.com.au/partners/">Partners</a>
+        <a href="https://wonderlandrv.com.au/about/ambassadors/">Wonderlanders</a>
+        <h4 style="margin-top:30px">Where to buy</h4>
+        <a href="https://wonderlandrv.com.au/dealers/">Find a dealer</a>
+        <a href="https://wonderlandrv.com.au/contact-us/">Book a factory tour</a>
+        <a href="https://wonderlandrv.com.au/build-your-caravan">Request a quote</a>
+      </div>
+      <div class="col">
+        <h4>Let's chat</h4>
+        <a href="tel:0386920032">(03) 8692 0032</a>
+        <a href="mailto:sales@wonderlandrv.com.au">sales@wonderlandrv.com.au</a>
         <p>46 Lara Way, Campbellfield, Victoria 3061</p>
+        <a class="btn btn-solid" href="#enquire" style="margin-top:20px;padding:13px 26px;font-size:12px">Enquire now</a>
       </div>
     </div>
-    <p class="fine">© 2026 Wonderland RV Caravans. All rights reserved. Adventure your way. Disclaimer: images shown may have optional extras fitted. Wonderland RV reserves the right to discontinue or change the models, features, specifications, or designs of the caravans referred to herein at their discretion without prior notice.</p>
+    <div class="base">
+      <div class="legal">
+        <a href="https://wonderlandrv.com.au/privacy-policy">Privacy Policy</a>
+        <a href="https://wonderlandrv.com.au/terms-conditions">Terms &amp; Conditions</a>
+        <p>© 2026 Wonderland RV Caravans. All Rights Reserved.</p>
+      </div>
+      <p class="fine">Disclaimer: Images shown may have optional extras fitted. Wonderland RV reserves the right to discontinue or change the models, features, specifications, or designs of the caravans referred to herein, at their discretion without prior notice.</p>
+    </div>
   </div>
 </footer>
 
