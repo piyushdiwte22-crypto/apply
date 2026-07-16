@@ -267,9 +267,9 @@
   @media(max-width:860px){.spec-glance{grid-template-columns:1fr;gap:36px}}
   .spec-cats{list-style:none}
   .spec-cat{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;border-bottom:1px solid var(--ink);padding:20px 2px;font-family:var(--font-body);font-size:18px;font-weight:400;color:var(--ink);cursor:pointer;text-align:left;transition:color .2s var(--ease-out)}
-  .spec-cat svg{width:16px;height:16px;transition:transform .25s var(--ease-out),color .2s}
+  .spec-cat svg{width:16px;height:16px;transform:rotate(180deg);transition:transform .25s var(--ease-out),color .2s}
   .spec-cat.active{font-weight:500}
-  .spec-cat.active svg{color:var(--wl-orange);transform:rotate(180deg)}
+  .spec-cat.active svg{color:var(--wl-orange);transform:rotate(0deg)}
   .spec-cat:hover{color:var(--wl-orange)}
   @media(max-width:860px){
     .spec-cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
@@ -279,7 +279,9 @@
   }
   .spec-panel{display:none}
   .spec-panel.active{display:block}
-  .spec-panel .cat-title{font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+  .pick-hint{color:var(--muted);font-size:15px;margin-top:14px}
+  .spec-panel .cat-title{font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--wl-orange);margin-bottom:8px}
+  .spec-panel .cat-blurb{color:var(--muted);font-size:15px;margin-bottom:18px}
   .spec-table{width:100%;border:1px solid var(--line);border-collapse:collapse;font-variant-numeric:tabular-nums}
   .spec-table tr:nth-child(even){background:#F5F3F0}
   .spec-table th,.spec-table td{border:1px solid var(--line);padding:17px 22px;font-size:15px;text-align:left;vertical-align:top}
@@ -328,20 +330,25 @@
   .quote .who{display:block;margin-top:18px;font-size:15px;font-weight:500}
   .why-wl .aus{height:54px;margin-top:40px}
 
-  /* enquiry (dark band + AC form) */
-  .enquire{background:linear-gradient(180deg,var(--wl-charcoal),var(--wl-black));color:#fff;position:relative}
-  .enquire::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:4px;background:var(--wl-orange)}
-  .enquire .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start}
-  @media(max-width:900px){.enquire .grid{grid-template-columns:1fr}}
-  .enquire h2{margin:14px 0 20px}
-  .enquire p{color:#B9B4AE;margin-bottom:26px;max-width:460px}
+  /* enquiry (light, matches WL site form) */
+  .enquire{background:#fff;border-top:1px solid var(--line)}
+  .enquire .grid{display:grid;grid-template-columns:.8fr 1.4fr;gap:72px;align-items:start}
+  @media(max-width:900px){.enquire .grid{grid-template-columns:1fr;gap:44px}}
+  .enquire h2{margin:14px 0 18px}
+  .enquire .lead-in{color:var(--muted);margin-bottom:26px;max-width:420px}
   .contact-list{list-style:none;margin-top:8px}
-  .contact-list li{padding:12px 0;border-bottom:1px solid var(--line-dark);font-size:15px;color:#EDEAE5}
-  .contact-list a{color:var(--wl-orange-bright);font-weight:500}
-  .form-shell{background:#fff;border-top:4px solid var(--wl-orange);min-height:560px}
-  .form-shell iframe{width:100%;height:780px;border:0;display:block}
-  .enquire{padding:80px 0}
-  .enquire .grid{align-items:center}
+  .contact-list li{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+  .contact-list a{color:var(--wl-orange);font-weight:500}
+  .wl-form{display:grid;grid-template-columns:1fr 1fr;gap:36px 44px}
+  @media(max-width:560px){.wl-form{grid-template-columns:1fr}}
+  .f-field{display:flex;flex-direction:column;gap:10px}
+  .f-field label{font-size:15px;color:var(--ink)}
+  .f-field input{border:none;border-bottom:1px solid var(--ink);border-radius:0;background:none;padding:6px 2px 10px;font-family:var(--font-body);font-weight:300;font-size:15px;color:var(--ink);width:100%}
+  .f-field input:focus{outline:none;border-bottom:2px solid var(--wl-orange);padding-bottom:9px}
+  .f-field select{appearance:none;-webkit-appearance:none;border:1px solid var(--ink);border-radius:0;background:#fff url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center/16px;padding:13px 44px 13px 14px;font-family:var(--font-body);font-weight:300;font-size:15px;color:var(--ink);width:100%}
+  .f-field select:focus{outline:none;border-color:var(--wl-orange)}
+  .f-submit{grid-column:1/-1}
+  .form-note{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
 
   /* similar: compact rectangles, render + name */
   .similar .cards{margin-top:52px}
@@ -563,143 +570,88 @@
   </div>
 </section>
 
-<!-- ZONES -->
-<section class="zones">
-  <div class="wrap">
-    <span class="eyebrow reveal">Step inside</span>
-    <h2 class="reveal">Every zone, working hard</h2>
-
-    <div class="tab-btns reveal" role="tablist">
-      <button class="tab-btn active" data-tab="sleep" role="tab">Sleeping</button>
-      <button class="tab-btn" data-tab="storage" role="tab">Storage</button>
-      <button class="tab-btn" data-tab="living" role="tab">Living</button>
-      <button class="tab-btn" data-tab="kitchen" role="tab">Kitchen</button>
-      <button class="tab-btn" data-tab="bathroom" role="tab">Bathroom</button>
-    </div>
-
-    <div class="tab-panel active" id="tab-sleep">
-      <div class="zone-copy">
-        <h3>Everyone gets their own spot</h3>
-        <p>Parents up front, kids down back. The island queen sits north-south with walkway access on both sides, so nobody climbs over anyone at 2am. The three bunks each get their own drawers, and the space where the fourth bunk would sit works for gear instead of guests.</p>
-      </div>
-      <ul>
-        <li><strong>Caravan queen bed</strong> 1530 x 1880mm, north-south island orientation</li>
-        <li><strong>Luxurious pillow top mattress</strong> with walkway access down each side</li>
-        <li><strong>Three full-size bunks</strong> in the rear kids' zone</li>
-        <li><strong>Deleted bunk bay</strong> converted to storage (fit-out TBC)</li>
-        <li><strong>Lounge converts</strong> to an extra bed with in-fill cushion (sold separately)</li>
-      </ul>
-    </div>
-
-    <div class="tab-panel" id="tab-storage">
-      <div class="zone-copy">
-        <h3>Pack for the term, not the weekend</h3>
-        <p>Family travel means family gear. This layout was already the storage king of the range. Deleting the fourth bunk adds another dedicated bay right where the kids' clutter lives.</p>
-      </div>
-      <ul>
-        <li><strong>670L tunnel boot</strong> (700W x 430H x 2245D) via external doors</li>
-        <li><strong>650L under-bed storage</strong> (1100W x 450H x 1360D) via gas-lift bed</li>
-        <li><strong>Under-bunk storage drawers</strong> plus built-in drawers per bunk (count TBC for 3-bunk config)</li>
-        <li><strong>Mirrored wardrobes</strong> with hanging space each side of the queen</li>
-        <li><strong>Extra storage bay</strong> in place of the fourth bunk (fit-out TBC)</li>
-      </ul>
-    </div>
-
-    <div class="tab-panel" id="tab-living">
-      <div class="zone-copy">
-        <h3>The family hub</h3>
-        <p>The L-shape lounge is where homework, card games and rainy day movies happen. The telescopic table adjusts to any height, swivels and slides in four directions, and drops down to make an extra bed when the kids bring a mate.</p>
-      </div>
-      <ul>
-        <li><strong>L-shape lounge</strong> with telescopic, adjustable table leg</li>
-        <li><strong>Table swivels and slides</strong> in four directions for easy access</li>
-        <li><strong>Converts to an extra bed</strong> with in-fill cushion (sold separately)</li>
-        <li><strong>Fold-out footrest</strong> for comfortable lounging</li>
-      </ul>
-    </div>
-
-    <div class="tab-panel" id="tab-kitchen">
-      <div class="zone-copy">
-        <h3>Meals with a view</h3>
-        <p>The straight door-side kitchen faces the awning, so whoever is cooking stays part of the campsite action. A 300mm full-height pantry swallows the big shop, and the slide-out external BBQ handles the rest.</p>
-      </div>
-      <ul>
-        <li><strong>Straight door-side kitchen</strong> for outdoor visibility while cooking</li>
-        <li><strong>300mm full-height pantry</strong></li>
-        <li><strong>Kitchen overhead cabinets</strong> above the fridge and seating area</li>
-        <li><strong>Six kitchen drawers</strong> and an under-sink cabinet</li>
-      </ul>
-    </div>
-
-    <div class="tab-panel" id="tab-bathroom">
-      <div class="zone-copy">
-        <h3>Freshen up, wash up</h3>
-        <p>A proper rear bathroom with shower, vanity and toilet, plus a wall-mounted washing machine, because three kids generate washing at an industrial rate.</p>
-      </div>
-      <ul>
-        <li><strong>Medium rear bathroom</strong> with shower, vanity, storage and toilet</li>
-        <li><strong>3kg space-saving</strong> wall-mounted washing machine</li>
-        <li><strong>Bathroom overhead and vanity cabinets</strong></li>
-        <li><strong>Laundry chest</strong> and three open shelves</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SPECS -->
+<!-- SPECS + ZONES COMBINED -->
 <section class="specs" id="specs">
   <div class="wrap reveal">
-    <span class="eyebrow">Tech specs</span>
-    <h2>Specifications at a glance</h2>
+    <span class="eyebrow">Step inside</span>
+    <h2>The layout, zone by zone</h2>
+    <p class="pick-hint">Pick a zone to see what it packs.</p>
     <div class="spec-glance">
       <ul class="spec-cats" role="tablist">
-        <li><button class="spec-cat active" data-spec="dimensions" role="tab">Dimensions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="weights" role="tab">Weights<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="sleeping" role="tab">Sleeping<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="storage" role="tab">Storage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
-        <li><button class="spec-cat" data-spec="power" role="tab">Water &amp; Power<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button></li>
+        <li><button class="spec-cat active" data-spec="sleeping" role="tab" aria-selected="true">Sleeping<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="storage" role="tab" aria-selected="false">Storage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="living" role="tab" aria-selected="false">Living<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="kitchen" role="tab" aria-selected="false">Kitchen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="bathroom" role="tab" aria-selected="false">Bathroom &amp; Laundry<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="weights" role="tab" aria-selected="false">Dimensions &amp; Weights<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
+        <li><button class="spec-cat" data-spec="power" role="tab" aria-selected="false">Water &amp; Power<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button></li>
       </ul>
       <div class="spec-panels">
-        <div class="spec-panel active" id="spec-dimensions">
-          <p class="cat-title">Dimensions</p>
+        <div class="spec-panel active" id="spec-sleeping">
+          <p class="cat-title">Sleeping</p>
+          <p class="cat-blurb">Parents up front, kids down back. Nobody climbs over anyone at 2am.</p>
           <table class="spec-table">
-            <tr><th>Cabin length</th><td>23ft 11in</td></tr>
-            <tr><th>External length</th><td><span class="tbc">TBC</span></td></tr>
-            <tr><th>Internal height</th><td><span class="tbc">TBC</span></td></tr>
+            <tr><th>Main bed</th><td>Caravan queen 1530 x 1880mm, north-south island, pillow top mattress, walkways both sides</td></tr>
+            <tr><th>Bunks</th><td>Three full-size bunks in the rear kids' zone, each with storage drawers</td></tr>
+            <tr><th>Deleted bunk bay</th><td>Converted to dedicated storage <span class="tbc">fit-out TBC</span></td></tr>
+            <tr><th>Extra bed</th><td>Lounge converts with in-fill cushion (sold separately)</td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-storage">
+          <p class="cat-title">Storage</p>
+          <p class="cat-blurb">Already the storage king of the range, then the bunk delete adds another full bay.</p>
+          <table class="spec-table">
+            <tr><th>Tunnel boot</th><td>670L (700W x 430H x 2245D), external doors both sides</td></tr>
+            <tr><th>Under-bed</th><td>650L (1100W x 450H x 1360D), gas-lift bed access</td></tr>
+            <tr><th>Kids' zone</th><td>Under-bunk drawers plus the deleted bunk bay <span class="tbc">fit-out TBC</span></td></tr>
+            <tr><th>Wardrobes</th><td>Mirrored, with hanging space each side of the queen</td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-living">
+          <p class="cat-title">Living</p>
+          <p class="cat-blurb">Where homework, card games and rainy day movies happen.</p>
+          <table class="spec-table">
+            <tr><th>Lounge</th><td>L-shape with fold-out footrest</td></tr>
+            <tr><th>Table</th><td>Telescopic leg, swivels and slides in four directions</td></tr>
+            <tr><th>Extra bed</th><td>Table drops down with in-fill cushion (sold separately)</td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-kitchen">
+          <p class="cat-title">Kitchen</p>
+          <p class="cat-blurb">Faces the awning, so the cook stays part of the campsite conversation.</p>
+          <table class="spec-table">
+            <tr><th>Layout</th><td>Straight door-side kitchen with outdoor visibility</td></tr>
+            <tr><th>Pantry</th><td>300mm full-height</td></tr>
+            <tr><th>Storage</th><td>Overhead cabinets, six drawers and an under-sink cabinet</td></tr>
+          </table>
+        </div>
+        <div class="spec-panel" id="spec-bathroom">
+          <p class="cat-title">Bathroom &amp; Laundry</p>
+          <p class="cat-blurb">Three kids generate washing at an industrial rate. This keeps up.</p>
+          <table class="spec-table">
+            <tr><th>Bathroom</th><td>Medium rear bathroom with shower, vanity, storage and toilet</td></tr>
+            <tr><th>Laundry</th><td>3kg space-saving wall-mounted washing machine, laundry chest</td></tr>
+            <tr><th>Storage</th><td>Overhead and vanity cabinets, three open shelves</td></tr>
           </table>
         </div>
         <div class="spec-panel" id="spec-weights">
-          <p class="cat-title">Weights</p>
+          <p class="cat-title">Dimensions &amp; Weights</p>
+          <p class="cat-blurb">The tow-planning numbers.</p>
           <table class="spec-table">
+            <tr><th>Cabin length</th><td>23ft 11in</td></tr>
+            <tr><th>External length</th><td><span class="tbc">TBC</span></td></tr>
             <tr><th>ATM</th><td><span class="tbc">TBC</span></td></tr>
             <tr><th>Tare</th><td><span class="tbc">TBC</span></td></tr>
             <tr><th>Ball weight</th><td><span class="tbc">TBC</span></td></tr>
             <tr><th>Payload</th><td><span class="tbc">TBC</span></td></tr>
           </table>
         </div>
-        <div class="spec-panel" id="spec-sleeping">
-          <p class="cat-title">Sleeping</p>
-          <table class="spec-table">
-            <tr><th>Main bed</th><td>Caravan queen 1530 x 1880mm, north-south island orientation</td></tr>
-            <tr><th>Bunks</th><td>Three full-size bunks in the rear kids' zone</td></tr>
-            <tr><th>Extra bed</th><td>Lounge converts with in-fill cushion (sold separately)</td></tr>
-          </table>
-        </div>
-        <div class="spec-panel" id="spec-storage">
-          <p class="cat-title">Storage</p>
-          <table class="spec-table">
-            <tr><th>Tunnel boot</th><td>670L (700W x 430H x 2245D), external doors both sides</td></tr>
-            <tr><th>Under-bed</th><td>650L (1100W x 450H x 1360D), gas-lift bed access</td></tr>
-            <tr><th>Deleted bunk bay</th><td>Dedicated storage in the kids' zone <span class="tbc">fit-out TBC</span></td></tr>
-            <tr><th>Wardrobes</th><td>Mirrored, with hanging space each side of the queen</td></tr>
-          </table>
-        </div>
         <div class="spec-panel" id="spec-power">
           <p class="cat-title">Water &amp; Power</p>
+          <p class="cat-blurb">Set up for proper off-grid stints.</p>
           <table class="spec-table">
             <tr><th>Water capacity</th><td><span class="tbc">TBC</span></td></tr>
             <tr><th>Solar and battery</th><td><span class="tbc">TBC</span></td></tr>
-            <tr><th>Laundry</th><td>3kg space-saving wall-mounted washing machine</td></tr>
           </table>
         </div>
       </div>
@@ -860,12 +812,12 @@
 </section>
 
 <!-- ENQUIRE / LEAD FORM -->
-<section class="enquire on-dark" id="enquire">
+<section class="enquire" id="enquire">
   <div class="wrap grid reveal">
     <div>
       <span class="eyebrow">Ready when you are</span>
       <h2>Enquire about the Quad Bunk Delete</h2>
-      <p>Tell us a little about your crew and we'll come back to you with availability, pricing and the best way to see it for yourself.</p>
+      <p class="lead-in">Add your details and we'll come back to you with availability, pricing and the best way to see it for yourself.</p>
       <ul class="contact-list">
         <li>Call us on <a href="tel:0386920032">(03) 8692 0032</a></li>
         <li>Send our sales team email at <a href="mailto:sales@wonderlandrv.com.au">sales@wonderlandrv.com.au</a></li>
@@ -873,9 +825,51 @@
         <li>Explore the full range at <a href="https://wonderlandrv.com.au">wonderlandrv.com.au</a></li>
       </ul>
     </div>
-    <div class="form-shell">
-      <iframe id="acForm" src="https://wonderlandrv.activehosted.com/f/47" title="Wonderland RV sales enquiry form" loading="lazy"></iframe>
-    </div>
+    <form class="wl-form" method="POST" action="https://wonderlandrv.activehosted.com/proc.php">
+      <input type="hidden" name="u" value="47">
+      <input type="hidden" name="f" value="47">
+      <input type="hidden" name="s">
+      <input type="hidden" name="c" value="0">
+      <input type="hidden" name="m" value="0">
+      <input type="hidden" name="act" value="sub">
+      <input type="hidden" name="v" value="2">
+      <input type="hidden" name="or" value="ebff2ad9-efcb-4f0b-8c35-32452e6b188c">
+      <input type="hidden" name="field[86]" id="adsourceField" value="">
+      <div class="f-field">
+        <label for="fq-first">First Name*</label>
+        <input type="text" id="fq-first" name="firstname" autocomplete="given-name" required>
+      </div>
+      <div class="f-field">
+        <label for="fq-last">Last Name*</label>
+        <input type="text" id="fq-last" name="lastname" autocomplete="family-name" required>
+      </div>
+      <div class="f-field">
+        <label for="fq-email">Email*</label>
+        <input type="email" id="fq-email" name="email" autocomplete="email" required>
+      </div>
+      <div class="f-field">
+        <label for="fq-phone">Phone*</label>
+        <input type="tel" id="fq-phone" name="phone" autocomplete="tel" required>
+      </div>
+      <div class="f-field">
+        <label for="fq-state">State*</label>
+        <select id="fq-state" name="field[27]" required>
+          <option value="" selected disabled>Select your state</option>
+          <option>Victoria</option>
+          <option>New South Wales / ACT</option>
+          <option>Queensland</option>
+          <option>South Australia</option>
+          <option>Western Australia</option>
+          <option>Northern Territory</option>
+          <option>Tasmania</option>
+          <option>New Zealand</option>
+        </select>
+      </div>
+      <div class="f-submit">
+        <button class="btn btn-solid" type="submit">Send my enquiry</button>
+      </div>
+      <p class="form-note">By submitting you agree to be contacted by the Wonderland RV sales team about this enquiry.</p>
+    </form>
   </div>
 </section>
 
@@ -944,26 +938,12 @@
 <script>
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // pass ?adsource= from the ad URL into the ActiveCampaign form
+  // pass ?adsource= from the ad URL into the ActiveCampaign hidden field
   (function(){
     var adsource = new URLSearchParams(window.location.search).get('adsource');
-    if(adsource){
-      var f = document.getElementById('acForm');
-      f.src = 'https://wonderlandrv.activehosted.com/f/47?adsource=' + encodeURIComponent(adsource);
-    }
+    var f = document.getElementById('adsourceField');
+    if(adsource && f){ f.value = adsource; }
   })();
-
-  // tabs
-  document.querySelectorAll('.tab-btn').forEach(function(btn){
-    btn.setAttribute('aria-selected', btn.classList.contains('active') ? 'true' : 'false');
-    btn.addEventListener('click',function(){
-      document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');b.setAttribute('aria-selected','false')});
-      document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-    });
-  });
 
   // hero video pause/play
   (function(){
@@ -1053,9 +1033,10 @@
   // spec category tabs
   document.querySelectorAll('.spec-cat').forEach(function(btn){
     btn.addEventListener('click',function(){
-      document.querySelectorAll('.spec-cat').forEach(function(b){b.classList.remove('active')});
+      document.querySelectorAll('.spec-cat').forEach(function(b){b.classList.remove('active');b.setAttribute('aria-selected','false')});
       document.querySelectorAll('.spec-panel').forEach(function(p){p.classList.remove('active')});
       btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
       document.getElementById('spec-'+btn.dataset.spec).classList.add('active');
     });
   });
