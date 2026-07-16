@@ -221,8 +221,10 @@
   .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   @media(max-width:900px){.swatch-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.swatch-grid{grid-template-columns:1fr}}
-  .colour-car figure.swatch{flex:0 0 min(31%,340px);scroll-snap-align:start}
-  @media(max-width:760px){.colour-car figure.swatch{flex-basis:74%}}
+  .colour-car figure.swatch{flex:0 0 min(44%,540px);scroll-snap-align:start}
+  @media(max-width:760px){.colour-car figure.swatch{flex-basis:82%}}
+  .colour-car img{aspect-ratio:4/3;object-fit:cover}
+  .colour-car figcaption{position:static;background:#fff;color:var(--ink);padding:16px 20px;font-size:14px;letter-spacing:.12em}
   .swatch{background:#fff;border:1px solid var(--line);padding:0;margin:0;overflow:hidden;transition:border-color .25s var(--ease-out),transform .25s var(--ease-out)}
   @media (hover:hover) and (pointer:fine){.swatch:hover{border-color:var(--wl-orange);transform:translateY(-4px)}}
   .swatch img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
@@ -859,30 +861,37 @@
       <div class="carousel colour-car" tabindex="0" aria-label="Colour schemes, scroll or use arrow buttons">
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Beach-Days-hero-1.webp" width="640" height="474" alt="Beach Days interior colour scheme" loading="lazy">
+        <button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand</button>
         <figcaption><strong>Beach Days</strong></figcaption>
       </figure>
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Forest-Track-hero-1.webp" width="640" height="474" alt="Forest Track interior colour scheme" loading="lazy">
+        <button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand</button>
         <figcaption><strong>Forest Track</strong></figcaption>
       </figure>
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Natural-Warmth-hero-1.webp" width="640" height="474" alt="Natural Warmth interior colour scheme" loading="lazy">
+        <button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand</button>
         <figcaption><strong>Natural Warmth</strong></figcaption>
       </figure>
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Rustic-Charm-hero-1.webp" width="640" height="474" alt="Rustic Charm interior colour scheme" loading="lazy">
+        <button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand</button>
         <figcaption><strong>Rustic Charm</strong></figcaption>
       </figure>
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Sand-Dunes-hero-1.webp" width="640" height="474" alt="Sand Dunes interior colour scheme" loading="lazy">
+        <button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand</button>
         <figcaption><strong>Sand Dunes</strong></figcaption>
       </figure>
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Coastal-Slate-hero-1.webp" width="640" height="474" alt="Coastal Slate interior colour scheme" loading="lazy">
+        <button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand</button>
         <figcaption><strong>Coastal Slate</strong></figcaption>
       </figure>
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Opium-Noir-hero-1.webp" width="640" height="474" alt="Opium Noir interior colour scheme" loading="lazy">
+        <button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>Expand</button>
         <figcaption><strong>Opium Noir</strong></figcaption>
       </figure>
     </div>
@@ -1147,7 +1156,7 @@
     var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCaption');
     if(!lb)return;
     function close(){lb.classList.remove('open');document.body.style.overflow='';}
-    document.querySelectorAll('#galleryCarousel figure').forEach(function(fig){
+    document.querySelectorAll('.carousel figure').forEach(function(fig){
       var img=fig.querySelector('img'),cap=fig.querySelector('figcaption');
       fig.querySelector('.expand-btn').addEventListener('click',function(e){
         e.stopPropagation();
@@ -1169,7 +1178,7 @@
       })();
       chip.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg>';
       document.body.appendChild(chip);
-      document.querySelectorAll('#galleryCarousel figure').forEach(function(fig){
+      document.querySelectorAll('.carousel figure').forEach(function(fig){
         fig.addEventListener('mouseenter',function(){chip.classList.add('on')});
         fig.addEventListener('mouseleave',function(){chip.classList.remove('on')});
         fig.addEventListener('mousemove',function(e){chipTX=e.clientX;chipTY=e.clientY;});
