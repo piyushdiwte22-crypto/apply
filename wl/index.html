@@ -117,18 +117,71 @@
   .split .img-frame::after{content:'';position:absolute;top:18px;left:18px;right:-18px;bottom:-18px;border:1px solid var(--wl-orange);z-index:-1}
   .copy-note{font-size:13px;color:var(--wl-orange)}
 
-  /* gallery */
+  /* video facade (intro walkthrough) */
+  .video-facade{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--wl-black);cursor:pointer;border:1px solid var(--line)}
+  .video-facade img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .3s var(--ease-out),transform .5s var(--ease-out)}
+  @media (hover:hover) and (pointer:fine){.video-facade:hover img{opacity:1;transform:scale(1.03)}}
+  .video-facade button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;border:none;background:var(--wl-orange);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .16s var(--ease-out),background-color .2s}
+  .video-facade button svg{width:30px;height:30px;margin-left:3px}
+  .video-facade button:hover{background:#A85F1B}
+  .video-facade:active button{transform:translate(-50%,-50%) scale(.94)}
+  .video-facade .facade-tag{position:absolute;left:0;bottom:0;background:rgba(13,13,13,.75);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:11px;padding:10px 16px}
+  .video-facade iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  /* gallery slideshow */
   .gallery{background:var(--paper-alt)}
   .gallery .head{text-align:center;max-width:640px;margin:0 auto 52px}
   .gallery .head h2{margin-top:14px}
-  .g-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  @media(max-width:860px){.g-grid{grid-template-columns:1fr 1fr}}
-  @media(max-width:560px){.g-grid{grid-template-columns:1fr}}
-  .g-grid figure{position:relative;overflow:hidden;margin:0}
-  .g-grid img{aspect-ratio:4/3;object-fit:cover;width:100%;height:auto;transition:transform .5s var(--ease-out)}
-  @media (hover:hover) and (pointer:fine){.g-grid figure:hover img{transform:scale(1.04)}}
-  .g-grid figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;background:linear-gradient(0deg,rgba(13,13,13,.75),transparent);color:#fff;font-size:12.5px;letter-spacing:.06em}
+  .carousel-shell{position:relative}
+  .carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+  .carousel::-webkit-scrollbar{display:none}
+  .carousel figure{position:relative;flex:0 0 min(72%,760px);scroll-snap-align:center;overflow:hidden;margin:0}
+  .carousel img{aspect-ratio:3/2;object-fit:cover;width:100%;height:auto}
+  .carousel figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 18px 14px;background:linear-gradient(0deg,rgba(13,13,13,.75),transparent);color:#fff;font-size:13px;letter-spacing:.06em}
+  .car-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.95);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .2s var(--ease-out),color .2s var(--ease-out),transform .16s var(--ease-out);box-shadow:0 6px 18px rgba(26,26,26,.12)}
+  .car-btn svg{width:22px;height:22px}
+  .car-btn:hover{background:var(--wl-orange);color:#fff}
+  .car-btn:active{transform:translateY(-50%) scale(.94)}
+  .car-btn.prev{left:-10px}
+  .car-btn.next{right:-10px}
+  @media(max-width:760px){.car-btn{display:none}.carousel figure{flex-basis:86%}}
   .gallery .fineprint{text-align:center;margin-top:24px;font-size:12.5px;color:var(--muted)}
+
+  /* features two-col (why + tour, Kokoda style) */
+  .features .cols{display:grid;grid-template-columns:1fr 1.15fr;gap:26px;align-items:stretch}
+  @media(max-width:900px){.features .cols{grid-template-columns:1fr}}
+  .feature-card{background:#fff;border:1px solid var(--line);padding:38px 34px}
+  .feature-card h3{font-size:22px;margin-bottom:10px}
+  .feature-card>p{color:var(--muted);font-size:15px;margin-bottom:22px}
+  .checklist{list-style:none}
+  .checklist li{padding:13px 0 13px 34px;position:relative;color:var(--muted);font-size:15px;border-bottom:1px solid var(--line)}
+  .checklist li:last-child{border-bottom:none}
+  .checklist li::before{content:'';position:absolute;left:2px;top:19px;width:16px;height:9px;border-left:2.5px solid var(--wl-orange);border-bottom:2.5px solid var(--wl-orange);transform:rotate(-45deg)}
+  .checklist li strong{color:var(--ink);font-weight:500}
+  .feature-card .btn{margin-top:24px}
+  .tour-embed{position:relative;aspect-ratio:16/10;background:var(--wl-black)}
+  .tour-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .tour-note{margin-top:14px;font-size:13px;color:var(--wl-orange)}
+
+  /* floorplan options tabs */
+  .fp-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:40px 0 0;border-bottom:1px solid var(--line)}
+  .fp-panel{display:none;padding-top:36px}
+  .fp-panel.active{display:block}
+
+  /* sizes */
+  .size-badge{display:inline-block;font-family:var(--font-display);font-stretch:125%;font-weight:900;font-size:24px;color:var(--wl-orange);margin-bottom:6px}
+
+  /* colour options */
+  .colours{background:var(--paper-alt)}
+  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  @media(max-width:900px){.swatch-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.swatch-grid{grid-template-columns:1fr}}
+  .swatch{background:#fff;border:1px solid var(--line);padding:22px;margin:0;transition:border-color .25s var(--ease-out),transform .25s var(--ease-out)}
+  @media (hover:hover) and (pointer:fine){.swatch:hover{border-color:var(--wl-orange);transform:translateY(-4px)}}
+  .swatch .chips{display:flex;height:110px;border:1px solid var(--line);overflow:hidden}
+  .swatch .chips i{flex:1}
+  .swatch figcaption{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;font-family:var(--font-display);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:13px}
+  .swatch .tbc{color:var(--wl-orange);font-size:11px;letter-spacing:.08em}
 
   /* why cards */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -324,96 +377,111 @@
   </div>
 </div>
 
-<!-- INTRO -->
-<section>
+<!-- INTRO + WALKTHROUGH VIDEO (Kokoda style: video left, copy right) -->
+<section id="walkthrough">
   <div class="wrap split reveal">
+    <div class="video-facade" id="walkthroughFacade">
+      <img src="https://i.ytimg.com/vi/Yk4vxl-iUcU/sddefault.jpg" width="640" height="480" alt="Walkthrough video of the Wonderland RV family van" loading="lazy">
+      <button type="button" aria-label="Play the walkthrough video">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <span class="facade-tag">Watch the walkthrough</span>
+    </div>
     <div>
       <span class="eyebrow">Why delete a bunk?</span>
       <h2>Room for three.<br>Space for everything else.</h2>
       <p>Not every family needs four beds. If you are travelling with one, two or three kids, the fourth bunk usually ends up as a shelf for bags, toys and washing. The Quad Bunk Delete layout turns that wasted bed into <strong>purpose-built storage</strong>, so the kids' clothes, gear and sanity all have a home.</p>
       <p>Everything else that makes the XT2311F-B4 a family favourite stays put. The private north-south island queen up front, the L-shape lounge the whole crew fits around, and the door-side kitchen that keeps you part of the campsite conversation while dinner is on.</p>
       <p class="copy-note">*Copy note: confirm with production exactly what replaces the deleted bunk (cupboard, hanging robe or open bay) before publish.</p>
-    </div>
-    <div class="img-frame">
-      <img src="assets/interior-queen.jpg" width="1600" height="1066" alt="North-south island queen bed inside the Wonderland RV XTR" loading="lazy">
+      <a class="btn btn-outline" href="#gallery" style="margin-top:8px">See the space inside</a>
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
-<section class="gallery">
+<!-- GALLERY SLIDESHOW -->
+<section class="gallery" id="gallery">
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">See the space inside</span>
       <h2>Take a look around</h2>
     </div>
-    <div class="g-grid reveal">
-      <figure><img src="assets/bunks.jpg" width="1600" height="1066" alt="Bunk beds with storage drawers in the kids' zone" loading="lazy"><figcaption>The kids' zone</figcaption></figure>
-      <figure><img src="assets/interior-queen.jpg" width="1600" height="1066" alt="North-south island queen bed" loading="lazy"><figcaption>Parents' retreat</figcaption></figure>
-      <figure><img src="assets/kitchen.jpg" width="1200" height="799" alt="Meal prep at the door-side kitchen" loading="lazy"><figcaption>Door-side kitchen</figcaption></figure>
-      <figure><img src="assets/dinette.jpg" width="1200" height="799" alt="Dinette set for dinner" loading="lazy"><figcaption>The family hub</figcaption></figure>
-      <figure><img src="assets/kids-desk-detail.jpg" width="1200" height="800" alt="Kids' study nook beside the bunks" loading="lazy"><figcaption>Study nook</figcaption></figure>
-      <figure><img src="assets/bbq-external.jpg" width="1200" height="800" alt="Slide-out BBQ on the external kitchen" loading="lazy"><figcaption>External BBQ</figcaption></figure>
+    <div class="carousel-shell reveal">
+      <button class="car-btn prev" type="button" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="carousel" id="galleryCarousel" tabindex="0" aria-label="Photo gallery, scroll or use arrow buttons">
+        <figure><img src="assets/campsite.jpg" width="1600" height="1066" alt="Family relaxing under the awning at camp" loading="lazy"><figcaption>Set up for the night</figcaption></figure>
+        <figure><img src="assets/interior-queen.jpg" width="1600" height="1066" alt="North-south island queen bed" loading="lazy"><figcaption>Parents' retreat</figcaption></figure>
+        <figure><img src="assets/bunks.jpg" width="1600" height="1066" alt="Bunk beds with storage drawers in the kids' zone" loading="lazy"><figcaption>The kids' zone</figcaption></figure>
+        <figure><img src="assets/dinette.jpg" width="1200" height="799" alt="Dinette set for dinner" loading="lazy"><figcaption>The family hub</figcaption></figure>
+        <figure><img src="assets/kitchen.jpg" width="1200" height="799" alt="Meal prep at the door-side kitchen" loading="lazy"><figcaption>Door-side kitchen</figcaption></figure>
+        <figure><img src="assets/kids-desk-detail.jpg" width="1200" height="800" alt="Kids' study nook beside the bunks" loading="lazy"><figcaption>Study nook</figcaption></figure>
+        <figure><img src="assets/bbq-external.jpg" width="1200" height="800" alt="Slide-out BBQ on the external kitchen" loading="lazy"><figcaption>External BBQ</figcaption></figure>
+      </div>
+      <button class="car-btn next" type="button" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
     </div>
     <p class="fineprint">*Photos show the 2026 XTR 2300 family van. Some images may contain optional upgrades, please confirm inclusions with our sales team.</p>
   </div>
 </section>
 
-<!-- WHY CHOOSE -->
-<section class="why">
+<!-- FEATURES + VIRTUAL TOUR (Kokoda two-col) -->
+<section class="features" id="features">
   <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Why choose this layout</span>
-      <h2>Made for families who pack real life</h2>
+    <div class="head reveal" style="max-width:680px;margin-bottom:48px">
+      <span class="eyebrow">Features</span>
+      <h2>For families who pack real life</h2>
     </div>
-    <div class="cards reveal">
-      <div class="card">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
-        <h3>Three proper bunks</h3>
-        <p>Full-size bunks with individual storage drawers, so every kid gets their own bed and their own space for their gear.</p>
+    <div class="cols reveal">
+      <div class="feature-card">
+        <h3>Why choose this layout</h3>
+        <p>Ideal for one to three kids and serious amounts of gear.</p>
+        <ul class="checklist">
+          <li><strong>Three full-size bunks</strong> with individual storage drawers</li>
+          <li><strong>Extra storage bay</strong> where the fourth bunk would sit</li>
+          <li><strong>North-south island queen</strong> with pillow top mattress and walkways both sides</li>
+          <li><strong>L-shape lounge</strong> with adjustable table that converts to an extra bed</li>
+          <li><strong>Straight door-side kitchen</strong> with 300mm full-height pantry</li>
+          <li><strong>670L tunnel boot</strong> plus 650L under-bed storage</li>
+          <li><strong>True off-road XTR build</strong> for extended off-grid stints</li>
+        </ul>
+        <a class="btn btn-outline" href="#specs">Check specs</a>
       </div>
-      <div class="card">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M3 11h18M8 7V4h8v3"/></svg>
-        <h3>A full bay of storage</h3>
-        <p>The deleted fourth bunk becomes dedicated storage in the kids' zone, on top of the 670L tunnel boot and 650L under-bed storage.</p>
-      </div>
-      <div class="card">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l9-8 9 8M5 10v10h14V10"/></svg>
-        <h3>Parents' private retreat</h3>
-        <p>North-south island queen with a pillow top mattress, walkways down both sides and mirrored robes each side of the bed.</p>
-      </div>
-      <div class="card">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 18v-6a8 8 0 0116 0v6M2 18h20"/></svg>
-        <h3>Lounge that fits the crew</h3>
-        <p>L-shape lounge with a telescopic adjustable table that swivels, slides and drops down to convert into an extra bed.</p>
-      </div>
-      <div class="card">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        <h3>Cook facing the campsite</h3>
-        <p>Straight door-side kitchen with a 300mm full-height pantry keeps you in the conversation while meals come together.</p>
-      </div>
-      <div class="card">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>
-        <h3>True off-road build</h3>
-        <p>The same extreme terrain XTR underpinnings as every van in the range, ready for long stints off the grid.</p>
+      <div class="feature-card">
+        <h3>Virtual tour</h3>
+        <p>Explore the floorplan from the comfort of your own home. Check the flow, measure the spaces and see how the layout works before you visit.</p>
+        <div class="tour-embed">
+          <iframe src="https://sh.smartviewmedia.com.au/m/ntc6362/?v=ntc6362" title="3D virtual tour of the Wonderland RV XT2311F-B4" loading="lazy" allow="fullscreen"></iframe>
+        </div>
+        <p class="tour-note">*The tour shows the XT2311F-B4 with four bunks. In the Quad Bunk Delete layout, one bunk becomes additional storage.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FLOORPLAN -->
+<!-- FLOORPLAN OPTIONS -->
 <section class="floorplan" id="floorplan">
   <div class="wrap">
-    <div class="head reveal">
-      <div>
-        <span class="eyebrow">Floorplan</span>
-        <h2>One layout, no wasted space</h2>
-      </div>
-      <a class="btn btn-outline" href="https://wonderlandrv.com.au/range/xtr/xt2311f-b4/">See the base XT2311F-B4</a>
+    <div class="head reveal" style="justify-content:center;text-align:center;display:block">
+      <span class="eyebrow">One layout. Multiple options.</span>
+      <h2>Explore the floorplans</h2>
     </div>
-    <div class="frame reveal">
-      <span class="eyebrow">Floorplan artwork to come</span>
-      <p>Drop the Quad Bunk Delete floorplan render here (2000px wide minimum). Source file to be requested from the design team.</p>
+    <div class="fp-tabs reveal" role="tablist" style="justify-content:center">
+      <button class="tab-btn active" data-fp="delete" role="tab">Quad Bunk Delete (3 bunks)</button>
+      <button class="tab-btn" data-fp="quad" role="tab">Standard Quad Bunk (4 bunks)</button>
+    </div>
+    <div class="fp-panel active" id="fp-delete">
+      <div class="frame reveal">
+        <span class="eyebrow">Floorplan artwork to come</span>
+        <p>Drop the Quad Bunk Delete floorplan render here (2000px wide minimum). Source file to be requested from the design team.</p>
+      </div>
+    </div>
+    <div class="fp-panel" id="fp-quad">
+      <div class="frame">
+        <span class="eyebrow">Floorplan artwork to come</span>
+        <p>Standard XT2311F-B4 quad bunk floorplan render goes here for comparison.</p>
+      </div>
     </div>
     <div class="legend reveal">
       <span><i></i>Sleeping zones</span>
@@ -421,21 +489,6 @@
       <span><i class="b"></i>Bathroom and laundry</span>
       <span><i></i>Storage (including deleted bunk bay)</span>
     </div>
-  </div>
-</section>
-
-<!-- VIRTUAL TOUR -->
-<section class="tour">
-  <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Virtual tour</span>
-      <h2>Walk through it from your couch</h2>
-      <p>Explore the floorplan in 3D, check the flow and measure up the spaces before you visit.</p>
-    </div>
-    <div class="tour-embed reveal">
-      <iframe src="https://sh.smartviewmedia.com.au/m/ntc6362/?v=ntc6362" title="3D virtual tour of the Wonderland RV XT2311F-B4" loading="lazy" allow="fullscreen"></iframe>
-    </div>
-    <p class="tour-note">*The tour shows the XT2311F-B4 with four bunks. In the Quad Bunk Delete layout, one bunk becomes additional storage.</p>
   </div>
 </section>
 
@@ -457,7 +510,6 @@
       <div class="zone-copy">
         <h3>Everyone gets their own spot</h3>
         <p>Parents up front, kids down back. The island queen sits north-south with walkway access on both sides, so nobody climbs over anyone at 2am. The three bunks each get their own drawers, and the space where the fourth bunk would sit works for gear instead of guests.</p>
-        <img src="assets/bunks.jpg" width="1600" height="1066" alt="Bunk beds in the kids' zone of the Wonderland RV XTR" loading="lazy">
       </div>
       <ul>
         <li><strong>Caravan queen bed</strong> 1530 x 1880mm, north-south island orientation</li>
@@ -472,7 +524,6 @@
       <div class="zone-copy">
         <h3>Pack for the term, not the weekend</h3>
         <p>Family travel means family gear. This layout was already the storage king of the range. Deleting the fourth bunk adds another dedicated bay right where the kids' clutter lives.</p>
-        <img src="assets/kids-desk.jpg" width="1200" height="800" alt="Kids' study nook beside the bunks" loading="lazy">
       </div>
       <ul>
         <li><strong>670L tunnel boot</strong> (700W x 430H x 2245D) via external doors</li>
@@ -487,7 +538,6 @@
       <div class="zone-copy">
         <h3>The family hub</h3>
         <p>The L-shape lounge is where homework, card games and rainy day movies happen. The telescopic table adjusts to any height, swivels and slides in four directions, and drops down to make an extra bed when the kids bring a mate.</p>
-        <img src="assets/dinette.jpg" width="1200" height="799" alt="Dinette table set for dinner inside the XTR" loading="lazy">
       </div>
       <ul>
         <li><strong>L-shape lounge</strong> with telescopic, adjustable table leg</li>
@@ -501,7 +551,6 @@
       <div class="zone-copy">
         <h3>Meals with a view</h3>
         <p>The straight door-side kitchen faces the awning, so whoever is cooking stays part of the campsite action. A 300mm full-height pantry swallows the big shop, and the slide-out external BBQ handles the rest.</p>
-        <img src="assets/kitchen.jpg" width="1200" height="799" alt="Meal prep in the XTR kitchen" loading="lazy">
       </div>
       <ul>
         <li><strong>Straight door-side kitchen</strong> for outdoor visibility while cooking</li>
@@ -526,22 +575,8 @@
   </div>
 </section>
 
-<!-- WALKTHROUGH VIDEO -->
-<section class="walkthrough on-dark" id="walkthrough">
-  <div class="wrap">
-    <div class="head reveal">
-      <span class="eyebrow">Walkthrough</span>
-      <h2>Explore the layout</h2>
-      <p>Take a proper look through the family van and see how the spaces work when the whole crew is on board.</p>
-    </div>
-    <div class="video-embed reveal">
-      <iframe src="https://www.youtube-nocookie.com/embed/Yk4vxl-iUcU?rel=0&modestbranding=1" title="Wonderland RV family van walkthrough" loading="lazy" allow="fullscreen; encrypted-media"></iframe>
-    </div>
-  </div>
-</section>
-
 <!-- SPECS -->
-<section class="specs">
+<section class="specs" id="specs">
   <div class="wrap reveal">
     <span class="eyebrow">Tech specs</span>
     <h2>The numbers</h2>
@@ -618,6 +653,73 @@
   </div>
 </section>
 
+<!-- SAME LAYOUT, OTHER SIZES -->
+<section class="similar">
+  <div class="wrap">
+    <span class="eyebrow reveal">Need more or less van?</span>
+    <h2 class="reveal">The family layout in other sizes</h2>
+    <div class="cards reveal">
+      <div class="sim-card">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT1806F-B2" loading="lazy">
+        <div class="body">
+          <span class="size-badge">18'6"</span>
+          <h3>XT1806F-B2</h3>
+          <ul><li>Twin bunks</li><li>East-west queen</li><li>The compact family tourer</li></ul>
+          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt1806f-b2/">See details</a>
+        </div>
+      </div>
+      <div class="sim-card">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" width="1024" height="576" alt="XT2211F-B2-D" loading="lazy">
+        <div class="body">
+          <span class="size-badge">22'11"</span>
+          <h3>XT2211F-B2-D</h3>
+          <ul><li>Twin bunks</li><li>North-south queen with roadside bedside storage</li><li>Room to move</li></ul>
+          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2211f-b2-d/">See details</a>
+        </div>
+      </div>
+      <div class="sim-card" style="border-color:var(--wl-orange)">
+        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT2311F-B4" loading="lazy">
+        <div class="body">
+          <span class="size-badge">23'11"</span>
+          <h3>XT2311F-B4 <span style="color:var(--wl-orange);font-size:12px;letter-spacing:.15em">/ This page</span></h3>
+          <ul><li>Quad bunks, or three with the bunk delete</li><li>North-south island queen</li><li>The full family flagship</li></ul>
+          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2311f-b4/">See details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOUR OPTIONS -->
+<section class="colours" id="colours">
+  <div class="wrap">
+    <div class="head reveal" style="text-align:center;max-width:660px;margin:0 auto 52px">
+      <span class="eyebrow">Choose your style</span>
+      <h2>Interior colour options</h2>
+      <p style="color:var(--muted);margin-top:16px">Everyone has their own style. Pick the interior scheme that feels like home, then make it yours with the build tool.</p>
+    </div>
+    <div class="swatch-grid reveal">
+      <figure class="swatch">
+        <div class="chips"><i style="background:#F2EFEA"></i><i style="background:#D8CFC2"></i><i style="background:#8B8578"></i></div>
+        <figcaption><strong>Scheme 1</strong><span class="tbc">name TBC</span></figcaption>
+      </figure>
+      <figure class="swatch">
+        <div class="chips"><i style="background:#F5F5F5"></i><i style="background:#BFC5C9"></i><i style="background:#4A5257"></i></div>
+        <figcaption><strong>Scheme 2</strong><span class="tbc">name TBC</span></figcaption>
+      </figure>
+      <figure class="swatch">
+        <div class="chips"><i style="background:#F0EBE3"></i><i style="background:#C9A97E"></i><i style="background:#5C4A38"></i></div>
+        <figcaption><strong>Scheme 3</strong><span class="tbc">name TBC</span></figcaption>
+      </figure>
+      <figure class="swatch">
+        <div class="chips"><i style="background:#EFEFEF"></i><i style="background:#9AA5A0"></i><i style="background:#2F3835"></i></div>
+        <figcaption><strong>Scheme 4</strong><span class="tbc">name TBC</span></figcaption>
+      </figure>
+    </div>
+    <p class="fineprint" style="text-align:center">*Design placeholder: swap in the real interior scheme photos and names from the production options list before publish.</p>
+  </div>
+</section>
+
 <!-- ENQUIRE / LEAD FORM -->
 <section class="enquire on-dark" id="enquire">
   <div class="wrap grid reveal">
@@ -634,40 +736,6 @@
     </div>
     <div class="form-shell">
       <iframe id="acForm" src="https://wonderlandrv.activehosted.com/f/47" title="Wonderland RV sales enquiry form" loading="lazy"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- SIMILAR -->
-<section class="similar">
-  <div class="wrap">
-    <span class="eyebrow reveal">Keep comparing</span>
-    <h2 class="reveal">Similar family layouts</h2>
-    <div class="cards reveal">
-      <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2022/12/2311Q-F4.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT2311F-B4" loading="lazy">
-        <div class="body">
-          <h3>XT2311F-B4</h3>
-          <ul><li>23ft 11in</li><li>Quad bunks</li><li>North-south island queen</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2311f-b4/">See details</a>
-        </div>
-      </div>
-      <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/05/2211Q2-F2.2_TILT-1024x576.jpg" width="1024" height="576" alt="XT2211F-B2-D" loading="lazy">
-        <div class="body">
-          <h3>XT2211F-B2-D</h3>
-          <ul><li>22ft 11in</li><li>Twin bunks</li><li>North-south queen with roadside bedside storage</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt2211f-b2-d/">See details</a>
-        </div>
-      </div>
-      <div class="sim-card">
-        <img src="https://wonderlandrv.com.au/wp-content/uploads/2024/04/1806EW-F2.0_TILT-1024x576.jpg" width="1024" height="576" alt="XT1806F-B2" loading="lazy">
-        <div class="body">
-          <h3>XT1806F-B2</h3>
-          <ul><li>18ft 6in</li><li>Twin bunks</li><li>East-west queen</li></ul>
-          <a class="link" href="https://wonderlandrv.com.au/range/xtr/xt1806f-b2/">See details</a>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -769,6 +837,40 @@
       if(reducedMotion){el.classList.add('in');}else{io.observe(el);}
     });
   }
+
+  // floorplan option tabs
+  document.querySelectorAll('[data-fp]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('[data-fp]').forEach(function(b){b.classList.remove('active')});
+      document.querySelectorAll('.fp-panel').forEach(function(p){p.classList.remove('active')});
+      btn.classList.add('active');
+      document.getElementById('fp-'+btn.dataset.fp).classList.add('active');
+    });
+  });
+
+  // walkthrough video facade: load iframe on demand
+  (function(){
+    var facade=document.getElementById('walkthroughFacade');
+    if(!facade) return;
+    facade.addEventListener('click',function(){
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube-nocookie.com/embed/Yk4vxl-iUcU?autoplay=1&rel=0&modestbranding=1';
+      f.title='Wonderland RV family van walkthrough';
+      f.allow='autoplay; fullscreen; encrypted-media';
+      facade.innerHTML='';
+      facade.appendChild(f);
+      facade.style.cursor='default';
+    },{once:true});
+  })();
+
+  // gallery carousel buttons
+  (function(){
+    var car=document.getElementById('galleryCarousel');
+    if(!car) return;
+    function step(){return car.querySelector('figure').getBoundingClientRect().width+14}
+    document.querySelector('.car-btn.prev').addEventListener('click',function(){car.scrollBy({left:-step(),behavior:'smooth'})});
+    document.querySelector('.car-btn.next').addEventListener('click',function(){car.scrollBy({left:step(),behavior:'smooth'})});
+  })();
 </script>
 </body>
 </html>
