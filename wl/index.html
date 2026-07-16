@@ -153,6 +153,20 @@
   .carousel figure{position:relative;flex:0 0 min(72%,760px);scroll-snap-align:center;overflow:hidden;margin:0}
   .carousel img{aspect-ratio:3/2;object-fit:cover;width:100%;height:auto}
   .carousel figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 18px 14px;background:linear-gradient(0deg,rgba(13,13,13,.75),transparent);color:#fff;font-size:13px;letter-spacing:.06em}
+  .expand-btn{position:absolute;top:14px;right:14px;width:44px;height:44px;border:none;border-radius:50%;background:rgba(13,13,13,.6);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .2s var(--ease-out),background-color .2s,transform .16s var(--ease-out);backdrop-filter:blur(4px)}
+  .expand-btn svg{width:20px;height:20px}
+  .carousel figure:hover .expand-btn,.expand-btn:focus-visible{opacity:1}
+  @media (hover:none){.expand-btn{opacity:1}}
+  .expand-btn:hover{background:var(--wl-orange)}
+  .expand-btn:active{transform:scale(.92)}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(13,13,13,.92);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:100%;max-height:86vh;width:auto;height:auto}
+  .lightbox .lb-caption{position:absolute;bottom:3vh;left:0;right:0;text-align:center;color:#fff;font-size:14px;letter-spacing:.06em}
+  .lightbox .lb-close{position:absolute;top:20px;right:24px;width:52px;height:52px;border:1px solid var(--line-dark);border-radius:50%;background:rgba(13,13,13,.6);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .2s,transform .16s var(--ease-out)}
+  .lightbox .lb-close:hover{background:var(--wl-orange)}
+  .lightbox .lb-close:active{transform:scale(.92)}
+  .lightbox .lb-close svg{width:22px;height:22px}
   .car-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.95);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .2s var(--ease-out),color .2s var(--ease-out),transform .16s var(--ease-out);box-shadow:0 6px 18px rgba(26,26,26,.12)}
   .car-btn svg{width:22px;height:22px}
   .car-btn:hover{background:var(--wl-orange);color:#fff}
@@ -165,7 +179,8 @@
   /* features two-col (why + tour, Kokoda style) */
   .features .cols{display:grid;grid-template-columns:1fr 1.15fr;gap:26px;align-items:stretch}
   @media(max-width:900px){.features .cols{grid-template-columns:1fr}}
-  .feature-card{background:#fff;border:1px solid var(--line);padding:38px 34px}
+  .feature-card{background:#fff;border:1px solid var(--line);padding:38px 34px;display:flex;flex-direction:column}
+  .feature-card .btn{margin-top:auto;align-self:flex-start}
   .feature-card h3{font-size:22px;margin-bottom:10px}
   .feature-card>p{color:var(--muted);font-size:15px;margin-bottom:22px}
   .checklist{list-style:none}
@@ -173,8 +188,7 @@
   .checklist li:last-child{border-bottom:none}
   .checklist li::before{content:'';position:absolute;left:2px;top:19px;width:16px;height:9px;border-left:2.5px solid var(--wl-orange);border-bottom:2.5px solid var(--wl-orange);transform:rotate(-45deg)}
   .checklist li strong{color:var(--ink);font-weight:500}
-  .feature-card .btn{margin-top:24px}
-  .tour-embed{position:relative;aspect-ratio:16/10;background:var(--wl-black)}
+  .tour-embed{position:relative;background:var(--wl-black);flex:1;min-height:360px}
   .tour-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .tour-note{margin-top:14px;font-size:13px;color:var(--wl-orange)}
 
@@ -495,13 +509,13 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
       </button>
       <div class="carousel" id="galleryCarousel" tabindex="0" aria-label="Photo gallery, scroll or use arrow buttons">
-        <figure><img src="assets/campsite.jpg" width="1600" height="1066" alt="Family relaxing under the awning at camp" loading="lazy"><figcaption>Set up for the night</figcaption></figure>
-        <figure><img src="assets/interior-queen.jpg" width="1600" height="1066" alt="North-south island queen bed" loading="lazy"><figcaption>Parents' retreat</figcaption></figure>
-        <figure><img src="assets/bunks.jpg" width="1600" height="1066" alt="Bunk beds with storage drawers in the kids' zone" loading="lazy"><figcaption>The kids' zone</figcaption></figure>
-        <figure><img src="assets/dinette.jpg" width="1200" height="799" alt="Dinette set for dinner" loading="lazy"><figcaption>The family hub</figcaption></figure>
-        <figure><img src="assets/kitchen.jpg" width="1200" height="799" alt="Meal prep at the door-side kitchen" loading="lazy"><figcaption>Door-side kitchen</figcaption></figure>
-        <figure><img src="assets/kids-desk-detail.jpg" width="1200" height="800" alt="Kids' study nook beside the bunks" loading="lazy"><figcaption>Study nook</figcaption></figure>
-        <figure><img src="assets/bbq-external.jpg" width="1200" height="800" alt="Slide-out BBQ on the external kitchen" loading="lazy"><figcaption>External BBQ</figcaption></figure>
+        <figure><img src="assets/campsite.jpg" width="1600" height="1066" alt="Family relaxing under the awning at camp" loading="lazy"><button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg></button><figcaption>Set up for the night</figcaption></figure>
+        <figure><img src="assets/interior-queen.jpg" width="1600" height="1066" alt="North-south island queen bed" loading="lazy"><button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg></button><figcaption>Parents' retreat</figcaption></figure>
+        <figure><img src="assets/bunks.jpg" width="1600" height="1066" alt="Bunk beds with storage drawers in the kids' zone" loading="lazy"><button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg></button><figcaption>The kids' zone</figcaption></figure>
+        <figure><img src="assets/dinette.jpg" width="1200" height="799" alt="Dinette set for dinner" loading="lazy"><button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg></button><figcaption>The family hub</figcaption></figure>
+        <figure><img src="assets/kitchen.jpg" width="1200" height="799" alt="Meal prep at the door-side kitchen" loading="lazy"><button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg></button><figcaption>Door-side kitchen</figcaption></figure>
+        <figure><img src="assets/kids-desk-detail.jpg" width="1200" height="800" alt="Kids' study nook beside the bunks" loading="lazy"><button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg></button><figcaption>Study nook</figcaption></figure>
+        <figure><img src="assets/bbq-external.jpg" width="1200" height="800" alt="Slide-out BBQ on the external kitchen" loading="lazy"><button class="expand-btn" type="button" aria-label="Expand photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/></svg></button><figcaption>External BBQ</figcaption></figure>
       </div>
       <button class="car-btn next" type="button" aria-label="Next photo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
@@ -955,6 +969,12 @@
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded photo">
+  <button class="lb-close" type="button" aria-label="Close expanded photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <p class="lb-caption" id="lbCaption"></p>
+</div>
+
 <div class="sticky-cta">
   <a class="btn btn-solid" href="#enquire">Enquire</a>
   <a class="btn btn-outline" href="tel:0386920032">Call us</a>
@@ -1042,6 +1062,25 @@
       facade.appendChild(f);
       facade.style.cursor='default';
     },{once:true});
+  })();
+
+  // gallery lightbox
+  (function(){
+    var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCaption');
+    if(!lb)return;
+    function close(){lb.classList.remove('open');document.body.style.overflow='';}
+    document.querySelectorAll('#galleryCarousel figure').forEach(function(fig){
+      var img=fig.querySelector('img'),cap=fig.querySelector('figcaption');
+      fig.querySelector('.expand-btn').addEventListener('click',function(e){
+        e.stopPropagation();
+        lbImg.src=img.src;lbImg.alt=img.alt;lbCap.textContent=cap?cap.textContent:'';
+        lb.classList.add('open');document.body.style.overflow='hidden';
+        lb.querySelector('.lb-close').focus();
+      });
+    });
+    lb.querySelector('.lb-close').addEventListener('click',close);
+    lb.addEventListener('click',function(e){if(e.target===lb)close();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
   })();
 
   // gallery carousel buttons
