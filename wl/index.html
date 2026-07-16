@@ -54,7 +54,9 @@
   h1,h2,h3{font-family:var(--font-display);font-stretch:125%;text-transform:uppercase;line-height:1.14}
   h1{font-weight:700;font-size:clamp(36px,5.4vw,64px);letter-spacing:.04em;text-wrap:balance}
   h2{font-weight:700;font-size:clamp(24px,3.2vw,38px);letter-spacing:.05em;text-wrap:balance}
-  h3{font-weight:600;font-size:16px;letter-spacing:.12em}
+  h3{font-weight:600;font-size:16px;letter-spacing:.12em;text-wrap:balance}
+  /* narrow-column headings: scale down so no 1-2 word orphan lines */
+  #walkthrough .split h2,.enquire h2{font-size:clamp(22px,2.6vw,32px)}
   section{padding:92px 0}
   section[id]{scroll-margin-top:90px}
   a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
@@ -84,7 +86,7 @@
   .anchor-bar ul{display:flex;gap:8px;list-style:none;overflow-x:auto;scrollbar-width:none;justify-content:center}
   .anchor-bar ul::-webkit-scrollbar{display:none}
   .anchor-bar a{display:block;padding:18px 20px;color:#EDEAE5;font-size:14px;white-space:nowrap;transition:color .2s var(--ease-out)}
-  .anchor-bar a:hover{color:var(--wl-orange-bright)}
+  .anchor-bar a:hover,.anchor-bar a.current{color:var(--wl-orange-bright)}
   @media(max-width:760px){.anchor-bar ul{justify-content:flex-start}.anchor-bar{top:0;position:static}}
   .nav .btn{padding:11px 22px;font-size:11px}
   @media(max-width:900px){.nav ul{display:none}}
@@ -270,7 +272,9 @@
     .spec-cat svg{display:none}
   }
   .spec-panel{display:none}
-  .spec-panel.active{display:block}
+  .spec-panel.active{display:block;animation:panelIn .2s var(--ease-out)}
+  @keyframes panelIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.spec-panel.active{animation:none}}
   .pick-hint{color:var(--muted);font-size:15px;margin-top:14px}
   .spec-panel .cat-title{font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--wl-orange);margin-bottom:8px}
   .spec-panel .cat-blurb{color:var(--muted);font-size:15px;margin-bottom:18px}
@@ -1024,6 +1028,23 @@
     function step(){return car.querySelector('figure').getBoundingClientRect().width+14}
     document.querySelector('.car-btn.prev').addEventListener('click',function(){car.scrollBy({left:-step(),behavior:'smooth'})});
     document.querySelector('.car-btn.next').addEventListener('click',function(){car.scrollBy({left:step(),behavior:'smooth'})});
+  })();
+
+  // anchor bar scrollspy
+  (function(){
+    var links=[].slice.call(document.querySelectorAll('.anchor-bar a[href^="#"]'));
+    if(!links.length||!('IntersectionObserver' in window))return;
+    var map={};
+    links.forEach(function(a){var el=document.querySelector(a.getAttribute('href'));if(el){map[el.id]=a;}});
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('current')});
+          if(map[e.target.id])map[e.target.id].classList.add('current');
+        }
+      });
+    },{rootMargin:'-40% 0px -55% 0px'});
+    Object.keys(map).forEach(function(id){spy.observe(document.getElementById(id))});
   })();
 
   // spec category tabs
