@@ -2,7 +2,7 @@
 <html lang="en-AU">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Quad Bunk Delete Layout | 3 Bunk Family Off-Road Caravan | Wonderland RV</title>
 <meta name="description" content="Three bunks for the kids, a full extra storage bay for everything else. The Wonderland RV Quad Bunk Delete layout, built on the XT2311F-B4 family off-road caravan. Made in Campbellfield, Victoria.">
 <meta property="og:title" content="Quad Bunk Delete Layout | 3 Bunk Family Van | Wonderland RV">
@@ -46,6 +46,8 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
+  html,body{max-width:100%;overflow-x:clip}
+  body{overscroll-behavior-x:none}
   body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
@@ -147,7 +149,7 @@
   .gallery .head{text-align:center;max-width:640px;margin:0 auto 52px}
   .gallery .head h2{margin-top:14px}
   .carousel-shell{position:relative}
-  .carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+  .carousel{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px}
   .carousel::-webkit-scrollbar{display:none}
   .carousel figure{position:relative;flex:0 0 min(72%,760px);scroll-snap-align:center;overflow:hidden;margin:0}
   .carousel img{aspect-ratio:3/2;object-fit:cover;width:100%;height:auto}
@@ -453,6 +455,7 @@
     .wl-form{gap:24px}
     .swatch figcaption{padding:12px 14px;font-size:12px}
     .sim-card .body{padding:14px 16px}
+    .f-field input,.f-field select{font-size:16px}
     footer{padding:52px 0 32px}
     footer .cols{gap:32px;padding-bottom:32px}
   }
