@@ -133,12 +133,11 @@
   .video-facade img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out)}
   .video-facade::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,13,13,.55),transparent 45%);transition:background .3s}
   @media (hover:hover) and (pointer:fine){.video-facade:hover img{transform:scale(1.04)}}
-  .video-facade button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96px;height:96px;border-radius:50%;border:none;background:var(--wl-orange);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s var(--ease-out),background-color .2s;z-index:2}
-  .video-facade button::before{content:'';position:absolute;inset:-14px;border:1px solid rgba(255,255,255,.55);border-radius:50%;animation:pulse 2.4s var(--ease-out) infinite}
-  @keyframes pulse{0%{transform:scale(.85);opacity:0}45%{opacity:1}100%{transform:scale(1.18);opacity:0}}
-  .video-facade button svg{width:38px;height:38px;margin-left:4px}
-  @media (hover:hover) and (pointer:fine){.video-facade:hover button{transform:translate(-50%,-50%) scale(1.08)}}
+  .video-facade button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96px;height:66px;border-radius:16px;border:none;background:var(--wl-orange);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s var(--ease-out),background-color .2s;z-index:2;box-shadow:0 10px 30px rgba(13,13,13,.4)}
+  .video-facade button svg{width:34px;height:34px;margin-left:3px}
+  @media (hover:hover) and (pointer:fine){.video-facade:hover button{transform:translate(-50%,-50%) scale(1.08);background:#A85F1B}}
   .video-facade:active button{transform:translate(-50%,-50%) scale(.95)}
+  @media (prefers-reduced-motion: reduce){.video-facade button{transition:none}}
   .video-facade .facade-tag{position:absolute;left:0;bottom:0;background:var(--wl-orange);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;text-transform:uppercase;letter-spacing:.16em;font-size:12px;padding:13px 20px;z-index:2}
   .video-facade iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
   @media (prefers-reduced-motion: reduce){.video-facade button::before{animation:none}}
@@ -1036,6 +1035,18 @@
       scrollTrigger:{trigger:'.carousel',start:'top 84%',once:true}});
     gsap.to('.photo-break .parallax-img',{yPercent:12,ease:'none',
       scrollTrigger:{trigger:'.photo-break',scrub:.5}});
+    // hero entrance choreography
+    gsap.timeline({defaults:{ease:'power3.out'}})
+      .from('.hero .eyebrow',{opacity:0,y:18,duration:.5},.15)
+      .from('.hero .orange-rule',{scaleX:0,transformOrigin:'left center',duration:.45},'-=.25')
+      .from('.hero h1',{opacity:0,y:34,duration:.65},'-=.2')
+      .from('.hero p.sub',{opacity:0,y:22,duration:.5},'-=.35')
+      .from('.hero .actions .btn',{opacity:0,y:16,duration:.4,stagger:.1},'-=.25');
+    // media reveals: curtain up on scroll
+    gsap.utils.toArray('.video-facade, .fp-img, .tour-embed').forEach(function(el){
+      gsap.from(el,{clipPath:'inset(0 0 100% 0)',duration:.9,ease:'power4.out',
+        scrollTrigger:{trigger:el,start:'top 82%',once:true}});
+    });
     window.addEventListener('load',function(){ScrollTrigger.refresh()});
   } else {
     var io=new IntersectionObserver(function(entries){
