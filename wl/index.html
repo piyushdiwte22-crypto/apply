@@ -151,7 +151,7 @@
   .carousel-shell{position:relative}
   .carousel{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px}
   .carousel::-webkit-scrollbar{display:none}
-  .carousel figure{position:relative;flex:0 0 min(72%,760px);scroll-snap-align:center;overflow:hidden;margin:0}
+  .carousel figure{position:relative;flex:0 0 min(72%,760px);scroll-snap-align:start;overflow:hidden;margin:0}
   .carousel img{aspect-ratio:3/2;object-fit:cover;width:100%;height:auto}
   .carousel figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 18px 14px;background:linear-gradient(0deg,rgba(13,13,13,.75),transparent);color:#fff;font-size:13px;letter-spacing:.06em}
   .expand-btn{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:9px;border:none;background:var(--wl-orange);color:#fff;font-family:var(--font-display);font-stretch:125%;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:12px 18px;cursor:pointer;opacity:0;transform:translateY(-6px);transition:opacity .25s var(--ease-out),transform .25s var(--ease-out),background-color .2s;box-shadow:0 8px 22px rgba(13,13,13,.35)}
@@ -185,8 +185,8 @@
   .gallery .fineprint{text-align:center;margin-top:24px;font-size:12.5px;color:var(--muted)}
 
   /* features two-col (why + tour, Kokoda style) */
-  .features .cols{display:grid;grid-template-columns:1fr 1.15fr;gap:26px;align-items:stretch}
-  @media(max-width:900px){.features .cols{grid-template-columns:1fr}}
+  .features .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:26px;align-items:stretch}
+  @media(max-width:1024px){.features .cols{grid-template-columns:1fr}}
   .feature-card{background:#fff;border:1px solid var(--line);padding:38px 34px;display:flex;flex-direction:column}
   .feature-card .btn{margin-top:auto;align-self:flex-start}
   .feature-card h3{font-size:22px;margin-bottom:10px}
@@ -221,6 +221,8 @@
   .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   @media(max-width:900px){.swatch-grid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.swatch-grid{grid-template-columns:1fr}}
+  .colour-car figure.swatch{flex:0 0 min(31%,340px);scroll-snap-align:start}
+  @media(max-width:760px){.colour-car figure.swatch{flex-basis:74%}}
   .swatch{background:#fff;border:1px solid var(--line);padding:0;margin:0;overflow:hidden;transition:border-color .25s var(--ease-out),transform .25s var(--ease-out)}
   @media (hover:hover) and (pointer:fine){.swatch:hover{border-color:var(--wl-orange);transform:translateY(-4px)}}
   .swatch img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
@@ -501,7 +503,7 @@
     <span class="eyebrow">XTR Range &nbsp;/&nbsp; Family Layout</span>
     <div class="orange-rule"></div>
     <h1>Quad Bunk<br>Delete Layout</h1>
-    <p class="sub">Three bunks for the kids. One full bay of extra storage for everything else. Built on the XT2311F-B4, our biggest family off-roader. Adventure your way.</p>
+    <p class="sub">Three bunks for the kids. One full bay of extra storage for everything else. Built on the XT2311F-B4, our biggest family <span style="white-space:nowrap">off&#8209;roader.</span> Adventure your way.</p>
     <div class="actions">
       <a class="btn btn-solid" href="#enquire">Enquire today</a>
       <a class="btn btn-outline" href="#walkthrough">Watch the walkthrough</a>
@@ -736,7 +738,7 @@
         </div>
         <div class="vs-rows">
           <div class="vs-row"><span class="k">Bunks</span><span class="v">4</span></div>
-          <div class="vs-row"><span class="k">Sleeps</span><span class="v">6, plus lounge conversion</span></div>
+          <div class="vs-row"><span class="k">Sleeps</span><span class="v">6 + lounge conversion</span></div>
           <div class="vs-row"><span class="k">Kids' storage</span><span class="v">Under-bunk and built-in drawers</span></div>
           <div class="vs-row"><span class="k">Best for</span><span class="v">Bigger families, four kids or the grandkids</span></div>
         </div>
@@ -749,7 +751,7 @@
         </div>
         <div class="vs-rows">
           <div class="vs-row"><span class="k">Bunks</span><span class="v">3</span></div>
-          <div class="vs-row"><span class="k">Sleeps</span><span class="v">5, plus lounge conversion</span></div>
+          <div class="vs-row"><span class="k">Sleeps</span><span class="v">5 + lounge conversion</span></div>
           <div class="vs-row"><span class="k">Kids' storage</span><span class="v">Under-bunk drawers plus a full extra bay <span class="tbc">fit-out TBC</span></span></div>
           <div class="vs-row"><span class="k">Best for</span><span class="v">One to three kids and serious amounts of gear</span></div>
         </div>
@@ -850,7 +852,11 @@
       <h2>Interior colour options</h2>
       <p style="color:var(--muted);margin-top:16px">Everyone has their own style. Pick the interior scheme that feels like home, then make it yours with the build tool.</p>
     </div>
-    <div class="swatch-grid reveal">
+    <div class="carousel-shell reveal">
+      <button class="car-btn prev" type="button" aria-label="Previous colour scheme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="carousel colour-car" tabindex="0" aria-label="Colour schemes, scroll or use arrow buttons">
       <figure class="swatch">
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Beach-Days-hero-1.webp" width="640" height="474" alt="Beach Days interior colour scheme" loading="lazy">
         <figcaption><strong>Beach Days</strong></figcaption>
@@ -879,6 +885,10 @@
         <img src="https://wonderlandrv.com.au/wp-content/uploads/2026/04/colour-palette-Opium-Noir-hero-1.webp" width="640" height="474" alt="Opium Noir interior colour scheme" loading="lazy">
         <figcaption><strong>Opium Noir</strong></figcaption>
       </figure>
+    </div>
+      <button class="car-btn next" type="button" aria-label="Next colour scheme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
     </div>
     <p class="fineprint" style="text-align:center">Explore the world of colour and textures across the 2026 range. Ask our team for the full benchtop, door, floor, splashback and upholstery combinations.</p>
   </div>
@@ -1175,14 +1185,22 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
   })();
 
-  // gallery carousel buttons
-  (function(){
-    var car=document.getElementById('galleryCarousel');
+  // carousels: eased arrow motion (ease-in-out), works for gallery + colours
+  document.querySelectorAll('.carousel-shell').forEach(function(shell){
+    var car=shell.querySelector('.carousel');
     if(!car) return;
     function step(){return car.querySelector('figure').getBoundingClientRect().width+14}
-    document.querySelector('.car-btn.prev').addEventListener('click',function(){car.scrollBy({left:-step(),behavior:'smooth'})});
-    document.querySelector('.car-btn.next').addEventListener('click',function(){car.scrollBy({left:step(),behavior:'smooth'})});
-  })();
+    function glide(delta){
+      if(window.gsap && !reducedMotion){
+        gsap.to(car,{scrollTo:null,scrollLeft:car.scrollLeft+delta,duration:.6,ease:'power2.inOut',overwrite:'auto'});
+      } else {
+        car.scrollBy({left:delta,behavior:'smooth'});
+      }
+    }
+    var prev=shell.querySelector('.car-btn.prev'),next=shell.querySelector('.car-btn.next');
+    if(prev)prev.addEventListener('click',function(){glide(-step())});
+    if(next)next.addEventListener('click',function(){glide(step())});
+  });
 
   // anchor bar scrollspy
   (function(){
