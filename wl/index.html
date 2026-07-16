@@ -330,15 +330,19 @@
   .why-wl .aus{height:54px;margin-top:40px}
 
   /* enquiry (light, matches WL site form) */
-  .enquire{background:#fff;border-top:1px solid var(--line)}
-  .enquire .grid{display:grid;grid-template-columns:.8fr 1.4fr;gap:72px;align-items:start}
+  .enquire{background:var(--paper-alt)}
+  .enquire .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
   @media(max-width:900px){.enquire .grid{grid-template-columns:1fr;gap:44px}}
   .enquire h2{margin:14px 0 18px}
   .enquire .lead-in{color:var(--muted);margin-bottom:26px;max-width:420px}
   .contact-list{list-style:none;margin-top:8px}
   .contact-list li{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
   .contact-list a{color:var(--wl-orange);font-weight:500}
-  .wl-form{display:grid;grid-template-columns:1fr 1fr;gap:36px 44px}
+  .form-card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--wl-orange);padding:42px 44px;box-shadow:0 24px 60px rgba(26,26,26,.08)}
+  @media(max-width:560px){.form-card{padding:32px 24px}}
+  .form-card .form-title{font-size:21px;letter-spacing:.06em;margin-bottom:8px}
+  .form-card .form-sub{color:var(--muted);font-size:14.5px;margin-bottom:30px}
+  .wl-form{display:grid;grid-template-columns:1fr 1fr;gap:32px 36px}
   @media(max-width:560px){.wl-form{grid-template-columns:1fr}}
   .f-field{display:flex;flex-direction:column;gap:10px}
   .f-field label{font-size:15px;color:var(--ink)}
@@ -347,7 +351,8 @@
   .f-field select{appearance:none;-webkit-appearance:none;border:1px solid var(--ink);border-radius:0;background:#fff url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center/16px;padding:13px 44px 13px 14px;font-family:var(--font-body);font-weight:300;font-size:15px;color:var(--ink);width:100%}
   .f-field select:focus{outline:none;border-color:var(--wl-orange)}
   .f-submit{grid-column:1/-1}
-  .form-note{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
+  .f-submit .btn{width:100%;text-align:center;padding:18px 34px}
+  .form-note{grid-column:1/-1;font-size:12.5px;color:var(--muted);text-align:center}
 
   /* similar: compact rectangles, render + name */
   .similar .cards{margin-top:52px}
@@ -815,7 +820,7 @@
     <div>
       <span class="eyebrow">Ready when you are</span>
       <h2>Enquire about the Quad Bunk Delete</h2>
-      <p class="lead-in">Add your details and we'll come back to you with availability, pricing and the best way to see it for yourself.</p>
+      <p class="lead-in">Tell us about your crew and we'll come back with availability, pricing and the best way to see it in person. Prefer to talk? Reach us directly:</p>
       <ul class="contact-list">
         <li>Call us on <a href="tel:0386920032">(03) 8692 0032</a></li>
         <li>Send our sales team email at <a href="mailto:sales@wonderlandrv.com.au">sales@wonderlandrv.com.au</a></li>
@@ -823,6 +828,9 @@
         <li>Explore the full range at <a href="https://wonderlandrv.com.au">wonderlandrv.com.au</a></li>
       </ul>
     </div>
+    <div class="form-card">
+    <h3 class="form-title">Interested in this van?</h3>
+    <p class="form-sub">Add your details and we'll be in touch right away.</p>
     <form class="wl-form" method="POST" action="https://wonderlandrv.activehosted.com/proc.php">
       <input type="hidden" name="u" value="47">
       <input type="hidden" name="f" value="47">
@@ -849,7 +857,7 @@
         <label for="fq-phone">Phone*</label>
         <input type="tel" id="fq-phone" name="phone" autocomplete="tel" required>
       </div>
-      <div class="f-field">
+      <div class="f-field" style="grid-column:1/-1">
         <label for="fq-state">State*</label>
         <select id="fq-state" name="field[27]" required>
           <option value="" selected disabled>Select your state</option>
@@ -868,6 +876,7 @@
       </div>
       <p class="form-note">By submitting you agree to be contacted by the Wonderland RV sales team about this enquiry.</p>
     </form>
+    </div>
   </div>
 </section>
 
